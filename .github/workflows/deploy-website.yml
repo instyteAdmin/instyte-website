@@ -2,7 +2,8 @@ name: Deploy Website (www.instyte.com)
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
   id-token: write
