@@ -1434,6 +1434,296 @@
 }
 .about-nav-link:hover::after { left: 8px; right: 8px; }
 
+/* ── Hero Screenshot Frame ──────────────────────────────────── */
+.about-hero-screenshot {
+    position: relative;
+    max-width: 960px;
+    margin: 3.5rem auto 0;
+    z-index: 1;
+    padding: 0 1rem;
+}
+
+.about-hero-screen-frame {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow:
+        0 0 0 1px rgba(0,0,0,0.04),
+        0 24px 80px rgba(0,0,0,0.14),
+        0 8px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.about-hero-screen-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.about-screen-dot--red,
+.about-screen-dot--yellow,
+.about-screen-dot--green {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.about-screen-dot--red    { background: #ff5f57; }
+.about-screen-dot--yellow { background: #ffbd2e; }
+.about-screen-dot--green  { background: #28ca41; }
+
+.about-hero-screen-url {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+    background: #e2e8f0;
+    padding: 0.2rem 0.75rem;
+    border-radius: 100px;
+}
+
+.about-hero-screen-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: cover;
+    object-position: top;
+}
+
+.about-hero-screen-glow {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 80px;
+    background: radial-gradient(ellipse, rgba(5,150,105,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(12px);
+}
+
+/* ── Screenshot Gallery Section ─────────────────────────────── */
+.about-gallery {
+    padding: 5rem 1.5rem;
+    background: #fff;
+}
+
+.about-gallery-wrap {
+    margin-top: 0;
+}
+
+.about-gallery-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-gallery-tab {
+    padding: 0.45rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 100px;
+    background: #f8fafc;
+    color: #64748b;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+}
+.about-gallery-tab:hover { background: #f1f5f9; color: #0f172a; transform: translateY(-1px); }
+
+/* active tab accent per color */
+.about-gallery-tab--active.about-gallery-tab--indigo  { background: #eef2ff; color: #4338ca; border-color: #a5b4fc; }
+.about-gallery-tab--active.about-gallery-tab--amber   { background: #fffbeb; color: #92400e; border-color: #fcd34d; }
+.about-gallery-tab--active.about-gallery-tab--emerald { background: #ecfdf5; color: #065f46; border-color: #6ee7b7; }
+.about-gallery-tab--active.about-gallery-tab--orange  { background: #fff7ed; color: #9a3412; border-color: #fdba74; }
+.about-gallery-tab--active.about-gallery-tab--blue    { background: #eff6ff; color: #1e40af; border-color: #93c5fd; }
+.about-gallery-tab--active.about-gallery-tab--violet  { background: #f5f3ff; color: #5b21b6; border-color: #c4b5fd; }
+.about-gallery-tab--active.about-gallery-tab--cyan    { background: #ecfeff; color: #164e63; border-color: #67e8f9; }
+
+.about-gallery-display {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+.about-gallery-browser {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 16px 56px rgba(0,0,0,0.11), 0 4px 16px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.about-gallery-browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.about-gallery-url {
+    flex: 1;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+    background: #e2e8f0;
+    padding: 0.2rem 0.75rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.about-gallery-progress {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+}
+
+.about-gallery-pip {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+.about-gallery-pip:hover   { transform: scale(1.3); }
+.about-gallery-pip--active { background: #059669; transform: scale(1.15); }
+
+.about-gallery-img-wrap {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    background: #f8fafc;
+}
+
+.about-gallery-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0;
+    transform: translateY(12px) scale(0.99);
+    transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1),
+                transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    pointer-events: none;
+}
+.about-gallery-img--active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    position: relative;
+    pointer-events: auto;
+}
+
+.about-gallery-caption {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #475569;
+    font-weight: 500;
+    text-align: center;
+    justify-content: center;
+}
+
+.about-gallery-caption-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.about-gallery-caption-dot--indigo  { background: #6366f1; }
+.about-gallery-caption-dot--amber   { background: #f59e0b; }
+.about-gallery-caption-dot--emerald { background: #10b981; }
+.about-gallery-caption-dot--orange  { background: #f97316; }
+.about-gallery-caption-dot--blue    { background: #3b82f6; }
+.about-gallery-caption-dot--violet  { background: #8b5cf6; }
+.about-gallery-caption-dot--cyan    { background: #06b6d4; }
+
+/* ── Spotlight Screenshot Stacks ────────────────────────────── */
+.about-spotlight-screens {
+    position: relative;
+    margin-top: 0.5rem;
+    height: 200px;
+}
+
+.about-spotlight-ss {
+    position: absolute;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: top;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+
+.about-spotlight-ss--main {
+    width: 75%;
+    height: auto;
+    max-height: 170px;
+    left: 0;
+    top: 0;
+    border: 1px solid rgba(255,255,255,0.12);
+    z-index: 1;
+}
+
+.about-spotlight-ss--float {
+    width: 55%;
+    height: auto;
+    max-height: 130px;
+    right: 0;
+    bottom: 0;
+    border: 2px solid rgba(255,255,255,0.18);
+    z-index: 2;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+}
+
+.about-spotlight-card:hover .about-spotlight-ss--main  { transform: rotate(-1deg) translateY(-4px); }
+.about-spotlight-card:hover .about-spotlight-ss--float { transform: rotate(1.5deg) translateY(-8px) translateX(4px); }
+
+/* ── Gallery responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+    .about-gallery-img-wrap { min-height: 260px; }
+    .about-spotlight-screens { height: 150px; }
+    .about-spotlight-ss--main  { max-height: 130px; }
+    .about-spotlight-ss--float { max-height: 100px; }
+    .about-hero-screen-img { max-height: 320px; }
+}
+
+/* ── Stronger scroll-reveal (bigger lift, spring easing) ────── */
+[data-animate="fade-up"]    { transform: translateY(48px); }
+[data-animate="fade-right"] { transform: translateX(-52px); }
+[data-animate="fade-left"]  { transform: translateX(52px); }
+
+[data-animate] {
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    transition-delay: var(--delay, 0s);
+}
+
+/* Hero items: more dramatic entrance */
+.hero-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(44px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
     [data-animate], .hero-fade-up,
