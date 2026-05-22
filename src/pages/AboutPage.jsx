@@ -776,7 +776,6 @@ export default function AboutPage() {
                         Join 50+ institutions already using Instyte to manage admissions, academics, and finance —
                         all in one place.
                     </p>
-                    </div>
                 </div>
             </section>
 
