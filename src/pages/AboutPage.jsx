@@ -311,6 +311,7 @@ const PRICING_PLANS = [
 
 export default function AboutPage() {
     const [scrolled,       setScrolled]       = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
     const [activeModule,   setActiveModule]   = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [contactForm,    setContactForm]    = useState({ name: '', email: '', phone: '', organization: '', message: '' });
@@ -318,7 +319,12 @@ export default function AboutPage() {
     const heroRef = useRef(null);
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 60);
+        const onScroll = () => {
+            setScrolled(window.scrollY > 60);
+            const el = document.documentElement;
+            const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+            setScrollProgress(Math.min(pct, 100));
+        };
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
@@ -350,6 +356,7 @@ export default function AboutPage() {
 
     return (
         <div className="about-root">
+            <div className="about-scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
             {/* ── Nav ───────────────────────────────────────────────────── */}
             <nav className={`about-nav ${scrolled ? 'about-nav--scrolled' : ''}`}>

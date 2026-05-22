@@ -2,6 +2,18 @@
    AboutPage.css  —  Instyte product landing page
    ──────────────────────────────────────────────────────────── */
 
+/* ── Scroll Progress Bar ──────────────────────────────────── */
+.about-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+    z-index: 9999;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+}
+
 /* ── Reset / Root ─────────────────────────────────────────── */
 .about-root {
     min-height: 100vh;
@@ -1008,6 +1020,21 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .about-contact-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .about-contact-row {
+        grid-template-columns: 1fr;
+    }
+
+    .about-contact {
+        padding: 60px 0;
+    }
+}
+
 @media (max-width: 900px) {
     .about-modules-layout {
         flex-direction: column;
