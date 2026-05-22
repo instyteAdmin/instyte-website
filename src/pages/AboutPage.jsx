@@ -3,7 +3,7 @@ import {
     Target, GraduationCap, BookOpen, DollarSign, CalendarDays, School,
     Ticket, BrainCircuit, LayoutDashboard, Smartphone, UserCircle, Globe,
     Cpu, ShieldCheck, Building2, ArrowRight,
-    Check, X, AlertTriangle, ChevronRight, Menu, LogIn, Star,
+    Check, X, AlertTriangle, ChevronRight, Menu, Star,
     Users, Clock, Award, Sparkles,
     ClipboardList, Bell, Upload, Activity, Timer,
     FileText, Table2, PenLine, Library, UserCheck,
@@ -17,7 +17,7 @@ import './AboutPage.css';
 
 const LOGO = '/logo.png';
 
-const APP_URL = 'https://app.instyte.com';
+const scrollToContact = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 const API_URL = process.env.REACT_APP_API_URL || '';
 
 // ─── Nav ──────────────────────────────────────────────────────────────────────
@@ -264,7 +264,7 @@ const PRICING_PLANS = [
             'Email & WhatsApp notifications',
             'Standard support',
         ],
-        cta: 'Start Free Trial',
+        cta: 'Contact Us',
         highlighted: false,
     },
     {
@@ -283,7 +283,7 @@ const PRICING_PLANS = [
             'Finance & fee analytics',
             'Priority support',
         ],
-        cta: 'Get Started',
+        cta: 'Contact Us',
         highlighted: true,
     },
     {
@@ -329,7 +329,6 @@ export default function AboutPage() {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-    const goToApp = () => { window.location.href = APP_URL; };
 
     const submitEnquiry = async (e) => {
         e.preventDefault();
@@ -372,8 +371,8 @@ export default function AboutPage() {
                             </li>
                         ))}
                         <li>
-                            <button className="about-nav-cta" onClick={goToApp}>
-                                <LogIn size={14} /> Log in
+                            <button className="about-nav-cta" onClick={scrollToContact}>
+                                Contact Us
                             </button>
                         </li>
                     </ul>
@@ -404,8 +403,8 @@ export default function AboutPage() {
                         person in your organisation. One platform. Zero gaps.
                     </p>
                     <div className="about-hero-actions">
-                        <button className="about-btn-primary" onClick={goToApp}>
-                            <LogIn size={16} /> Log in to your institution
+                        <button className="about-btn-primary" onClick={scrollToContact}>
+                            Contact Us
                         </button>
                         <button className="about-btn-ghost" onClick={() => scrollTo('#modules')}>
                             Explore modules <ChevronRight size={16} />
@@ -656,7 +655,7 @@ export default function AboutPage() {
                                 </ul>
                                 <button
                                     className={`about-pricing-btn about-pricing-btn--${plan.color} ${plan.highlighted ? 'about-pricing-btn--solid' : ''}`}
-                                    onClick={goToApp}>
+                                    onClick={scrollToContact}>
                                     {plan.cta} <ArrowRight size={14} />
                                 </button>
                             </div>
@@ -776,8 +775,8 @@ export default function AboutPage() {
                         Join 50+ institutions already using Instyte to manage admissions, academics, and finance —
                         all in one place.
                     </p>
-                    <button className="about-btn-primary about-btn-primary--lg" onClick={goToApp}>
-                        <LogIn size={18} /> Log in to your institution
+                    <button className="about-btn-primary about-btn-primary--lg" onClick={scrollToContact}>
+                        Contact Us
                     </button>
                 </div>
             </section>
@@ -797,7 +796,7 @@ export default function AboutPage() {
                                 {l.label}
                             </a>
                         ))}
-                        <a href={APP_URL} className="about-footer-link">Login</a>
+                        <button onClick={scrollToContact} className="about-footer-link">Contact Us</button>
                     </div>
                     <div className="about-footer-copy">
                         &copy; {new Date().getFullYear()} Instyte. All rights reserved.
