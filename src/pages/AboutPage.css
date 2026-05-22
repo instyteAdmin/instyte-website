@@ -1602,30 +1602,27 @@
 .about-gallery-pip--active { background: #059669; transform: scale(1.15); }
 
 .about-gallery-img-wrap {
-    position: relative;
-    overflow: hidden;
-    min-height: 420px;
     background: #f8fafc;
+    overflow: hidden;
+    border-radius: 0 0 12px 12px;
 }
 
 .about-gallery-img {
-    position: absolute;
-    inset: 0;
+    display: none;
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-height: 500px;
     object-fit: cover;
     object-position: top;
-    opacity: 0;
-    transform: translateY(12px) scale(0.99);
-    transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1),
-                transform 0.45s cubic-bezier(0.22,1,0.36,1);
-    pointer-events: none;
 }
 .about-gallery-img--active {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    position: relative;
-    pointer-events: auto;
+    display: block;
+    animation: galleryFadeIn 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+
+@keyframes galleryFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .about-gallery-caption {
