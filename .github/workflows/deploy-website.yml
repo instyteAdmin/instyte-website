@@ -13,7 +13,7 @@ env:
   AWS_REGION: ap-south-1
   S3_BUCKET: instyte-marketing-marketing
   CLOUDFRONT_DIST_ID: ${{ vars.WEBSITE_CF_DIST_ID }}
-  REACT_APP_API_URL: https://api.instyte.com
+  REACT_APP_API_URL: https://owner.instyte.com
 
 jobs:
   deploy:

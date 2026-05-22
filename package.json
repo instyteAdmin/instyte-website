@@ -16,7 +16,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://api.instyte.com",
+  "proxy": "https://owner.instyte.com",
   "eslintConfig": {
     "extends": ["react-app"]
   },
