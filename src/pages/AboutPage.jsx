@@ -34,7 +34,7 @@ const NAV_LINKS = [
 
 const STATS = [
     { Icon: Building2, color: 'emerald', value: '50+',   label: 'Institutions'     },
-    { Icon: Users,     color: 'blue',    value: '1L+',   label: 'Students Managed' },
+    { Icon: Users,     color: 'blue',    value: '10k+',  label: 'Users'            },
     { Icon: Clock,     color: 'violet',  value: '99.9%', label: 'Uptime SLA'       },
     { Icon: Star,      color: 'amber',   value: '4.9',   label: 'Customer Rating'  },
 ];
@@ -805,7 +805,6 @@ export default function AboutPage() {
                                 {l.label}
                             </a>
                         ))}
-                        <button onClick={scrollToContact} className="about-footer-link">Contact</button>
                     </div>
                     <div className="about-footer-copy">
                         &copy; {new Date().getFullYear()} Instyte. All rights reserved.

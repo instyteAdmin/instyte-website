@@ -1,265 +1,237 @@
 import React, { useState } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell, Legend,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  PieChart, Pie, Cell, ResponsiveContainer, Legend
 } from 'recharts';
-import {
-  Users, GraduationCap, Wallet, TrendingUp,
-  AlertCircle, CreditCard, BookOpen,
-  UserPlus, UserCheck, Receipt, CalendarCheck,
-} from 'lucide-react';
-import { STATS, LEADS, FINANCE, LEAD_SOURCES_CHART } from '../DemoData';
+import { Users, Target, GraduationCap, DollarSign } from 'lucide-react';
 import './DemoDashboard.css';
+import { DASHBOARD_KPI, FINANCE_MONTHLY, LEAD_STATUS_DATA, LEAD_SOURCE_DATA, DEMO_USER } from '../DemoData';
 
-function DemoToast({ show, onClose }) {
-  if (!show) return null;
+const fmt = (n) => n >= 100000 ? `₹${(n/100000).toFixed(1)}L` : `₹${n.toLocaleString('en-IN')}`;
+
+const ChartTooltip = ({ active, payload, label }) => {
+  if (!active || !payload?.length) return null;
   return (
-    <div className="demo-toast">
-      <span>This is a demo. Sign up to use this feature.</span>
-      <a
-        href="https://www.instyte.com/#contact"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="demo-toast-cta"
-      >
-        Get Started →
-      </a>
-      <button className="demo-toast-close" onClick={onClose}>×</button>
+    <div className="adb-tooltip">
+      {label && <div className="adb-tooltip-label">{label}</div>}
+      {payload.map((p, i) => (
+        <div key={i} className="adb-tooltip-row">
+          <span className="adb-tooltip-dot" style={{ background: p.color || p.fill }} />
+          <span className="adb-tooltip-name">{p.name}</span>
+          <span className="adb-tooltip-val">{fmt(p.value)}</span>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
-function KpiCard({ icon: Icon, color, label, value, sub }) {
-  return (
-    <div className={`dd-kpi-card dd-kpi-card--${color}`}>
-      <div className={`dd-kpi-icon dd-kpi-icon--${color}`}>
-        <Icon size={20} />
-      </div>
-      <div className="dd-kpi-body">
-        <span className="dd-kpi-value">{value}</span>
-        <span className="dd-kpi-label">{label}</span>
-        {sub && <span className="dd-kpi-sub">{sub}</span>}
+const KpiCard = ({ label, value, subText, trend, icon, iconBg, iconColor }) => (
+  <div className="adb-kpi-card">
+    <div className="adb-kpi-top">
+      <span className="adb-kpi-label">{label}</span>
+      <div className="adb-kpi-icon" style={{ background: iconBg }}>
+        {React.cloneElement(icon, { size: 17, color: iconColor })}
       </div>
     </div>
-  );
-}
-
-const STATUS_COLORS = {
-  New:        '#3B82F6',
-  Contacted:  '#06B6D4',
-  Trial:      '#F59E0B',
-  Converted:  '#10B981',
-  Lost:       '#94A3B8',
-};
-
-function StatusBadge({ status }) {
-  return (
-    <span
-      className="dd-status-badge"
-      style={{ background: STATUS_COLORS[status] + '1A', color: STATUS_COLORS[status] }}
-    >
-      {status}
-    </span>
-  );
-}
-
-const QUICK_ACTIONS = [
-  { Icon: UserPlus,     label: 'Add Lead',        color: 'blue'   },
-  { Icon: UserCheck,    label: 'Add Student',      color: 'green'  },
-  { Icon: Receipt,      label: 'Record Payment',   color: 'amber'  },
-  { Icon: CalendarCheck,label: 'Schedule Class',   color: 'violet' },
-];
-
-function formatRupees(val) {
-  return '₹' + (val / 100000).toFixed(1) + 'L';
-}
-
-const CustomBarTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="dd-tooltip">
-        <p className="dd-tooltip-label">{label}</p>
-        {payload.map((p) => (
-          <p key={p.name} style={{ color: p.color }}>
-            {p.name === 'collected' ? 'Collected' : 'Pending'}: {formatRupees(p.value)}
-          </p>
-        ))}
-      </div>
-    );
-  }
-  return null;
-};
-
-const CustomPieTooltip = ({ active, payload }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="dd-tooltip">
-        <p>{payload[0].name}: {payload[0].value}%</p>
-      </div>
-    );
-  }
-  return null;
-};
+    <div className="adb-kpi-value">{value}</div>
+    <div className="adb-kpi-sub">
+      {trend > 0
+        ? <span className="adb-kpi-trend-up">↑ {trend}%</span>
+        : <span className="adb-kpi-trend-down">↓ {Math.abs(trend)}%</span>
+      }
+      <span>{subText}</span>
+    </div>
+  </div>
+);
 
 export default function DemoDashboard() {
-  const [toast, setToast] = useState(false);
-
-  const showToast = () => {
-    setToast(true);
-    setTimeout(() => setToast(false), 3000);
-  };
-
-  const now = new Date();
-  const hour = now.getHours();
-  const greeting = hour < 12 ? 'Good Morning' : hour < 18 ? 'Good Afternoon' : 'Good Evening';
-  const dateStr = now.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-  const recentLeads = LEADS.slice(0, 5);
+  const [activeLeadIdx, setActiveLeadIdx] = useState(null);
+  const today = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   return (
-    <div className="dd-root">
-      {/* ── Greeting ──────────────────────────────────────────────────────── */}
-      <div className="dd-greeting-card">
-        <div className="dd-greeting-left">
-          <h2 className="dd-greeting-text">{greeting}, Priya 👋</h2>
-          <p className="dd-greeting-date">{dateStr}</p>
+    <div className="adb-root">
+
+      {/* ── Header ─────────────────────────────────────────── */}
+      <div className="adb-header">
+        <div className="adb-header-left">
+          <h1 className="adb-title">Dashboard</h1>
+          <span className="adb-role-badge">Admin</span>
         </div>
-        <div className="dd-greeting-chips">
-          <div className="dd-chip dd-chip--rose">
-            <AlertCircle size={13} />
-            Overdue Leads: {STATS.overduePayments}
-          </div>
-          <div className="dd-chip dd-chip--amber">
-            <CreditCard size={13} />
-            Overdue Payments: {STATS.overduePayments}
-          </div>
-          <div className="dd-chip dd-chip--green">
-            <Wallet size={13} />
-            Revenue: {STATS.revenueThisMonth}
-          </div>
-          <div className="dd-chip dd-chip--blue">
-            <BookOpen size={13} />
-            Classes Today: {STATS.classesToday}
-          </div>
+        <span className="adb-date">{today}</span>
+      </div>
+
+      {/* ── Greeting bento row ─────────────────────────────── */}
+      <div className="adb-greeting-row">
+        <div className="adb-greeting-card">
+          <div className="adb-greeting-title">Good day, {DEMO_USER.name.split(' ')[0]} 👋</div>
+          <div className="adb-greeting-sub">{DEMO_USER.institution} · {today.split(',')[0]}</div>
+        </div>
+        <div className="adb-stat-chip">
+          <div className="adb-stat-chip-label">Leads This Month</div>
+          <div className="adb-stat-chip-value">47</div>
+          <div className="adb-stat-chip-sub">↑ 12 vs last month</div>
+        </div>
+        <div className="adb-stat-chip">
+          <div className="adb-stat-chip-label">Conversion Rate</div>
+          <div className="adb-stat-chip-value">{DASHBOARD_KPI.conversionRate}%</div>
+          <div className="adb-stat-chip-sub">↑ {DASHBOARD_KPI.conversionGrowth}% vs last month</div>
         </div>
       </div>
 
-      {/* ── KPIs ──────────────────────────────────────────────────────────── */}
-      <div className="dd-kpi-grid">
-        <KpiCard icon={Users}       color="blue"   label="Total Leads"      value={STATS.totalLeads}     sub="+18 this month" />
-        <KpiCard icon={GraduationCap} color="green" label="Active Students"  value={STATS.activeStudents} sub="+7 this month" />
-        <KpiCard icon={Wallet}      color="violet" label="Revenue (Year)"   value="₹18.4L"               sub="Total collected" />
-        <KpiCard icon={TrendingUp}  color="amber"  label="Conversion Rate"  value={STATS.conversionRate} sub="Leads to students" />
+      {/* ── KPI Cards ──────────────────────────────────────── */}
+      <div className="adb-kpi-grid">
+        <KpiCard
+          label="Total Leads"
+          value={DASHBOARD_KPI.totalLeads}
+          subText="vs last month"
+          trend={DASHBOARD_KPI.leadsGrowth}
+          icon={<Target />}
+          iconBg="rgba(59,130,246,0.12)"
+          iconColor="#3B82F6"
+        />
+        <KpiCard
+          label="Active Students"
+          value={DASHBOARD_KPI.activeStudents.toLocaleString()}
+          subText="vs last month"
+          trend={DASHBOARD_KPI.studentsGrowth}
+          icon={<GraduationCap />}
+          iconBg="rgba(139,92,246,0.12)"
+          iconColor="#8B5CF6"
+        />
+        <KpiCard
+          label="Conversion Rate"
+          value={`${DASHBOARD_KPI.conversionRate}%`}
+          subText="vs last month"
+          trend={DASHBOARD_KPI.conversionGrowth}
+          icon={<Users />}
+          iconBg="rgba(16,185,129,0.12)"
+          iconColor="#10B981"
+        />
+        <KpiCard
+          label="Total Revenue"
+          value={fmt(DASHBOARD_KPI.totalRevenue)}
+          subText="vs last month"
+          trend={DASHBOARD_KPI.revenueGrowth}
+          icon={<DollarSign />}
+          iconBg="rgba(245,158,11,0.12)"
+          iconColor="#F59E0B"
+        />
       </div>
 
-      {/* ── Charts ────────────────────────────────────────────────────────── */}
-      <div className="dd-charts-row">
-        <div className="dd-chart-card">
-          <h3 className="dd-chart-title">Monthly Revenue</h3>
+      {/* ── Charts row ─────────────────────────────────────── */}
+      <div className="adb-chart-row">
+
+        {/* Bar chart — Monthly Revenue */}
+        <div className="adb-chart-card">
+          <div className="adb-card-header">
+            <div>
+              <div className="adb-card-title">Monthly Revenue vs Expenses</div>
+              <div className="adb-card-subtitle">Last 6 months</div>
+            </div>
+          </div>
           <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={FINANCE.monthlyChart} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
-              <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-              <YAxis tickFormatter={formatRupees} tick={{ fontSize: 11, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-              <Tooltip content={<CustomBarTooltip />} />
-              <Bar dataKey="collected" fill="#8B5CF6" radius={[4, 4, 0, 0]} name="collected" />
-              <Bar dataKey="pending"   fill="#E9D5FF" radius={[4, 4, 0, 0]} name="pending" />
+            <BarChart data={FINANCE_MONTHLY} margin={{ top: 4, right: 12, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
+              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
+              <YAxis tickFormatter={v => `₹${(v/100000).toFixed(0)}L`} tick={{ fontSize: 10, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
+              <Tooltip content={<ChartTooltip />} />
+              <Legend wrapperStyle={{ fontSize: 12 }} />
+              <Bar dataKey="revenue"  name="Revenue"  fill="#3B82F6" radius={[4,4,0,0]} maxBarSize={32} />
+              <Bar dataKey="expenses" name="Expenses" fill="#F59E0B" radius={[4,4,0,0]} maxBarSize={32} />
             </BarChart>
           </ResponsiveContainer>
-          <div className="dd-chart-legend">
-            <span><span className="dd-legend-dot" style={{ background: '#8B5CF6' }} /> Collected</span>
-            <span><span className="dd-legend-dot" style={{ background: '#E9D5FF' }} /> Pending</span>
+        </div>
+
+        {/* Pie chart — Lead Sources */}
+        <div className="adb-chart-card">
+          <div className="adb-card-header">
+            <div>
+              <div className="adb-card-title">Lead Sources</div>
+              <div className="adb-card-subtitle">Distribution by channel</div>
+            </div>
+          </div>
+          <div className="adb-donut-wrap">
+            <div className="adb-donut-chart-area">
+              <ResponsiveContainer width={160} height={160}>
+                <PieChart>
+                  <Pie
+                    data={LEAD_SOURCE_DATA}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={52}
+                    outerRadius={68}
+                    paddingAngle={3}
+                    dataKey="value"
+                    isAnimationActive={false}
+                    onMouseEnter={(_, i) => setActiveLeadIdx(i)}
+                    onMouseLeave={() => setActiveLeadIdx(null)}
+                    strokeWidth={0}
+                  >
+                    {LEAD_SOURCE_DATA.map((entry, i) => (
+                      <Cell
+                        key={`cell-${i}`}
+                        fill={entry.color}
+                        opacity={activeLeadIdx !== null && activeLeadIdx !== i ? 0.3 : 0.92}
+                      />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              {activeLeadIdx !== null && (
+                <div className="adb-donut-centre">
+                  <span className="adb-donut-pct">{LEAD_SOURCE_DATA[activeLeadIdx].value}</span>
+                  <span className="adb-donut-name">{LEAD_SOURCE_DATA[activeLeadIdx].name}</span>
+                </div>
+              )}
+            </div>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {LEAD_SOURCE_DATA.map((d, i) => (
+                <div key={i}
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '2px 6px', borderRadius: 6, cursor: 'pointer',
+                    background: activeLeadIdx === i ? '#F1F5F9' : 'transparent', transition: 'background 0.12s' }}
+                  onMouseEnter={() => setActiveLeadIdx(i)}
+                  onMouseLeave={() => setActiveLeadIdx(null)}
+                >
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: d.color, flexShrink: 0 }} />
+                  <span style={{ fontSize: 12, color: '#475569', flex: 1 }}>{d.name}</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: '#0F172A' }}>{d.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        <div className="dd-chart-card">
-          <h3 className="dd-chart-title">Lead Sources</h3>
-          <ResponsiveContainer width="100%" height={220}>
-            <PieChart>
-              <Pie
-                data={LEAD_SOURCES_CHART}
-                cx="50%"
-                cy="50%"
-                innerRadius={55}
-                outerRadius={90}
-                paddingAngle={3}
-                dataKey="value"
-              >
-                {LEAD_SOURCES_CHART.map((entry) => (
-                  <Cell key={entry.name} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip content={<CustomPieTooltip />} />
-              <Legend
-                iconType="circle"
-                iconSize={8}
-                formatter={(value) => (
-                  <span style={{ fontSize: 12, color: '#475569' }}>{value}</span>
-                )}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
       </div>
 
-      {/* ── Recent Leads ──────────────────────────────────────────────────── */}
-      <div className="dd-table-card">
-        <div className="dd-table-header">
-          <h3 className="dd-table-title">Recent Leads</h3>
-          <a href="/demo/leads" className="dd-table-view-all">View all →</a>
+      {/* ── Lead Status row ────────────────────────────────── */}
+      <div className="adb-chart-card" style={{ marginBottom: 16 }}>
+        <div className="adb-card-header">
+          <div>
+            <div className="adb-card-title">Lead Status Breakdown</div>
+            <div className="adb-card-subtitle">Current pipeline overview</div>
+          </div>
         </div>
-        <div className="dd-table-scroll">
-          <table className="dd-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Program</th>
-                <th>Status</th>
-                <th>Counsellor</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentLeads.map((lead) => (
-                <tr key={lead.id}>
-                  <td>
-                    <div className="dd-lead-name-wrap">
-                      <div className="dd-lead-avatar">{lead.name[0]}</div>
-                      <div>
-                        <span className="dd-lead-name">{lead.name}</span>
-                        <span className="dd-lead-id">{lead.id}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="dd-td-prog">{lead.program}</td>
-                  <td><StatusBadge status={lead.status} /></td>
-                  <td className="dd-td-counsel">{lead.counsellor}</td>
-                  <td className="dd-td-date">{lead.createdDate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* ── Quick Actions ─────────────────────────────────────────────────── */}
-      <div className="dd-actions-row">
-        <h3 className="dd-actions-title">Quick Actions</h3>
-        <div className="dd-actions-grid">
-          {QUICK_ACTIONS.map(({ Icon, label, color }) => (
-            <button
-              key={label}
-              className={`dd-action-btn dd-action-btn--${color}`}
-              onClick={showToast}
-            >
-              <Icon size={20} />
-              <span>{label}</span>
-            </button>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          {LEAD_STATUS_DATA.map((s, i) => (
+            <div key={i} style={{
+              flex: '1 1 130px',
+              background: `${s.color}12`,
+              border: `1px solid ${s.color}30`,
+              borderRadius: 10,
+              padding: '12px 14px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 4,
+            }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: s.color, textTransform: 'uppercase', letterSpacing: '.4px' }}>{s.name}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: '#0F172A' }}>{s.value}</div>
+              <div style={{ width: '100%', height: 4, background: `${s.color}25`, borderRadius: 4, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${(s.value / 68) * 100}%`, background: s.color, borderRadius: 4 }} />
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
-      <DemoToast show={toast} onClose={() => setToast(false)} />
     </div>
   );
 }

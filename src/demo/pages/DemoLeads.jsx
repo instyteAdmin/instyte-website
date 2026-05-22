@@ -1,173 +1,109 @@
-import React, { useState, useMemo } from 'react';
-import { Search, ChevronDown, Flame, MoreVertical, UserPlus } from 'lucide-react';
-import { LEADS } from '../DemoData';
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import { Plus, Target, UserPlus, GitMerge, FileText, XCircle } from 'lucide-react';
 import './DemoLeads.css';
+import { DEMO_LEADS } from '../DemoData';
+import { DemoToast } from '../DemoShell';
 
-function DemoToast({ show, onClose }) {
-  if (!show) return null;
-  return (
-    <div className="demo-toast">
-      <span>This is a demo. Sign up to use this feature.</span>
-      <a
-        href="https://www.instyte.com/#contact"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="demo-toast-cta"
-      >
-        Get Started →
-      </a>
-      <button className="demo-toast-close" onClick={onClose}>×</button>
-    </div>
-  );
-}
-
-const STATUS_COLORS = {
-  New:        { bg: '#EFF6FF', text: '#3B82F6' },
-  Contacted:  { bg: '#ECFEFF', text: '#06B6D4' },
-  Trial:      { bg: '#FFFBEB', text: '#D97706' },
-  Converted:  { bg: '#F0FDF4', text: '#10B981' },
-  Lost:       { bg: '#F8FAFC', text: '#94A3B8' },
+const STATUS_LABELS = {
+  NEW: 'New', INTERESTED: 'Interested', CONTACTED: 'Contacted',
+  FOLLOW_UP_DUE: 'Follow-up Due', NOT_CONTACTED: 'Not Contacted',
+  CONVERTED: 'Converted', LOST: 'Lost',
 };
 
-const HEAT_COLORS = {
-  Hot:  '#F43F5E',
-  Warm: '#F59E0B',
-  Cold: '#94A3B8',
-};
+const ALL_STATUSES = ['', ...Object.keys(STATUS_LABELS)];
+const ALL_SOURCES  = ['', 'Website', 'Referral', 'Walk-in', 'Social Media', 'Event', 'Google Ads', 'Cold Call'];
+const ALL_HEATS    = ['', 'HOT', 'WARM', 'COLD'];
 
-const ALL_STATUSES = ['All', 'New', 'Contacted', 'Trial', 'Converted', 'Lost'];
-const ALL_HEATS    = ['All', 'Hot', 'Warm', 'Cold'];
+export default function DemoLeads({ showToast }) {
+  const [search,     setSearch]     = useState('');
+  const [statusF,    setStatusF]    = useState('');
+  const [sourceF,    setSourceF]    = useState('');
+  const [heatF,      setHeatF]      = useState('');
+  const [menuOpen,   setMenuOpen]   = useState(null);
+  const [menuPos,    setMenuPos]    = useState({ top: 0, left: 0 });
+  const [toast,      setToast]      = useState(false);
+  const [page,       setPage]       = useState(0);
+  const PER_PAGE = 10;
 
-function StatusBadge({ status }) {
-  const c = STATUS_COLORS[status] || STATUS_COLORS['New'];
-  return (
-    <span className="dl-badge" style={{ background: c.bg, color: c.text }}>
-      {status}
-    </span>
-  );
-}
-
-function HeatBadge({ heat }) {
-  const color = HEAT_COLORS[heat] || '#94A3B8';
-  return (
-    <span className="dl-heat" style={{ color }}>
-      <Flame size={13} fill={color} />
-      {heat}
-    </span>
-  );
-}
-
-function ActionsMenu({ onAction }) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className="dl-actions-wrap">
-      <button
-        className="dl-actions-btn"
-        onClick={() => setOpen((p) => !p)}
-        aria-label="Actions"
-      >
-        <MoreVertical size={15} />
-      </button>
-      {open && (
-        <div className="dl-actions-menu">
-          {['View Details', 'Follow Up', 'Convert to Student', 'Mark Lost'].map((item) => (
-            <button
-              key={item}
-              className="dl-actions-item"
-              onClick={() => { setOpen(false); onAction(); }}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default function DemoLeads() {
-  const [search,      setSearch]      = useState('');
-  const [statusFilter, setStatusFilter] = useState('All');
-  const [heatFilter,   setHeatFilter]   = useState('All');
-  const [toast,        setToast]         = useState(false);
-
-  const showToast = () => {
+  const triggerToast = () => {
     setToast(true);
+    if (showToast) showToast();
     setTimeout(() => setToast(false), 3000);
   };
 
-  const filtered = useMemo(() => {
-    return LEADS.filter((l) => {
-      const q = search.toLowerCase();
-      const matchSearch =
-        !q ||
-        l.name.toLowerCase().includes(q) ||
-        l.program.toLowerCase().includes(q) ||
-        l.email.toLowerCase().includes(q) ||
-        l.counsellor.toLowerCase().includes(q);
-      const matchStatus = statusFilter === 'All' || l.status === statusFilter;
-      const matchHeat   = heatFilter   === 'All' || l.heat   === heatFilter;
-      return matchSearch && matchStatus && matchHeat;
+  const openMenu = (e, id) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const menuH = 200;
+    setMenuPos({
+      top:  spaceBelow > menuH ? rect.bottom + 4 : rect.top - menuH - 4,
+      left: rect.left - 140,
     });
-  }, [search, statusFilter, heatFilter]);
+    setMenuOpen(id);
+  };
+
+  const closeMenu = () => setMenuOpen(null);
+
+  useEffect(() => {
+    const handler = () => closeMenu();
+    window.addEventListener('click', handler);
+    return () => window.removeEventListener('click', handler);
+  }, []);
+
+  const filtered = DEMO_LEADS.filter(l => {
+    const q = search.toLowerCase();
+    const matchSearch = !q || `${l.firstName} ${l.lastName} ${l.displayId} ${l.email} ${l.phone}`.toLowerCase().includes(q);
+    const matchStatus = !statusF || l.status === statusF;
+    const matchSource = !sourceF || l.source === sourceF;
+    const matchHeat   = !heatF   || l.heat   === heatF;
+    return matchSearch && matchStatus && matchSource && matchHeat;
+  });
+
+  const totalPages  = Math.ceil(filtered.length / PER_PAGE);
+  const paged       = filtered.slice(page * PER_PAGE, (page + 1) * PER_PAGE);
+
+  useEffect(() => { setPage(0); }, [search, statusF, sourceF, heatF]);
 
   return (
-    <div className="dl-root">
-      {/* ── Toolbar ──────────────────────────────────────────────────────── */}
-      <div className="dl-toolbar">
-        <div className="dl-toolbar-left">
-          <div className="dl-search-wrap">
-            <Search size={15} className="dl-search-icon" />
-            <input
-              type="text"
-              className="dl-search"
-              placeholder="Search leads…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-          <div className="dl-select-wrap">
-            <select
-              className="dl-select"
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-            >
-              {ALL_STATUSES.map((s) => (
-                <option key={s} value={s}>{s === 'All' ? 'All Statuses' : s}</option>
-              ))}
-            </select>
-            <ChevronDown size={13} className="dl-select-icon" />
-          </div>
-          <div className="dl-select-wrap">
-            <select
-              className="dl-select"
-              value={heatFilter}
-              onChange={(e) => setHeatFilter(e.target.value)}
-            >
-              {ALL_HEATS.map((h) => (
-                <option key={h} value={h}>{h === 'All' ? 'All Heat' : h}</option>
-              ))}
-            </select>
-            <ChevronDown size={13} className="dl-select-icon" />
-          </div>
-        </div>
-        <button className="dl-add-btn" onClick={showToast}>
-          <UserPlus size={15} />
-          Add Lead
+    <div className="leads-page">
+
+      {/* Toolbar */}
+      <div className="leads-toolbar-wrapper">
+        <input
+          className="leads-search-input"
+          placeholder="Search leads..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+        <select className="leads-filter-select" value={statusF} onChange={e => setStatusF(e.target.value)}>
+          {ALL_STATUSES.map(s => <option key={s} value={s}>{s || 'All Status'}</option>)}
+        </select>
+        <select className="leads-filter-select" value={sourceF} onChange={e => setSourceF(e.target.value)}>
+          {ALL_SOURCES.map(s => <option key={s} value={s}>{s || 'All Sources'}</option>)}
+        </select>
+        <select className="leads-filter-select" value={heatF} onChange={e => setHeatF(e.target.value)}>
+          {ALL_HEATS.map(h => <option key={h} value={h}>{h || 'All Heat'}</option>)}
+        </select>
+        <button className="leads-add-btn" onClick={triggerToast}>
+          <Plus size={14} /> Add Lead
         </button>
       </div>
 
-      {/* ── Table ─────────────────────────────────────────────────────────── */}
-      <div className="dl-table-card">
-        <div className="dl-table-meta">
-          {filtered.length} lead{filtered.length !== 1 ? 's' : ''} found
-        </div>
-        <div className="dl-table-scroll">
-          <table className="dl-table">
+      {/* Count row */}
+      <div className="leads-count-row">
+        <Target size={14} color="#5c6bc0" />
+        <span>Leads ({filtered.length})</span>
+      </div>
+
+      {/* Table */}
+      <div className="leads-table-container">
+        <div className="leads-table-wrapper">
+          <table>
             <thead>
               <tr>
-                <th>Lead ID</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Program</th>
@@ -176,43 +112,86 @@ export default function DemoLeads() {
                 <th>Heat</th>
                 <th>Counsellor</th>
                 <th>Created</th>
-                <th></th>
+                <th style={{ textAlign: 'center' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {filtered.map((lead) => (
+              {paged.map(lead => (
                 <tr key={lead.id}>
-                  <td className="dl-td-id">{lead.id}</td>
+                  <td className={`leadid-cell ${lead.counsellor ? 'leadid-assigned' : 'leadid-not-assigned'}`}>
+                    {lead.displayId}
+                  </td>
                   <td>
-                    <div className="dl-name-wrap">
-                      <div className="dl-avatar">{lead.name[0]}</div>
-                      <div>
-                        <span className="dl-name">{lead.name}</span>
-                        <span className="dl-email">{lead.email}</span>
+                    <div className="user-name-with-avatar">
+                      <div className="avatar-circle">
+                        {lead.firstName[0]}{lead.lastName[0]}
+                      </div>
+                      {lead.firstName} {lead.lastName}
+                    </div>
+                  </td>
+                  <td>{lead.phone}</td>
+                  <td>{lead.program}</td>
+                  <td>{lead.source}</td>
+                  <td>
+                    <div className="lead-status-wrapper">
+                      <div className="lead-status-line">
+                        <span className={`lead-status-pill lead-status-${lead.status.toLowerCase().replace(/_/g,'-')}`} />
+                        <span className="lead-status-text">{STATUS_LABELS[lead.status] || lead.status}</span>
                       </div>
                     </div>
                   </td>
-                  <td className="dl-td-phone">{lead.phone}</td>
-                  <td className="dl-td-prog">{lead.program}</td>
-                  <td className="dl-td-source">{lead.source}</td>
-                  <td><StatusBadge status={lead.status} /></td>
-                  <td><HeatBadge heat={lead.heat} /></td>
-                  <td className="dl-td-counsel">{lead.counsellor}</td>
-                  <td className="dl-td-date">{lead.createdDate}</td>
-                  <td><ActionsMenu onAction={showToast} /></td>
+                  <td>
+                    <span className={`heat-badge heat-${lead.heat}`}>{lead.heat}</span>
+                  </td>
+                  <td>{lead.counsellor}</td>
+                  <td>{lead.createdDate}</td>
+                  <td>
+                    <div className="actions-wrapper">
+                      <button
+                        className="actions-button"
+                        onClick={e => openMenu(e, lead.id)}
+                      >
+                        ⋮
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
-              {filtered.length === 0 && (
-                <tr>
-                  <td colSpan={10} className="dl-empty">No leads match your filters</td>
-                </tr>
-              )}
             </tbody>
           </table>
         </div>
       </div>
 
-      <DemoToast show={toast} onClose={() => setToast(false)} />
+      {/* Pagination */}
+      <div className="pagination-wrapper">
+        <div>Showing {page * PER_PAGE + 1}–{Math.min((page + 1) * PER_PAGE, filtered.length)} of {filtered.length}</div>
+        <div className="pagination">
+          <button className="page-btn" disabled={page === 0} onClick={() => setPage(p => p - 1)}>←</button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button key={i} className={`page-btn${page === i ? ' active' : ''}`} onClick={() => setPage(i)}>{i + 1}</button>
+          ))}
+          <button className="page-btn" disabled={page >= totalPages - 1} onClick={() => setPage(p => p + 1)}>→</button>
+        </div>
+      </div>
+
+      {/* Action menu */}
+      {menuOpen !== null && ReactDOM.createPortal(
+        <div
+          className="action-menu"
+          style={{ position: 'fixed', top: menuPos.top, left: menuPos.left, zIndex: 9999 }}
+          onClick={e => e.stopPropagation()}
+        >
+          <div onClick={() => { triggerToast(); closeMenu(); }}><UserPlus size={14} /> Assign to Me</div>
+          <div onClick={() => { triggerToast(); closeMenu(); }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> Convert to Student</div>
+          <div onClick={() => { triggerToast(); closeMenu(); }}><GitMerge size={14} /> Merge Duplicate</div>
+          <div onClick={() => { triggerToast(); closeMenu(); }}><FileText size={14} /> Add Note</div>
+          <div onClick={() => { triggerToast(); closeMenu(); }} style={{ color: '#ef4444' }}><XCircle size={14} style={{ color: '#ef4444' }} /> Mark as Lost</div>
+        </div>,
+        document.body
+      )}
+
+      {/* Toast */}
+      {toast && <DemoToast onDismiss={() => setToast(false)} />}
     </div>
   );
 }
