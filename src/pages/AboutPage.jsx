@@ -407,6 +407,9 @@ export default function AboutPage() {
                         person in your organisation. One platform. Zero gaps.
                     </p>
                     <div className="about-hero-actions">
+                        <button className="about-btn-primary" onClick={() => window.open('/demo', '_blank')}>
+                            Try Demo <ArrowRight size={16} />
+                        </button>
                         <button className="about-btn-ghost" onClick={() => scrollTo('#modules')}>
                             Explore modules <ChevronRight size={16} />
                         </button>
@@ -776,6 +779,14 @@ export default function AboutPage() {
                         Join 50+ institutions already using Instyte to manage admissions, academics, and finance —
                         all in one place.
                     </p>
+                    <div className="about-cta-actions">
+                        <button className="about-btn-primary" onClick={() => window.open('/demo', '_blank')}>
+                            Try Demo <ArrowRight size={16} />
+                        </button>
+                        <button className="about-btn-ghost about-btn-ghost--light" onClick={scrollToContact}>
+                            Get in Touch <ChevronRight size={16} />
+                        </button>
+                    </div>
                 </div>
             </section>
 

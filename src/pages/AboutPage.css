@@ -956,6 +956,25 @@
     margin: 0 0 2rem;
 }
 
+/* ── CTA actions row ─────────────────────────────────────── */
+.about-cta-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.about-btn-ghost--light {
+    background: rgba(255,255,255,0.15);
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.about-btn-ghost--light:hover {
+    background: rgba(255,255,255,0.25);
+}
+
 /* ── Footer ───────────────────────────────────────────────── */
 .about-footer {
     background: #0f172a;
