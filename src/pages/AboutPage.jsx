@@ -269,7 +269,7 @@ const PRICING_PLANS = [
     },
     {
         name: 'Growth',
-        price: '₹12,999',
+        price: '₹9,999',
         period: '/month',
         color: 'blue',
         description: 'For growing institutions with multiple branches and advanced needs.',
@@ -662,6 +662,9 @@ export default function AboutPage() {
                                     onClick={scrollToContact}>
                                     {plan.cta} <ArrowRight size={14} />
                                 </button>
+                                {plan.price !== 'Custom' && (
+                                    <p className="about-pricing-tnc">*T&amp;C apply</p>
+                                )}
                             </div>
                         ))}
                     </div>
