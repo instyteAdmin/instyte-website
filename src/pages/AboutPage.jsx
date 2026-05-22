@@ -11,36 +11,42 @@ import {
     QrCode, MessageSquare, UserPlus, BarChart2, CalendarCheck,
     MonitorPlay, CircleDot, Send, BookCopy, BarChartHorizontal, HeartPulse,
     BotMessageSquare, LineChart, AlertCircle,
-    KeyRound, Network, Link,
+    KeyRound, Network, Link, ChevronLeft,
 } from 'lucide-react';
 import './AboutPage.css';
 
-const LOGO = '/logo.png';
-
-const scrollToContact = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+const LOGO    = '/logo.png';
 const API_URL = process.env.REACT_APP_API_URL || '';
 
-// ─── Nav ──────────────────────────────────────────────────────────────────────
+const scrollToContact = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 
+// ─── Nav ──────────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
-    { label: 'Platform',    href: '#platform' },
-    { label: 'Modules',     href: '#modules'  },
-    { label: 'Why Instyte', href: '#why'      },
-    { label: 'Pricing',     href: '#pricing'  },
-    { label: 'Contact',     href: '#contact'  },
+    { label: 'Product',   href: '#platform' },
+    { label: 'Features',  href: '#modules'  },
+    { label: 'Why Us',    href: '#why'       },
+    { label: 'Pricing',   href: '#pricing'  },
 ];
 
 // ─── Stats ────────────────────────────────────────────────────────────────────
-
 const STATS = [
-    { Icon: Building2, color: 'emerald', value: '50+',   label: 'Institutions'     },
-    { Icon: Users,     color: 'blue',    value: '10k+',  label: 'Users'            },
-    { Icon: Clock,     color: 'violet',  value: '99.9%', label: 'Uptime SLA'       },
-    { Icon: Star,      color: 'amber',   value: '4.9',   label: 'Customer Rating'  },
+    { value: '50+',   label: 'Institutions'    },
+    { value: '10k+',  label: 'Users'           },
+    { value: '99.9%', label: 'Uptime SLA'      },
+    { value: '4.9★',  label: 'Rating'          },
+];
+
+// ─── Screenshots carousel ─────────────────────────────────────────────────────
+const SCREENS = [
+    { src: '/screens/dashboard-ai.png',     label: 'AI Dashboard',       desc: 'Finance AI answers your questions in plain language' },
+    { src: '/screens/invoices.png',         label: 'Invoices',           desc: 'Full fee lifecycle — track every rupee, every student' },
+    { src: '/screens/invoice-detail.png',   label: 'Invoice Detail',     desc: 'GST-ready invoices with instalment schedules' },
+    { src: '/screens/finance-dashboard.png',label: 'Finance Overview',   desc: 'Branch-wise revenue and collection in real time' },
+    { src: '/screens/student-profile.png',  label: 'Student Profile',    desc: 'Complete student record — enrollment, fees, academics' },
+    { src: '/screens/enrollment-detail.png',label: 'Enrollment',         desc: 'Academic configuration, timetable, subjects in one view' },
 ];
 
 // ─── Modules ──────────────────────────────────────────────────────────────────
-
 const MODULES = [
     {
         Icon: DollarSign,
@@ -48,8 +54,7 @@ const MODULES = [
         badge: 'Our Superpower',
         title: 'Finance & Fee Management',
         subtitle: 'The module most EdTech tools simply skip',
-        description:
-            'Most education management tools stop at admissions. Instyte goes all the way to the bank. Define multi-tier fee structures per program, batch, or scholarship category — generate invoices automatically, collect online or at the counter, issue receipts instantly, and send WhatsApp reminders before dues go overdue. Every rupee earned, waived, or pending is visible in real time across every branch.',
+        description: 'Most education management tools stop at admissions. Instyte goes all the way to the bank. Define multi-tier fee structures per program, batch, or scholarship category — generate invoices automatically, collect online or at the counter, issue receipts instantly, and send WhatsApp reminders before dues go overdue.',
         features: [
             { Icon: FileText,   text: 'Multi-tier fee structures per program & batch'     },
             { Icon: CreditCard, text: 'Online + counter payment collection in one system' },
@@ -65,15 +70,14 @@ const MODULES = [
         badge: 'AI-Powered',
         title: 'AI Assistant & Analytics',
         subtitle: 'Your institution\'s always-on intelligent co-pilot',
-        description:
-            'Instyte AI goes far beyond a dashboard. Ask it anything in plain language — "Which leads haven\'t been followed up in 3 days?", "Show me this month\'s fee collection vs last month", "Which students are at risk of dropping out?" — and get instant answers. Behind the scenes, our AI scores every lead the moment it comes in, auto-summarises counsellor notes, and connects to external tools your team already uses (WhatsApp, calendars, CRMs) so your data flows without manual copy-paste.',
+        description: 'Ask anything in plain language — "Which leads haven\'t been followed up in 3 days?", "Show me this month\'s fee collection vs last month", "Which students are at risk of dropping out?" — and get instant answers. Behind the scenes, AI scores every lead the moment it arrives.',
         features: [
-            { Icon: BotMessageSquare, text: 'Ask anything in plain language — AI answers instantly'      },
-            { Icon: HeartPulse,       text: 'Real-time lead heat scoring (who is most likely to join?)'  },
-            { Icon: Sparkles,         text: 'AI auto-summarises lead notes & counsellor conversations'   },
-            { Icon: Link,             text: 'Connects Instyte to tools you already use — no code needed' },
-            { Icon: AlertCircle,      text: 'Student at-risk alerts before dropout happens'              },
-            { Icon: LineChart,        text: 'Quick analytics: fee trends, admission funnel, attendance'  },
+            { Icon: BotMessageSquare, text: 'Ask anything in plain language — AI answers instantly'     },
+            { Icon: HeartPulse,       text: 'Real-time lead heat scoring — who is most likely to join?' },
+            { Icon: Sparkles,         text: 'AI auto-summarises lead notes & counsellor conversations'  },
+            { Icon: Link,             text: 'Connects to tools you already use — no code needed'        },
+            { Icon: AlertCircle,      text: 'Student at-risk alerts before dropout happens'             },
+            { Icon: LineChart,        text: 'Quick analytics: fee trends, admission funnel, attendance' },
         ],
     },
     {
@@ -81,8 +85,7 @@ const MODULES = [
         color: 'emerald',
         title: 'Lead Management',
         subtitle: 'Convert enquiries to admissions',
-        description:
-            'Full-funnel CRM built for education. Capture leads from web forms, WhatsApp, walk-ins, and referrals. AI heat scoring ranks every lead the moment it arrives, auto-assigns the right counsellor, and tracks every demo, call, and follow-up — so no prospect slips through while your team is busy.',
+        description: 'Full-funnel CRM built for education. Capture leads from web forms, WhatsApp, walk-ins, and referrals. AI heat scoring ranks every lead the moment it arrives, auto-assigns the right counsellor, and tracks every demo, call, and follow-up.',
         features: [
             { Icon: Sparkles,      text: 'AI heat-score ranks leads by conversion likelihood' },
             { Icon: Network,       text: 'Capture from web, WhatsApp, walk-in & referral'    },
@@ -97,8 +100,7 @@ const MODULES = [
         color: 'blue',
         title: 'Student Management',
         subtitle: 'Every student, every detail, one place',
-        description:
-            'Most platforms give admins a login. Instyte gives everyone one — admin, teacher, counsellor, parent, and student each get a dedicated portal tailored to exactly what they need. Manage full student profiles, guardian contacts, ID documents, medical info, communication preferences, program assignments, and track from admission through to graduation.',
+        description: 'Manage full student profiles, guardian contacts, ID documents, medical info, communication preferences, program assignments, and track from admission through to graduation.',
         features: [
             { Icon: Users,           text: 'Dedicated portals for every role — not just admins' },
             { Icon: UserCircle,      text: 'Complete profile: guardian, medical, ID & address'  },
@@ -113,8 +115,7 @@ const MODULES = [
         color: 'violet',
         title: 'Academics',
         subtitle: 'Curriculum, timetable & assessments',
-        description:
-            'Structure academic years, define programs and batches, build timetables without clashes, schedule exams, and publish results — all in one place. Teachers mark attendance, post grades, and share resources from the same system students view their progress in, eliminating the disconnect that plagues most institutions.',
+        description: 'Structure academic years, define programs and batches, build timetables without clashes, schedule exams, and publish results — all in one place.',
         features: [
             { Icon: CalendarDays, text: 'Academic year & term configuration'        },
             { Icon: BookCopy,     text: 'Program, course & subject catalogue'       },
@@ -129,15 +130,14 @@ const MODULES = [
         color: 'cyan',
         title: 'Classroom & Learning Circles',
         subtitle: 'Where staff and students grow together',
-        description:
-            'Learning Circles are Instyte\'s most unique feature — collaborative groups that work for both staff and students. Teachers form subject circles to co-create lesson plans; students form study circles to share notes and solve problems together. Pair this with live class sessions, a rich study material repository, and engagement tracking, and you have a campus that learns as a community — not just a collection of individuals.',
+        description: 'Learning Circles are Instyte\'s most unique feature — collaborative groups for both staff and students. Teachers form subject circles to co-create lesson plans; students form study circles to share notes.',
         features: [
-            { Icon: Users,              text: 'Learning Circles for staff collaboration & student study groups' },
-            { Icon: MonitorPlay,        text: 'Live class session scheduling & management'                      },
-            { Icon: BookOpen,           text: 'Shared study material & resource repository'                     },
-            { Icon: PenLine,            text: 'Assignment submission, grading & feedback'                       },
-            { Icon: Landmark,           text: 'Classroom & seating resource management'                         },
-            { Icon: BarChartHorizontal, text: 'Staff & student engagement analytics'                            },
+            { Icon: Users,              text: 'Learning Circles for staff & student collaboration'  },
+            { Icon: MonitorPlay,        text: 'Live class session scheduling & management'          },
+            { Icon: BookOpen,           text: 'Shared study material & resource repository'         },
+            { Icon: PenLine,            text: 'Assignment submission, grading & feedback'           },
+            { Icon: Landmark,           text: 'Classroom & seating resource management'             },
+            { Icon: BarChartHorizontal, text: 'Staff & student engagement analytics'                },
         ],
     },
     {
@@ -145,15 +145,14 @@ const MODULES = [
         color: 'rose',
         title: 'Events & Scheduling',
         subtitle: 'Open days, demos & workshops',
-        description:
-            'Plan and execute institutional events end-to-end. Create public registration pages that require no login, manage RSVPs with QR wristbands, publish live session schedules, collect post-event feedback, and automatically create follow-up leads from interested attendees — turning every event into a pipeline opportunity.',
+        description: 'Plan and execute institutional events end-to-end. Create public registration pages that require no login, manage RSVPs with QR wristbands, and automatically create follow-up leads from attendees.',
         features: [
-            { Icon: Globe,         text: 'Public event registration — no login needed'   },
-            { Icon: QrCode,        text: 'QR-code wristband check-in'                    },
-            { Icon: CalendarCheck, text: 'Live session schedule & timetable display'     },
-            { Icon: MessageSquare, text: 'Post-event feedback collection'                },
-            { Icon: UserPlus,      text: 'Auto lead creation from attendee registrations'},
-            { Icon: BarChart2,     text: 'Attendance, capacity & conversion reporting'   },
+            { Icon: Globe,         text: 'Public event registration — no login needed'    },
+            { Icon: QrCode,        text: 'QR-code wristband check-in'                     },
+            { Icon: CalendarCheck, text: 'Live session schedule & timetable display'      },
+            { Icon: MessageSquare, text: 'Post-event feedback collection'                 },
+            { Icon: UserPlus,      text: 'Auto lead creation from attendee registrations' },
+            { Icon: BarChart2,     text: 'Attendance, capacity & conversion reporting'    },
         ],
     },
     {
@@ -161,94 +160,79 @@ const MODULES = [
         color: 'orange',
         title: 'Support Tickets',
         subtitle: 'Professional helpdesk for your institution',
-        description:
-            'Students, parents, and staff all get a structured channel to raise issues — from fee queries to academic complaints. Assign tickets to the right team member, set resolution SLAs, track every conversation, and escalate priority issues automatically. Turn reactive firefighting into a transparent, measurable support operation.',
+        description: 'Students, parents, and staff all get a structured channel to raise issues. Assign tickets, set resolution SLAs, track every conversation, and escalate priority issues automatically.',
         features: [
-            { Icon: ClipboardList, text: 'Students, parents & staff can all raise tickets'  },
-            { Icon: UserCheck,     text: 'Staff assignment with SLA timers'                 },
-            { Icon: CircleDot,     text: 'Status pipeline: Open → In Progress → Resolved'  },
-            { Icon: MessageSquare, text: 'Internal notes & full conversation history'       },
-            { Icon: Bell,          text: 'Automatic priority escalation rules'              },
-            { Icon: Timer,         text: 'Resolution-time reporting & SLA compliance'       },
+            { Icon: ClipboardList, text: 'Students, parents & staff can all raise tickets' },
+            { Icon: UserCheck,     text: 'Staff assignment with SLA timers'                },
+            { Icon: CircleDot,     text: 'Status pipeline: Open → In Progress → Resolved' },
+            { Icon: MessageSquare, text: 'Internal notes & full conversation history'      },
+            { Icon: Bell,          text: 'Automatic priority escalation rules'             },
+            { Icon: Timer,         text: 'Resolution-time reporting & SLA compliance'      },
         ],
     },
 ];
 
 // ─── Why / Differentiators ────────────────────────────────────────────────────
-
 const DIFFERENTIATORS = [
     {
         Icon: DollarSign,
         color: 'amber',
         title: 'Finance Built In — Not Bolted On',
-        body: 'Most education management tools end at admissions. Instyte includes a full fee lifecycle — structures, invoices, collections, receipts, and overdue reminders — in the same system. No separate accounting tool. No reconciliation nightmare.',
+        body: 'Most education management tools end at admissions. Instyte includes a full fee lifecycle in the same system. No separate accounting tool. No reconciliation nightmare.',
     },
     {
         Icon: BrainCircuit,
         color: 'indigo',
         title: 'AI You Can Actually Talk To',
-        body: 'Other platforms show you dashboards and expect you to interpret them. Instyte\'s AI lets you ask questions in plain English and get real answers instantly — "who are my top 10 hot leads?", "how much fee is overdue this month?", "which students missed class 3 days in a row?" — no training required.',
+        body: '"Who are my top 10 hot leads?", "How much fee is overdue this month?", "Which students missed class 3 days in a row?" — plain English, instant answers. No training required.',
     },
     {
         Icon: Users,
         color: 'blue',
-        title: 'A Login for Everyone, Not Just Admins',
-        body: 'Most tools give admins and teachers access and leave everyone else out. Instyte gives every person in your institution their own tailored portal — admins, branch managers, counsellors, teachers, students, and parents all log in to see exactly what they need and nothing more.',
+        title: 'A Login for Everyone',
+        body: 'Admins, branch managers, counsellors, teachers, students, and parents — every person gets their own tailored portal showing exactly what they need.',
     },
     {
         Icon: School,
         color: 'cyan',
         title: 'Learning Circles — Unique to Instyte',
-        body: 'No other platform offers Learning Circles. Teachers form subject circles to co-create lesson plans and share teaching strategies. Students form study circles to collaborate on assignments. Both staff growth and student peer learning happen inside the same platform.',
+        body: 'Teachers form subject circles to co-create lesson plans. Students form study circles to collaborate. Staff growth and peer learning on the same platform.',
     },
     {
         Icon: Building2,
         color: 'emerald',
         title: 'True Multi-Branch, Multi-Tenant',
-        body: 'Each institution runs in a completely isolated database schema — no shared tables, no data bleed between tenants. Branch managers see only their branch. Owners see everything. Scale from 1 branch to 100 without re-architecting anything.',
+        body: 'Each institution runs in a completely isolated database schema. Branch managers see only their branch. Scale from 1 branch to 100 without re-architecting.',
     },
     {
         Icon: ShieldCheck,
         color: 'rose',
-        title: 'Security That Enterprise Clients Demand',
-        body: 'JWT-based authentication, schema-level data isolation, granular role-based access, and a full audit log on every change. Every login, every edit, every deletion is traceable — meeting compliance requirements that institutions increasingly face.',
+        title: 'Security That Enterprise Demands',
+        body: 'JWT auth, schema-level data isolation, granular role-based access, and a full audit log on every change. Every login, edit, and deletion is traceable.',
     },
 ];
 
-// ─── Platform arch cards ──────────────────────────────────────────────────────
-
-const ARCH_CARDS = [
-    { Icon: LayoutDashboard, color: 'emerald', title: 'Admin & Branch Dashboard', body: 'Full-control web app for admins and branch managers — leads, students, finance, staff, and analytics in one pane of glass.' },
-    { Icon: Smartphone,      color: 'blue',    title: 'Mobile App',               body: 'Native Flutter app for counsellors and teachers. Attend to leads, mark attendance, and collect fees on the go — works even with spotty connectivity.' },
-    { Icon: GraduationCap,   color: 'violet',  title: 'Student & Parent Portal',  body: 'Students check marks, attendance, fee dues, and class schedules. Parents track their child\'s progress and raise support tickets — all without calling the office.' },
-    { Icon: Globe,           color: 'cyan',    title: 'Public Landing Pages',     body: 'No-login pages for lead capture, event registration, demo booking, and post-event feedback. Every visitor is a potential admission.' },
-    { Icon: Cpu,             color: 'indigo',  title: 'AI Microservice',          body: 'Dedicated AI engine running XGBoost lead scoring and a conversational assistant — answers questions, surfaces insights, and connects to external tools automatically.' },
-    { Icon: KeyRound,        color: 'amber',   title: 'Owner Console',            body: 'Super-admin portal for onboarding institutions, managing tenant settings, syncing value mappings, and monitoring system health across all clients.' },
-];
-
-// ─── Comparison table ─────────────────────────────────────────────────────────
-
+// ─── Comparison ───────────────────────────────────────────────────────────────
 const CMP_ROWS = [
-    ['Built-in finance & fee collection',                            'yes', 'no',      'partial'],
-    ['AI chat — ask questions in plain language',                    'yes', 'no',      'no'     ],
-    ['AI lead heat scoring on every new lead',                       'yes', 'no',      'no'     ],
-    ['Dedicated login for every role (incl. parents & students)',    'yes', 'partial', 'no'     ],
-    ['Learning Circles for staff & students',                        'yes', 'no',      'no'     ],
-    ['Student lifecycle (Admission → Alumni)',                        'yes', 'partial', 'no'     ],
-    ['Multi-branch with schema-level isolation',                     'yes', 'partial', 'no'     ],
-    ['Native mobile app (Flutter)',                                  'yes', 'partial', 'no'     ],
-    ['Public no-login lead capture & event pages',                   'yes', 'partial', 'no'     ],
-    ['Support ticket system for students & parents',                 'yes', 'partial', 'no'     ],
+    ['Built-in finance & fee collection',                         'yes', 'no',      'partial'],
+    ['AI chat — ask questions in plain language',                 'yes', 'no',      'no'     ],
+    ['AI lead heat scoring on every new lead',                    'yes', 'no',      'no'     ],
+    ['Dedicated login for every role (incl. parents & students)', 'yes', 'partial', 'no'     ],
+    ['Learning Circles for staff & students',                     'yes', 'no',      'no'     ],
+    ['Student lifecycle (Admission → Alumni)',                    'yes', 'partial', 'no'     ],
+    ['Multi-branch with schema-level isolation',                  'yes', 'partial', 'no'     ],
+    ['Native mobile app (Flutter)',                               'yes', 'partial', 'no'     ],
+    ['Public no-login lead capture & event pages',                'yes', 'partial', 'no'     ],
+    ['Support ticket system for students & parents',              'yes', 'partial', 'no'     ],
 ];
 
 function CmpCell({ val }) {
-    if (val === 'yes')     return <span className="cmp-yes"><Check size={14} /> Yes</span>;
-    if (val === 'partial') return <span className="cmp-partial"><AlertTriangle size={14} /> Partial</span>;
-    return                        <span className="cmp-no"><X size={14} /> No</span>;
+    if (val === 'yes')     return <span className="cmp-yes"><Check size={13} /> Yes</span>;
+    if (val === 'partial') return <span className="cmp-partial"><AlertTriangle size={13} /> Partial</span>;
+    return                        <span className="cmp-no"><X size={13} /> No</span>;
 }
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
-
 const PRICING_PLANS = [
     {
         name: 'Starter',
@@ -264,14 +248,14 @@ const PRICING_PLANS = [
             'Email & WhatsApp notifications',
             'Standard support',
         ],
-        cta: 'Learn More',
+        cta: 'Get Started',
         highlighted: false,
     },
     {
         name: 'Growth',
         price: '₹9,999',
         period: '/month',
-        color: 'blue',
+        color: 'indigo',
         description: 'For growing institutions with multiple branches and advanced needs.',
         features: [
             'Up to 3,000 active students',
@@ -283,7 +267,7 @@ const PRICING_PLANS = [
             'Finance & fee analytics',
             'Priority support',
         ],
-        cta: 'Learn More',
+        cta: 'Get Started',
         highlighted: true,
     },
     {
@@ -308,15 +292,15 @@ const PRICING_PLANS = [
 ];
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-
 export default function AboutPage() {
-    const [scrolled,       setScrolled]       = useState(false);
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const [activeModule,   setActiveModule]   = useState(0);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [contactForm,    setContactForm]    = useState({ name: '', email: '', phone: '', organization: '', message: '' });
-    const [contactState,   setContactState]   = useState('idle'); // idle | submitting | success | error
-    const heroRef = useRef(null);
+    const [scrolled,        setScrolled]       = useState(false);
+    const [scrollProgress,  setScrollProgress] = useState(0);
+    const [activeModule,    setActiveModule]   = useState(0);
+    const [activeScreen,    setActiveScreen]   = useState(0);
+    const [mobileMenuOpen,  setMobileMenuOpen] = useState(false);
+    const [contactForm,     setContactForm]    = useState({ name: '', email: '', phone: '', organization: '', message: '' });
+    const [contactState,    setContactState]   = useState('idle');
+    const screenTimer = useRef(null);
 
     useEffect(() => {
         const onScroll = () => {
@@ -329,12 +313,26 @@ export default function AboutPage() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
+    useEffect(() => {
+        screenTimer.current = setInterval(() => {
+            setActiveScreen(s => (s + 1) % SCREENS.length);
+        }, 3500);
+        return () => clearInterval(screenTimer.current);
+    }, []);
+
+    const goScreen = (idx) => {
+        clearInterval(screenTimer.current);
+        setActiveScreen(idx);
+        screenTimer.current = setInterval(() => {
+            setActiveScreen(s => (s + 1) % SCREENS.length);
+        }, 3500);
+    };
+
     const scrollTo = (href) => {
         setMobileMenuOpen(false);
         const el = document.querySelector(href);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
-
 
     const submitEnquiry = async (e) => {
         e.preventDefault();
@@ -356,15 +354,16 @@ export default function AboutPage() {
 
     return (
         <div className="about-root">
+            {/* scroll progress bar */}
             <div className="about-scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
-            {/* ── Nav ───────────────────────────────────────────────────── */}
+            {/* ── Navbar ────────────────────────────────────────────── */}
             <nav className={`about-nav ${scrolled ? 'about-nav--scrolled' : ''}`}>
                 <div className="about-nav-inner">
                     <a href="#hero" className="about-nav-brand"
                         onClick={e => { e.preventDefault(); scrollTo('#hero'); }}>
                         <img src={LOGO} alt="Instyte" className="about-nav-logo"
-                            onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
+                            onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
                         <span className="about-nav-name" style={{ display: 'none' }}>Instyte</span>
                     </a>
 
@@ -378,6 +377,9 @@ export default function AboutPage() {
                             </li>
                         ))}
                         <li>
+                            <button className="about-nav-cta" onClick={scrollToContact}>
+                                Book a Demo
+                            </button>
                         </li>
                     </ul>
 
@@ -389,139 +391,190 @@ export default function AboutPage() {
                 </div>
             </nav>
 
-            {/* ── Hero ──────────────────────────────────────────────────── */}
-            <section id="hero" className="about-hero" ref={heroRef}>
-                <div className="about-hero-bg" />
+            {/* ── Hero ──────────────────────────────────────────────── */}
+            <section id="hero" className="about-hero">
+                <div className="about-hero-glow about-hero-glow--1" />
+                <div className="about-hero-glow about-hero-glow--2" />
+                <div className="about-hero-glow about-hero-glow--3" />
+
                 <div className="about-hero-inner">
                     <div className="about-hero-badge">
-                        <Sparkles size={13} />
-                        Purpose-built for education
+                        <Sparkles size={12} /> Purpose-built for education
                     </div>
+
                     <h1 className="about-hero-heading">
-                        The complete operating system<br />
-                        <span className="about-hero-gradient">for modern educational institutions</span>
+                        The operating system<br />
+                        <span className="about-hero-gradient">for modern institutions</span>
                     </h1>
+
                     <p className="about-hero-sub">
-                        Most EdTech tools handle admissions — and stop there. Instyte goes further: built-in finance,
-                        AI you can talk to, Learning Circles for staff and students, and a dedicated login for every
-                        person in your organisation. One platform. Zero gaps.
+                        From first enquiry to final receipt — leads, students, academics, finance, and AI in one platform.
+                        No spreadsheets. No juggling tools. Zero gaps.
                     </p>
+
                     <div className="about-hero-actions">
-                        <button className="about-btn-primary" onClick={() => window.open('/demo', '_blank')}>
-                            Try Demo <ArrowRight size={16} />
+                        <button className="about-btn-primary" onClick={scrollToContact}>
+                            Book a Demo <ArrowRight size={15} />
                         </button>
-                        <button className="about-btn-ghost" onClick={() => scrollTo('#modules')}>
-                            Explore modules <ChevronRight size={16} />
+                        <button className="about-btn-ghost" onClick={() => window.open('/demo', '_blank')}>
+                            Try Live Demo <ChevronRight size={15} />
                         </button>
                     </div>
 
-                    <div className="about-stats">
-                        {STATS.map(({ Icon: SI, color, value, label }) => (
-                            <div key={label} className="about-stat">
-                                <div className={`about-stat-icon-wrap about-icon-bg--${color}`}>
-                                    <SI size={18} />
-                                </div>
-                                <span className={`about-stat-value about-stat-value--${color}`}>{value}</span>
-                                <span className="about-stat-label">{label}</span>
+                    <div className="about-stats-row">
+                        {STATS.map(({ value, label }) => (
+                            <div key={label} className="about-stat-item">
+                                <span className="about-stat-num">{value}</span>
+                                <span className="about-stat-lbl">{label}</span>
                             </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* ── Screenshot showcase ───────────────────── */}
+                <div className="about-hero-screen-wrap">
+                    <div className="about-screen-browser">
+                        <div className="about-screen-browser-bar">
+                            <span className="about-screen-dot" />
+                            <span className="about-screen-dot" />
+                            <span className="about-screen-dot" />
+                            <span className="about-screen-url">app.instyte.com</span>
+                        </div>
+                        <div className="about-screen-img-wrap">
+                            {SCREENS.map((s, i) => (
+                                <img
+                                    key={s.src}
+                                    src={s.src}
+                                    alt={s.label}
+                                    className={`about-screen-img ${i === activeScreen ? 'about-screen-img--active' : ''}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="about-screen-tabs">
+                        {SCREENS.map((s, i) => (
+                            <button
+                                key={s.src}
+                                className={`about-screen-tab ${i === activeScreen ? 'about-screen-tab--active' : ''}`}
+                                onClick={() => goScreen(i)}>
+                                <span className="about-screen-tab-label">{s.label}</span>
+                                <span className="about-screen-tab-desc">{s.desc}</span>
+                            </button>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* ── Platform Overview ─────────────────────────────────────── */}
-            <section id="platform" className="about-section about-section--alt">
+            {/* ── Bento: Platform Overview ──────────────────────────── */}
+            <section id="platform" className="about-section">
                 <div className="about-section-inner">
                     <div className="about-section-label">
-                        <LayoutDashboard size={13} /> The Platform
+                        <LayoutDashboard size={12} /> The Platform
                     </div>
-                    <h2 className="about-section-heading">Every tool your institution needs, in one place</h2>
+                    <h2 className="about-section-heading">Everything connected.<br />Nothing missing.</h2>
                     <p className="about-section-sub">
-                        Instyte is a schema-isolated multi-tenant SaaS platform built on Spring Boot and React.
-                        Each institution gets its own isolated data environment, role-based access, and a mobile app —
-                        without any of the complexity of managing infrastructure.
+                        One platform for every person in your institution — admins, counsellors, teachers,
+                        students, and parents. All data flows between modules automatically.
                     </p>
 
-                    <div className="about-arch-grid">
-                        {ARCH_CARDS.map(({ Icon: AI, color, title, body }) => (
-                            <div key={title} className="about-arch-card">
-                                <div className={`about-arch-icon-wrap about-icon-bg--${color}`}>
-                                    <AI size={22} />
-                                </div>
-                                <h3>{title}</h3>
-                                <p>{body}</p>
+                    <div className="about-bento-grid">
+                        <div className="about-bento-card about-bento-card--wide about-bento-card--emerald">
+                            <div className="about-bento-icon-wrap about-bento-icon--emerald">
+                                <LayoutDashboard size={22} />
                             </div>
-                        ))}
+                            <h3>Admin & Branch Dashboard</h3>
+                            <p>Full-control web app for admins and branch managers — leads, students, finance, staff, and analytics in one pane of glass.</p>
+                        </div>
+                        <div className="about-bento-card about-bento-card--indigo">
+                            <div className="about-bento-icon-wrap about-bento-icon--indigo">
+                                <Cpu size={22} />
+                            </div>
+                            <h3>AI Microservice</h3>
+                            <p>Dedicated AI engine running XGBoost lead scoring and a conversational assistant that answers questions and surfaces insights.</p>
+                        </div>
+                        <div className="about-bento-card about-bento-card--blue">
+                            <div className="about-bento-icon-wrap about-bento-icon--blue">
+                                <Smartphone size={22} />
+                            </div>
+                            <h3>Mobile App</h3>
+                            <p>Native Flutter app for counsellors and teachers. Attend to leads, mark attendance, and collect fees on the go.</p>
+                        </div>
+                        <div className="about-bento-card about-bento-card--violet">
+                            <div className="about-bento-icon-wrap about-bento-icon--violet">
+                                <GraduationCap size={22} />
+                            </div>
+                            <h3>Student & Parent Portal</h3>
+                            <p>Students check marks, attendance, fee dues, and schedules. Parents track progress and raise support tickets — without calling the office.</p>
+                        </div>
+                        <div className="about-bento-card about-bento-card--cyan">
+                            <div className="about-bento-icon-wrap about-bento-icon--cyan">
+                                <Globe size={22} />
+                            </div>
+                            <h3>Public Landing Pages</h3>
+                            <p>No-login pages for lead capture, event registration, demo booking, and feedback. Every visitor is a potential admission.</p>
+                        </div>
+                        <div className="about-bento-card about-bento-card--amber about-bento-card--wide">
+                            <div className="about-bento-icon-wrap about-bento-icon--amber">
+                                <KeyRound size={22} />
+                            </div>
+                            <h3>Owner Console</h3>
+                            <p>Super-admin portal for onboarding institutions, managing tenant settings, syncing value mappings, and monitoring system health across all clients.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* ── Spotlight: Finance + AI ───────────────────────────────── */}
+            {/* ── Spotlight: Finance + AI ───────────────────────────── */}
             <section className="about-spotlight">
                 <div className="about-section-inner">
                     <div className="about-spotlight-grid">
-
                         <div className="about-spotlight-card about-spotlight-card--amber">
-                            <div className="about-spotlight-card-icon about-icon-bg--amber">
-                                <DollarSign size={28} />
+                            <div className="about-spotlight-pill">
+                                <Sparkles size={11} /> Most EdTech tools skip this
                             </div>
-                            <div className="about-spotlight-label">
-                                <Sparkles size={12} /> Most EdTech tools skip this
-                            </div>
-                            <h3 className="about-spotlight-title">Finance is not an afterthought</h3>
-                            <p className="about-spotlight-body">
-                                Many education management tools handle admissions beautifully — then leave you
-                                with a spreadsheet for fees. Instyte includes a complete fee lifecycle in the same platform:
-                                flexible structures, automated invoicing, online and counter payments, digital receipts, and
-                                WhatsApp reminders before dues go overdue. No reconciliation. No separate accounting tool.
-                                No manual matching.
-                            </p>
-                            <ul className="about-spotlight-list">
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Multi-tier fee structures per program, batch & scholarship</li>
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Online + offline payment in one system</li>
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Auto overdue reminders via WhatsApp & email</li>
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Branch-wise revenue dashboards in real time</li>
+                            <h3>Finance is not an afterthought</h3>
+                            <p>Many education tools handle admissions beautifully — then leave you with a spreadsheet for fees. Instyte includes a complete fee lifecycle in the same platform: flexible structures, automated invoicing, online and counter payments, digital receipts, and WhatsApp reminders before dues go overdue.</p>
+                            <ul>
+                                <li><Check size={13} /> Multi-tier fee structures per program, batch & scholarship</li>
+                                <li><Check size={13} /> Online + offline payment in one system</li>
+                                <li><Check size={13} /> Auto overdue reminders via WhatsApp & email</li>
+                                <li><Check size={13} /> Branch-wise revenue dashboards in real time</li>
                             </ul>
+                            <div className="about-spotlight-screen">
+                                <img src="/screens/invoices.png" alt="Invoices" />
+                            </div>
                         </div>
 
                         <div className="about-spotlight-card about-spotlight-card--indigo">
-                            <div className="about-spotlight-card-icon about-icon-bg--indigo">
-                                <BrainCircuit size={28} />
+                            <div className="about-spotlight-pill">
+                                <Sparkles size={11} /> AI that works for you
                             </div>
-                            <div className="about-spotlight-label">
-                                <Sparkles size={12} /> AI that works for you
-                            </div>
-                            <h3 className="about-spotlight-title">AI you can talk to — and that talks back to your tools</h3>
-                            <p className="about-spotlight-body">
-                                Most platforms show you dashboards and expect you to figure out the rest. Instyte's AI lets
-                                you ask questions in plain language and get real answers: <em>"Which leads haven't been called
-                                in 3 days?"</em>, <em>"How much fee is overdue this month?"</em>, <em>"Which students have
-                                missed class twice this week?"</em> — and it acts on the answer. It also connects Instyte
-                                to the tools your team already uses — WhatsApp, calendars, Google Sheets, or your CRM —
-                                automatically, without writing a single line of code.
-                            </p>
-                            <ul className="about-spotlight-list">
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> Ask anything, get instant answers — no training needed</li>
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> AI scores every lead the moment it arrives</li>
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> Auto-connects to WhatsApp, calendars & external tools</li>
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> Student at-risk alerts before dropout happens</li>
+                            <h3>AI you can talk to</h3>
+                            <p>Most platforms show you dashboards and expect you to figure out the rest. Instyte's AI lets you ask questions in plain language: <em>"Which leads haven't been called in 3 days?"</em>, <em>"How much fee is overdue?"</em>, <em>"Which students missed class twice this week?"</em></p>
+                            <ul>
+                                <li><Check size={13} /> Ask anything, get instant answers — no training needed</li>
+                                <li><Check size={13} /> AI scores every lead the moment it arrives</li>
+                                <li><Check size={13} /> Auto-connects to WhatsApp, calendars & external tools</li>
+                                <li><Check size={13} /> Student at-risk alerts before dropout happens</li>
                             </ul>
+                            <div className="about-spotlight-screen">
+                                <img src="/screens/dashboard-ai.png" alt="AI Dashboard" />
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </section>
 
-            {/* ── Modules ───────────────────────────────────────────────── */}
+            {/* ── Modules ───────────────────────────────────────────── */}
             <section id="modules" className="about-section">
                 <div className="about-section-inner">
                     <div className="about-section-label">
-                        <BookOpen size={13} /> Modules
+                        <BookOpen size={12} /> Modules
                     </div>
                     <h2 className="about-section-heading">Eight modules. Zero gaps.</h2>
                     <p className="about-section-sub">
-                        From the first enquiry to the last receipt — and every class, exam, and support ticket in between.
-                        Everything is connected, so your team never has to re-enter data or switch tools.
+                        From the first enquiry to the last receipt — every class, exam, and support ticket in between. Everything connected.
                     </p>
 
                     <div className="about-modules-layout">
@@ -531,12 +584,10 @@ export default function AboutPage() {
                                 return (
                                     <button
                                         key={m.title}
-                                        className={`about-module-tab ${activeModule === i
-                                            ? `about-module-tab--active about-module-tab--${m.color}`
-                                            : ''}`}
+                                        className={`about-module-tab ${activeModule === i ? `about-module-tab--active about-module-tab--${m.color}` : ''}`}
                                         onClick={() => setActiveModule(i)}>
-                                        <MI size={16} className="about-module-tab-icon" />
-                                        <span className="about-module-tab-label">{m.title}</span>
+                                        <MI size={15} />
+                                        <span>{m.title}</span>
                                     </button>
                                 );
                             })}
@@ -544,20 +595,20 @@ export default function AboutPage() {
 
                         <div className={`about-module-detail about-module-detail--${MODULES[activeModule].color}`}>
                             <div className="about-module-detail-header">
-                                <div className={`about-module-detail-icon-wrap about-module-icon-bg--${MODULES[activeModule].color}`}>
-                                    <ActiveModIcon size={28} />
+                                <div className={`about-module-detail-icon about-module-icon--${MODULES[activeModule].color}`}>
+                                    <ActiveModIcon size={26} />
                                 </div>
                                 <div>
                                     {MODULES[activeModule].badge && (
                                         <span className={`about-module-badge about-module-badge--${MODULES[activeModule].color}`}>
-                                            <Sparkles size={11} /> {MODULES[activeModule].badge}
+                                            <Sparkles size={10} /> {MODULES[activeModule].badge}
                                         </span>
                                     )}
-                                    <h3 className="about-module-detail-title">{MODULES[activeModule].title}</h3>
-                                    <p className="about-module-detail-subtitle">{MODULES[activeModule].subtitle}</p>
+                                    <h3>{MODULES[activeModule].title}</h3>
+                                    <p className="about-module-subtitle">{MODULES[activeModule].subtitle}</p>
                                 </div>
                             </div>
-                            <p className="about-module-detail-desc">{MODULES[activeModule].description}</p>
+                            <p className="about-module-desc">{MODULES[activeModule].description}</p>
                             <ul className="about-module-features">
                                 {MODULES[activeModule].features.map(({ Icon: FI, text }) => (
                                     <li key={text}>
@@ -571,26 +622,25 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* ── Why Instyte ───────────────────────────────────────────── */}
+            {/* ── Why Instyte ───────────────────────────────────────── */}
             <section id="why" className="about-section about-section--alt">
                 <div className="about-section-inner">
                     <div className="about-section-label">
-                        <Award size={13} /> Why Instyte
+                        <Award size={12} /> Why Instyte
                     </div>
                     <h2 className="about-section-heading">What every other EdTech tool is missing</h2>
                     <p className="about-section-sub">
-                        We focused on the gaps that most education platforms leave open —
-                        and built tools that actually close them.
+                        We focused on the gaps that most education platforms leave open — and built tools that actually close them.
                     </p>
 
                     <div className="about-diff-grid">
                         {DIFFERENTIATORS.map(({ Icon: DI, color, title, body }) => (
-                            <div key={title} className="about-diff-card">
-                                <div className={`about-diff-icon-wrap about-icon-bg--${color}`}>
-                                    <DI size={22} />
+                            <div key={title} className={`about-diff-card about-diff-card--${color}`}>
+                                <div className={`about-diff-icon about-diff-icon--${color}`}>
+                                    <DI size={20} />
                                 </div>
-                                <h3 className="about-diff-title">{title}</h3>
-                                <p className="about-diff-body">{body}</p>
+                                <h3>{title}</h3>
+                                <p>{body}</p>
                             </div>
                         ))}
                     </div>
@@ -623,24 +673,22 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* ── Pricing ───────────────────────────────────────────────── */}
+            {/* ── Pricing ───────────────────────────────────────────── */}
             <section id="pricing" className="about-section">
                 <div className="about-section-inner">
                     <div className="about-section-label">
-                        <CreditCard size={13} /> Pricing
+                        <CreditCard size={12} /> Pricing
                     </div>
                     <h2 className="about-section-heading">Transparent, education-friendly pricing</h2>
-                    <p className="about-section-sub">
-                        No per-seat chaos. Simple plans based on student count — switch or cancel any time.
-                    </p>
+                    <p className="about-section-sub">No per-seat chaos. Simple plans based on student count — switch or cancel any time.</p>
 
                     <div className="about-pricing-grid">
                         {PRICING_PLANS.map(plan => (
                             <div key={plan.name}
                                 className={`about-pricing-card ${plan.highlighted ? 'about-pricing-card--highlighted' : ''} about-pricing-card--${plan.color}`}>
                                 {plan.highlighted && (
-                                    <div className="about-pricing-badge">
-                                        <Star size={11} /> Most Popular
+                                    <div className="about-pricing-popular">
+                                        <Star size={10} /> Most Popular
                                     </div>
                                 )}
                                 <div className="about-pricing-name">{plan.name}</div>
@@ -651,16 +699,13 @@ export default function AboutPage() {
                                 <p className="about-pricing-desc">{plan.description}</p>
                                 <ul className="about-pricing-features">
                                     {plan.features.map(f => (
-                                        <li key={f}>
-                                            <Check size={13} className="about-pricing-check" />
-                                            {f}
-                                        </li>
+                                        <li key={f}><Check size={12} />{f}</li>
                                     ))}
                                 </ul>
                                 <button
                                     className={`about-pricing-btn about-pricing-btn--${plan.color} ${plan.highlighted ? 'about-pricing-btn--solid' : ''}`}
                                     onClick={scrollToContact}>
-                                    {plan.cta} <ArrowRight size={14} />
+                                    {plan.cta} <ArrowRight size={13} />
                                 </button>
                                 {plan.price !== 'Custom' && (
                                     <p className="about-pricing-tnc">*T&amp;C apply</p>
@@ -671,33 +716,39 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* ── Contact Us ────────────────────────────────────────────── */}
+            {/* ── Contact ───────────────────────────────────────────── */}
             <section id="contact" className="about-contact">
                 <div className="about-contact-inner">
                     <div className="about-contact-left">
-                        <h2 className="about-section-label">Get in Touch</h2>
-                        <p className="about-contact-heading">Want to see Instyte in action?</p>
+                        <div className="about-section-label" style={{ marginBottom: 16 }}>
+                            <Send size={12} /> Get in Touch
+                        </div>
+                        <h2 className="about-contact-heading">Want to see Instyte in action?</h2>
                         <p className="about-contact-body">
                             We'd love to show you how Instyte can work for your institution.
-                            Drop us a message and we'll get back to you within one business day.
+                            Drop us a message and we'll get back within one business day.
                         </p>
-                        <div className="about-contact-info">
-                            <div className="about-contact-info-item">
-                                <div className="about-icon-bg about-icon-bg--emerald" style={{ width: 34, height: 34, borderRadius: 8 }}>
-                                    <Send size={16} />
+                        <a href="mailto:hello@instyte.com" className="about-contact-email">
+                            hello@instyte.com
+                        </a>
+
+                        <div className="about-contact-facts">
+                            {STATS.map(({ value, label }) => (
+                                <div key={label} className="about-contact-fact">
+                                    <span className="about-contact-fact-num">{value}</span>
+                                    <span className="about-contact-fact-lbl">{label}</span>
                                 </div>
-                                <span>hello@instyte.com</span>
-                            </div>
+                            ))}
                         </div>
                     </div>
 
                     <div className="about-contact-right">
                         {contactState === 'success' ? (
                             <div className="about-contact-success">
-                                <Check size={32} />
+                                <div className="about-contact-success-icon"><Check size={28} /></div>
                                 <h3>Message received!</h3>
                                 <p>We'll be in touch within one business day.</p>
-                                <button className="about-btn-secondary" onClick={() => setContactState('idle')}>
+                                <button className="about-btn-ghost" onClick={() => setContactState('idle')}>
                                     Send another message
                                 </button>
                             </div>
@@ -706,67 +757,45 @@ export default function AboutPage() {
                                 <div className="about-contact-row">
                                     <div className="about-contact-field">
                                         <label>Your name *</label>
-                                        <input
-                                            type="text"
-                                            required
-                                            placeholder="Jane Smith"
+                                        <input type="text" required placeholder="Jane Smith"
                                             value={contactForm.name}
-                                            onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))}
-                                        />
+                                            onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} />
                                     </div>
                                     <div className="about-contact-field">
                                         <label>Organization</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Your school / institute name"
+                                        <input type="text" placeholder="School / institute name"
                                             value={contactForm.organization}
-                                            onChange={e => setContactForm(f => ({ ...f, organization: e.target.value }))}
-                                        />
+                                            onChange={e => setContactForm(f => ({ ...f, organization: e.target.value }))} />
                                     </div>
                                 </div>
                                 <div className="about-contact-row">
                                     <div className="about-contact-field">
                                         <label>Email</label>
-                                        <input
-                                            type="email"
-                                            placeholder="you@example.com"
+                                        <input type="email" placeholder="you@example.com"
                                             value={contactForm.email}
-                                            onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))}
-                                        />
+                                            onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} />
                                     </div>
                                     <div className="about-contact-field">
                                         <label>Phone</label>
-                                        <input
-                                            type="tel"
-                                            placeholder="+91 98765 43210"
+                                        <input type="tel" placeholder="+91 98765 43210"
                                             value={contactForm.phone}
-                                            onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))}
-                                        />
+                                            onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} />
                                     </div>
                                 </div>
                                 <div className="about-contact-field">
                                     <label>Message</label>
-                                    <textarea
-                                        rows={4}
-                                        placeholder="Tell us about your institution and what you're looking for…"
+                                    <textarea rows={4} placeholder="Tell us about your institution…"
                                         value={contactForm.message}
-                                        onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))}
-                                    />
+                                        onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} />
                                 </div>
                                 {contactState === 'error' && (
                                     <p className="about-contact-error">
-                                        <AlertTriangle size={14} /> Something went wrong — please try again or email us directly.
+                                        <AlertTriangle size={13} /> Something went wrong — please try again or email us directly.
                                     </p>
                                 )}
-                                <button
-                                    type="submit"
-                                    className="about-btn-primary about-contact-submit"
-                                    disabled={contactState === 'submitting'}
-                                >
-                                    {contactState === 'submitting'
-                                        ? 'Sending…'
-                                        : <><Send size={16} /> Send message</>
-                                    }
+                                <button type="submit" className="about-btn-primary about-contact-submit"
+                                    disabled={contactState === 'submitting'}>
+                                    {contactState === 'submitting' ? 'Sending…' : <><Send size={15} /> Send Message</>}
                                 </button>
                             </form>
                         )}
@@ -774,26 +803,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* ── CTA Banner ────────────────────────────────────────────── */}
-            <section className="about-cta-banner">
-                <div className="about-cta-inner">
-                    <h2 className="about-cta-heading">Ready to transform your institution?</h2>
-                    <p className="about-cta-sub">
-                        Join 50+ institutions already using Instyte to manage admissions, academics, and finance —
-                        all in one place.
-                    </p>
-                    <div className="about-cta-actions">
-                        <button className="about-btn-primary" onClick={() => window.open('/demo', '_blank')}>
-                            Try Demo <ArrowRight size={16} />
-                        </button>
-                        <button className="about-btn-ghost about-btn-ghost--light" onClick={scrollToContact}>
-                            Get in Touch <ChevronRight size={16} />
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            {/* ── Footer ────────────────────────────────────────────────── */}
+            {/* ── Footer ────────────────────────────────────────────── */}
             <footer className="about-footer">
                 <div className="about-footer-inner">
                     <div className="about-footer-brand">
@@ -815,11 +825,10 @@ export default function AboutPage() {
                 </div>
             </footer>
 
-            {/* ── Floating Contact Us Button ─────────────────────────────── */}
+            {/* ── Floating CTA ──────────────────────────────────────── */}
             <button className="about-float-cta" onClick={scrollToContact}>
                 Contact Us
             </button>
-
         </div>
     );
 }
