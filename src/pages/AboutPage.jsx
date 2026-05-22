@@ -2,17 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
     Target, GraduationCap, BookOpen, DollarSign, CalendarDays, School,
     Ticket, BrainCircuit, LayoutDashboard, Smartphone, UserCircle, Globe,
-    Cpu, ShieldCheck, Building2, Zap, Lock, Globe2, ArrowRight,
+    Cpu, ShieldCheck, Building2, ArrowRight,
     Check, X, AlertTriangle, ChevronRight, Menu, LogIn, Star,
-    Users, TrendingUp, Clock, Award, BarChart3, Sparkles,
-    ClipboardList, Bell, Upload, Activity, BookMarked, Timer,
-    Calendar, FileText, Table2, PenLine, Library, UserCheck,
+    Users, Clock, Award, Sparkles,
+    ClipboardList, Bell, Upload, Activity, Timer,
+    FileText, Table2, PenLine, Library, UserCheck,
     CreditCard, Receipt, Wallet, AlarmClock, PieChart, Landmark,
-    QrCode, ScanLine, MessageSquare, UserPlus, BarChart2, CalendarCheck,
+    QrCode, MessageSquare, UserPlus, BarChart2, CalendarCheck,
     MonitorPlay, CircleDot, Send, BookCopy, BarChartHorizontal, HeartPulse,
-    BotMessageSquare, FlaskConical, LineChart, AlertCircle, Funnel,
-    ServerCrash, Database, KeyRound, Eye, Network, Link,
-    HelpCircle, Info, Leaf,
+    BotMessageSquare, LineChart, AlertCircle,
+    KeyRound, Network, Link,
 } from 'lucide-react';
 import './AboutPage.css';
 
