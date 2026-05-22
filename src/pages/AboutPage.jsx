@@ -364,8 +364,8 @@ export default function AboutPage() {
                     <a href="#hero" className="about-nav-brand"
                         onClick={e => { e.preventDefault(); scrollTo('#hero'); }}>
                         <img src={LOGO} alt="Instyte" className="about-nav-logo"
-                            onError={e => e.target.style.display = 'none'} />
-                        <span className="about-nav-name">Instyte</span>
+                            onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
+                        <span className="about-nav-name" style={{ display: 'none' }}>Instyte</span>
                     </a>
 
                     <ul className={`about-nav-links ${mobileMenuOpen ? 'about-nav-links--open' : ''}`}>
