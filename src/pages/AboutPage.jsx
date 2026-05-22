@@ -4,14 +4,14 @@ import {
     Ticket, BrainCircuit, LayoutDashboard, Smartphone, UserCircle, Globe,
     Cpu, ShieldCheck, Building2, ArrowRight,
     Check, X, AlertTriangle, ChevronRight, Menu, Star,
-    Users, Clock, Award, Sparkles,
+    Users, Award, Sparkles,
     ClipboardList, Bell, Upload, Activity, Timer,
     FileText, Table2, PenLine, Library, UserCheck,
     CreditCard, Receipt, Wallet, AlarmClock, PieChart, Landmark,
     QrCode, MessageSquare, UserPlus, BarChart2, CalendarCheck,
     MonitorPlay, CircleDot, Send, BookCopy, BarChartHorizontal, HeartPulse,
     BotMessageSquare, LineChart, AlertCircle,
-    KeyRound, Network, Link, ChevronLeft,
+    KeyRound, Network, Link,
 } from 'lucide-react';
 import './AboutPage.css';
 
