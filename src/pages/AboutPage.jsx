@@ -264,7 +264,7 @@ const PRICING_PLANS = [
             'Email & WhatsApp notifications',
             'Standard support',
         ],
-        cta: 'Contact Us',
+        cta: 'Learn More',
         highlighted: false,
     },
     {
@@ -283,7 +283,7 @@ const PRICING_PLANS = [
             'Finance & fee analytics',
             'Priority support',
         ],
-        cta: 'Contact Us',
+        cta: 'Learn More',
         highlighted: true,
     },
     {
@@ -378,9 +378,6 @@ export default function AboutPage() {
                             </li>
                         ))}
                         <li>
-                            <button className="about-nav-cta" onClick={scrollToContact}>
-                                Contact Us
-                            </button>
                         </li>
                     </ul>
 
@@ -410,9 +407,6 @@ export default function AboutPage() {
                         person in your organisation. One platform. Zero gaps.
                     </p>
                     <div className="about-hero-actions">
-                        <button className="about-btn-primary" onClick={scrollToContact}>
-                            Contact Us
-                        </button>
                         <button className="about-btn-ghost" onClick={() => scrollTo('#modules')}>
                             Explore modules <ChevronRight size={16} />
                         </button>
@@ -782,9 +776,7 @@ export default function AboutPage() {
                         Join 50+ institutions already using Instyte to manage admissions, academics, and finance —
                         all in one place.
                     </p>
-                    <button className="about-btn-primary about-btn-primary--lg" onClick={scrollToContact}>
-                        Contact Us
-                    </button>
+                    </div>
                 </div>
             </section>
 
@@ -803,13 +795,18 @@ export default function AboutPage() {
                                 {l.label}
                             </a>
                         ))}
-                        <button onClick={scrollToContact} className="about-footer-link">Contact Us</button>
+                        <button onClick={scrollToContact} className="about-footer-link">Contact</button>
                     </div>
                     <div className="about-footer-copy">
                         &copy; {new Date().getFullYear()} Instyte. All rights reserved.
                     </div>
                 </div>
             </footer>
+
+            {/* ── Floating Contact Us Button ─────────────────────────────── */}
+            <button className="about-float-cta" onClick={scrollToContact}>
+                Contact Us
+            </button>
 
         </div>
     );

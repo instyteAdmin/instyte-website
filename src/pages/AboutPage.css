@@ -61,10 +61,10 @@
 }
 
 .about-nav-logo {
-    width: 48px;
-    height: 48px;
+    width: 72px;
+    height: 72px;
     object-fit: contain;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .about-nav-name {
@@ -1297,3 +1297,34 @@
     transition: background .15s, color .15s;
 }
 .about-btn-secondary:hover { background: #6366f1; color: #fff; }
+
+/* ── Floating Contact Us Button ──────────────────────────────────────────── */
+.about-float-cta {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 1000;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.45);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.01em;
+}
+.about-float-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.55);
+}
+@media (max-width: 480px) {
+    .about-float-cta {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 22px;
+        font-size: 0.875rem;
+    }
+}
