@@ -226,7 +226,17 @@ const ARCH_CARDS = [
     { Icon: KeyRound,        color: 'amber',   title: 'Owner Console',            body: 'Super-admin portal for onboarding institutions, managing tenant settings, syncing value mappings, and monitoring system health across all clients.' },
 ];
 
-// ─── Comparison table ─────────────────────────────────────────────────────────
+// ─── Screenshot gallery ────────────────────────────────────────────────────
+
+const GALLERY_TABS = [
+    { key: 'dashboard',  label: 'AI Dashboard',     desc: 'Finance AI answers questions in plain language', src: '/screens/dashboard-ai.png',      color: 'indigo'  },
+    { key: 'finance',    label: 'Finance Overview',  desc: 'Branch-wise revenue & collection in real time',  src: '/screens/finance-dashboard.png', color: 'amber'   },
+    { key: 'invoices',   label: 'Invoices',          desc: 'Full fee lifecycle — every rupee tracked',        src: '/screens/invoices.png',          color: 'emerald' },
+    { key: 'invoice',    label: 'Invoice Detail',    desc: 'GST-ready invoices with instalment schedule',    src: '/screens/invoice-detail.png',    color: 'orange'  },
+    { key: 'student',    label: 'Student Profile',   desc: 'Complete record — enrollment, fees, academics',  src: '/screens/student-profile.png',   color: 'blue'    },
+    { key: 'enrollment', label: 'Enrollment',        desc: 'Academic config, timetable, subjects in one view',src: '/screens/student-enrollment.png',color: 'violet'  },
+    { key: 'enr-detail', label: 'Enrollment Detail', desc: 'Classroom details, faculty, schedule & dates',   src: '/screens/enrollment-detail.png', color: 'cyan'    },
+];
 
 const CMP_ROWS = [
     ['Built-in finance & fee collection',                            'yes', 'no',      'partial'],
@@ -313,10 +323,12 @@ export default function AboutPage() {
     const [scrolled,       setScrolled]       = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
     const [activeModule,   setActiveModule]   = useState(0);
+    const [activeGallery,  setActiveGallery]  = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [contactForm,    setContactForm]    = useState({ name: '', email: '', phone: '', organization: '', message: '' });
     const [contactState,   setContactState]   = useState('idle');
-    const heroRef = useRef(null);
+    const heroRef   = useRef(null);
+    const galleryTimer = useRef(null);
 
     useEffect(() => {
         const onScroll = () => {
@@ -341,11 +353,27 @@ export default function AboutPage() {
                     }
                 });
             },
-            { threshold: 0.12 }
+            { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
         );
         els.forEach(el => observer.observe(el));
         return () => observer.disconnect();
     }, []);
+
+    /* gallery auto-cycle */
+    useEffect(() => {
+        galleryTimer.current = setInterval(() => {
+            setActiveGallery(g => (g + 1) % GALLERY_TABS.length);
+        }, 3200);
+        return () => clearInterval(galleryTimer.current);
+    }, []);
+
+    const goGallery = (idx) => {
+        clearInterval(galleryTimer.current);
+        setActiveGallery(idx);
+        galleryTimer.current = setInterval(() => {
+            setActiveGallery(g => (g + 1) % GALLERY_TABS.length);
+        }, 3200);
+    };
 
     const scrollTo = (href) => {
         setMobileMenuOpen(false);
@@ -445,6 +473,20 @@ export default function AboutPage() {
                         ))}
                     </div>
                 </div>
+
+                {/* hero product screenshot */}
+                <div className="about-hero-screenshot hero-fade-up" style={{ animationDelay: '0.72s' }}>
+                    <div className="about-hero-screen-frame">
+                        <div className="about-hero-screen-bar">
+                            <span className="about-screen-dot--red" />
+                            <span className="about-screen-dot--yellow" />
+                            <span className="about-screen-dot--green" />
+                            <span className="about-hero-screen-url">app.instyte.com</span>
+                        </div>
+                        <img src="/screens/dashboard-ai.png" alt="Instyte Dashboard" className="about-hero-screen-img" />
+                    </div>
+                    <div className="about-hero-screen-glow" />
+                </div>
             </section>
 
             {/* ── Platform Overview ─────────────────────────────────────── */}
@@ -474,6 +516,64 @@ export default function AboutPage() {
                 </div>
             </section>
 
+            {/* ── Screenshot Gallery ────────────────────────────────────── */}
+            <section className="about-gallery">
+                <div className="about-section-inner">
+                    <div className="about-section-label" data-animate="fade-up">
+                        <MonitorPlay size={13} /> See It In Action
+                    </div>
+                    <h2 className="about-section-heading" data-animate="fade-up">Real screenshots. Real product.</h2>
+                    <p className="about-section-sub" data-animate="fade-up">
+                        No mockups. No stock photos. This is exactly what your team sees when they log in.
+                    </p>
+
+                    <div className="about-gallery-wrap">
+                        {/* tab pills */}
+                        <div className="about-gallery-tabs">
+                            {GALLERY_TABS.map((t, i) => (
+                                <button
+                                    key={t.key}
+                                    className={`about-gallery-tab about-gallery-tab--${t.color} ${activeGallery === i ? 'about-gallery-tab--active' : ''}`}
+                                    onClick={() => goGallery(i)}>
+                                    {t.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* screenshot display */}
+                        <div className="about-gallery-display">
+                            <div className="about-gallery-browser">
+                                <div className="about-gallery-browser-bar">
+                                    <span className="about-screen-dot--red" />
+                                    <span className="about-screen-dot--yellow" />
+                                    <span className="about-screen-dot--green" />
+                                    <span className="about-gallery-url">app.instyte.com · {GALLERY_TABS[activeGallery].label}</span>
+                                    <div className="about-gallery-progress">
+                                        {GALLERY_TABS.map((_, i) => (
+                                            <span key={i} className={`about-gallery-pip ${activeGallery === i ? 'about-gallery-pip--active' : ''}`} onClick={() => goGallery(i)} />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="about-gallery-img-wrap">
+                                    {GALLERY_TABS.map((t, i) => (
+                                        <img
+                                            key={t.key}
+                                            src={t.src}
+                                            alt={t.label}
+                                            className={`about-gallery-img ${activeGallery === i ? 'about-gallery-img--active' : ''}`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="about-gallery-caption">
+                                <span className={`about-gallery-caption-dot about-gallery-caption-dot--${GALLERY_TABS[activeGallery].color}`} />
+                                {GALLERY_TABS[activeGallery].desc}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* ── Spotlight: Finance + AI ───────────────────────────────── */}
             <section className="about-spotlight">
                 <div className="about-section-inner">
@@ -499,6 +599,10 @@ export default function AboutPage() {
                                 <li><Check size={13} className="about-spotlight-check--amber" /> Auto overdue reminders via WhatsApp & email</li>
                                 <li><Check size={13} className="about-spotlight-check--amber" /> Branch-wise revenue dashboards in real time</li>
                             </ul>
+                            <div className="about-spotlight-screens">
+                                <img src="/screens/invoices.png" alt="Invoices" className="about-spotlight-ss about-spotlight-ss--main" />
+                                <img src="/screens/invoice-detail.png" alt="Invoice Detail" className="about-spotlight-ss about-spotlight-ss--float" />
+                            </div>
                         </div>
 
                         <div className="about-spotlight-card about-spotlight-card--indigo" data-animate="fade-left">
@@ -523,6 +627,10 @@ export default function AboutPage() {
                                 <li><Check size={13} className="about-spotlight-check--indigo" /> Auto-connects to WhatsApp, calendars & external tools</li>
                                 <li><Check size={13} className="about-spotlight-check--indigo" /> Student at-risk alerts before dropout happens</li>
                             </ul>
+                            <div className="about-spotlight-screens">
+                                <img src="/screens/finance-dashboard.png" alt="Finance Dashboard" className="about-spotlight-ss about-spotlight-ss--main" />
+                                <img src="/screens/student-profile.png" alt="Student Profile" className="about-spotlight-ss about-spotlight-ss--float" />
+                            </div>
                         </div>
                     </div>
                 </div>
