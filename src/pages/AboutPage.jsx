@@ -670,9 +670,10 @@ export default function AboutPage() {
                     <div className="about-section-label" data-animate="fade-up">
                         <MonitorPlay size={13} /> See It In Action
                     </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">Real screenshots. Real product.</h2>
+                    <h2 className="about-section-heading" data-animate="fade-up">A closer look at what you're getting</h2>
                     <p className="about-section-sub" data-animate="fade-up">
-                        No mockups. No stock photos. This is exactly what your team sees when they log in.
+                        We believe the product should speak for itself. Here's a walkthrough of the actual screens
+                        your team, students, and counsellors will use every day.
                     </p>
 
                     <div className="about-gallery-wrap">
