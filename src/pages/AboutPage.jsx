@@ -341,8 +341,10 @@ function PricingBreakdown() {
                   note: 'CRM, enquiry capture, demo scheduling, counsellor assignment. Add only if you want to track admissions pipeline.' },
                 { Icon: DollarSign,  label: 'Finance & Fees',  price: '+ ₹2,599/mo', color: 'amber',
                   note: 'Fee structures, invoicing, online/counter payments, receipts, WhatsApp reminders. Add only if you collect fees through Instyte.' },
+                { Icon: BrainCircuit, label: 'AI Assistant',   price: '+ ₹1,999/mo', color: 'indigo',
+                  note: 'Conversational AI, lead heat scoring, at-risk alerts, external tool integrations. Included free in Growth.' },
             ],
-            addonNote: 'Add one, both, or neither — you only pay for what you turn on.',
+            addonNote: 'Add one, some, or none — you only pay for what you turn on. All three together is still ₹797 cheaper than Growth.',
         },
         {
             tier: 'Growth',
@@ -944,17 +946,29 @@ export default function AboutPage() {
                                     <strong>₹6,999</strong>
                                 </div>
                                 <div className="about-pricing-math-row about-pricing-math-row--opt">
-                                    <span>+ Lead Management <em>if needed</em></span>
+                                    <span>+ Lead Management</span>
                                     <strong>₹2,199</strong>
                                 </div>
                                 <div className="about-pricing-math-row about-pricing-math-row--opt">
-                                    <span>+ Finance & Fees <em>if needed</em></span>
+                                    <span>+ Finance & Fees</span>
                                     <strong>₹2,599</strong>
+                                </div>
+                                <div className="about-pricing-math-row about-pricing-math-row--opt">
+                                    <span>+ AI Assistant</span>
+                                    <strong>₹1,999</strong>
+                                </div>
+                                <div className="about-pricing-math-row about-pricing-math-subtotal">
+                                    <span>If bought separately</span>
+                                    <strong>₹13,796</strong>
                                 </div>
                                 <div className="about-pricing-math-divider" />
                                 <div className="about-pricing-math-row about-pricing-math-row--total">
-                                    <span>Or just get Growth — everything included</span>
+                                    <span>Growth — everything bundled</span>
                                     <strong>₹12,999</strong>
+                                </div>
+                                <div className="about-pricing-math-row about-pricing-math-row--save">
+                                    <span>You save</span>
+                                    <strong>₹797/mo</strong>
                                 </div>
                             </div>
                             <p className="about-pricing-hero-note">
@@ -971,7 +985,7 @@ export default function AboutPage() {
                                     { label: 'Support Tickets',      included: true,  Icon: Ticket,        color: 'orange'  },
                                     { label: 'Lead Management',      included: false, Icon: Target,        color: 'emerald', price: '+ ₹2,199' },
                                     { label: 'Finance & Fees',       included: false, Icon: DollarSign,    color: 'amber',   price: '+ ₹2,599' },
-                                    { label: 'AI Assistant',         included: false, Icon: BrainCircuit,  color: 'indigo',  price: 'Growth only' },
+                                    { label: 'AI Assistant',         included: false, Icon: BrainCircuit,  color: 'indigo',  price: '+ ₹1,999' },
                                 ].map(({ label, included, Icon: MI, color, price }) => (
                                     <div key={label} className={`about-pricing-module-pill ${included ? 'about-pricing-module-pill--in' : 'about-pricing-module-pill--addon'}`}>
                                         <div className={`about-pricing-module-pill-icon about-icon-bg--${color}`}>

@@ -1059,6 +1059,24 @@
 }
 .about-pricing-math-row--total strong { color: #059669; font-size: 1rem; }
 
+.about-pricing-math-subtotal {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+.about-pricing-math-subtotal strong { color: #94a3b8; font-weight: 500; }
+
+.about-pricing-math-row--save {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #059669;
+    background: #ecfdf5;
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
+    margin-top: 0.1rem;
+}
+.about-pricing-math-row--save strong { color: #059669; }
+
 /* module pill grid */
 .about-pricing-module-grid {
     display: flex;
