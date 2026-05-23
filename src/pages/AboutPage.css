@@ -931,6 +931,8 @@
 
 .about-pricing-tnc { margin: 8px 0 0; font-size: 10px; color: #94a3b8; text-align: center; letter-spacing: 0.02em; }
 
+.about-breakdown-tnc { margin: 1rem 0 0; font-size: 0.72rem; color: #94a3b8; font-style: italic; }
+
 /* ── Pricing Hero (modular pitch) ────────────────────────────── */
 .about-pricing-hero {
     display: grid;
