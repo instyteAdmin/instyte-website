@@ -12,6 +12,7 @@ import {
     MonitorPlay, CircleDot, Send, BookCopy, BarChartHorizontal, HeartPulse,
     BotMessageSquare, LineChart, AlertCircle,
     KeyRound, Network, Link,
+    ThumbsUp, CalendarOff, TrendingUp, BadgeCheck, ClipboardCheck, Briefcase,
 } from 'lucide-react';
 import './AboutPage.css';
 
@@ -170,6 +171,22 @@ const MODULES = [
             { Icon: MessageSquare, text: 'Internal notes & full conversation history'       },
             { Icon: Bell,          text: 'Automatic priority escalation rules'              },
             { Icon: Timer,         text: 'Resolution-time reporting & SLA compliance'       },
+        ],
+    },
+    {
+        Icon: Briefcase,
+        color: 'teal',
+        title: 'Teacher & Staff Management',
+        subtitle: 'Know your team — track presence, performance & feedback',
+        description:
+            'Instyte keeps teacher and staff management firmly in the CRM lane — no payroll, no HR bloat. What it does cover is everything that matters for running a tight academic operation: who\'s present, who\'s on leave, how each class is rated by students, and how individual teachers are performing over time. Every class a teacher conducts can collect student feedback automatically, giving you a consistent, bias-free picture of teaching quality that\'s hard to get any other way.',
+        features: [
+            { Icon: CalendarCheck,   text: 'Daily attendance marking for teaching & non-teaching staff' },
+            { Icon: CalendarOff,     text: 'Leave requests, approvals & leave balance tracking'         },
+            { Icon: ThumbsUp,        text: 'Per-class student feedback collected automatically'         },
+            { Icon: TrendingUp,      text: 'Teacher performance dashboard — ratings over time'          },
+            { Icon: BadgeCheck,      text: 'Staff profiles: qualifications, subjects, assigned batches' },
+            { Icon: ClipboardCheck,  text: 'Class completion tracking & session notes'                  },
         ],
     },
 ];
@@ -791,7 +808,7 @@ export default function AboutPage() {
                     <div className="about-section-label" data-animate="fade-up">
                         <BookOpen size={13} /> Modules
                     </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">Eight modules. Zero gaps.</h2>
+                    <h2 className="about-section-heading" data-animate="fade-up">Nine modules. Zero gaps.</h2>
                     <p className="about-section-sub" data-animate="fade-up">
                         From the first enquiry to the last receipt — and every class, exam, and support ticket in between.
                         Everything is connected, so your team never has to re-enter data or switch tools.

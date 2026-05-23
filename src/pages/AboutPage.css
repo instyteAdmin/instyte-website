@@ -266,6 +266,7 @@
 .about-icon-bg--cyan    { background: #cffafe; color: #0891b2; }
 .about-icon-bg--orange  { background: #ffedd5; color: #ea580c; }
 .about-icon-bg--indigo  { background: #e0e7ff; color: #4f46e5; }
+.about-icon-bg--teal    { background: #ccfbf1; color: #0d9488; }
 
 /* ── Stats ────────────────────────────────────────────────── */
 .about-stats {
@@ -424,6 +425,7 @@
 .about-module-badge--rose   { background: #ffe4e6; color: #9f1239; }
 .about-module-badge--cyan   { background: #cffafe; color: #164e63; }
 .about-module-badge--orange { background: #ffedd5; color: #9a3412; }
+.about-module-badge--teal   { background: #ccfbf1; color: #0f766e; }
 
 /* ── Finance + AI Spotlight ───────────────────────────────── */
 .about-spotlight {
@@ -569,6 +571,7 @@
 .about-module-tab--rose.about-module-tab--active    { background: #fff1f2; border-color: #fda4af; color: #9f1239; }
 .about-module-tab--cyan.about-module-tab--active    { background: #ecfeff; border-color: #67e8f9; color: #164e63; }
 .about-module-tab--orange.about-module-tab--active  { background: #fff7ed; border-color: #fdba74; color: #9a3412; }
+.about-module-tab--teal.about-module-tab--active    { background: #f0fdfa; border-color: #5eead4; color: #0f766e; }
 .about-module-tab--indigo.about-module-tab--active  { background: #eef2ff; border-color: #a5b4fc; color: #3730a3; }
 
 .about-module-tab-icon {
@@ -599,6 +602,7 @@
 .about-module-detail--rose    { border-color: #fecdd3; }
 .about-module-detail--cyan    { border-color: #a5f3fc; }
 .about-module-detail--orange  { border-color: #fed7aa; }
+.about-module-detail--teal    { border-color: #99f6e4; }
 .about-module-detail--indigo  { border-color: #c7d2fe; }
 
 .about-module-detail-header {
@@ -625,6 +629,7 @@
 .about-module-icon-bg--rose    { background: #fff1f2; color: #e11d48; }
 .about-module-icon-bg--cyan    { background: #ecfeff; color: #0891b2; }
 .about-module-icon-bg--orange  { background: #fff7ed; color: #ea580c; }
+.about-module-icon-bg--teal    { background: #f0fdfa; color: #0d9488; }
 .about-module-icon-bg--indigo  { background: #eef2ff; color: #4f46e5; }
 
 .about-module-detail-title {
@@ -676,6 +681,7 @@
 .about-feature-icon--rose    { color: #e11d48; }
 .about-feature-icon--cyan    { color: #0891b2; }
 .about-feature-icon--orange  { color: #ea580c; }
+.about-feature-icon--teal    { color: #0d9488; }
 .about-feature-icon--indigo  { color: #4f46e5; }
 
 /* ── Why / Differentiators ────────────────────────────────── */
