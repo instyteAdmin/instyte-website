@@ -985,15 +985,18 @@
 
 .about-pricing-addon {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.6rem;
-    padding: 0.55rem 0.875rem;
+    padding: 0.75rem 0.875rem;
     border-radius: 10px;
     border: 1px solid;
     font-size: 0.875rem;
 }
-.about-pricing-addon span { flex: 1; font-weight: 500; color: #334155; }
-.about-pricing-addon strong { font-weight: 700; font-size: 0.875rem; white-space: nowrap; }
+.about-pricing-addon > svg { flex-shrink: 0; margin-top: 2px; }
+.about-pricing-addon > div { flex: 1; display: flex; flex-direction: column; gap: 0.1rem; }
+.about-pricing-addon span  { font-weight: 600; color: #0f172a; }
+.about-pricing-addon small { font-size: 0.75rem; font-weight: 400; color: #64748b; }
+.about-pricing-addon strong { font-weight: 700; font-size: 0.9rem; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
 .about-pricing-addon strong small { font-size: 0.72rem; font-weight: 500; }
 
 .about-pricing-addon--emerald { background: #f0fdf4; border-color: #bbf7d0; color: #059669; }
@@ -1011,6 +1014,48 @@
     font-style: italic;
     margin: 0;
 }
+
+/* pricing math breakdown */
+.about-pricing-hero-math {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-pricing-math-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #374151;
+}
+.about-pricing-math-row span { display: flex; align-items: center; gap: 0.35rem; }
+.about-pricing-math-row strong { font-weight: 700; color: #0f172a; }
+
+.about-pricing-math-row--opt {
+    color: #64748b;
+    font-size: 0.825rem;
+}
+.about-pricing-math-row--opt strong { color: #64748b; font-weight: 600; }
+.about-pricing-math-row--opt em { font-style: italic; font-size: 0.78rem; color: #94a3b8; }
+
+.about-pricing-math-divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 0.25rem 0;
+}
+
+.about-pricing-math-row--total {
+    font-weight: 700;
+    color: #059669;
+    font-size: 0.9rem;
+}
+.about-pricing-math-row--total strong { color: #059669; font-size: 1rem; }
 
 /* module pill grid */
 .about-pricing-module-grid {
@@ -1225,11 +1270,38 @@
 .about-breakdown-addon-price--amber   { color: #d97706 !important; }
 .about-breakdown-addon-price--indigo  { color: #4f46e5 !important; }
 
-.about-breakdown-tnc {
-    font-size: 0.72rem;
-    color: #94a3b8;
-    margin: 1rem 0 0;
+.about-breakdown-addon-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.about-breakdown-addon-note {
+    font-size: 0.73rem !important;
+    color: #94a3b8 !important;
+    font-weight: 400 !important;
+    line-height: 1.4;
+    margin-top: 0.15rem;
+}
+
+.about-breakdown-addon-footer {
+    font-size: 0.8rem;
+    color: #059669;
+    font-weight: 600;
+    margin: 0.875rem 0 0;
+    padding: 0.625rem 0.875rem;
+    background: #ecfdf5;
+    border-radius: 8px;
+    border: 1px solid #a7f3d0;
+}
+
+.about-breakdown-tier-tagline {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.4rem;
     font-style: italic;
+    line-height: 1.5;
 }
 
 @media (max-width: 900px) {
