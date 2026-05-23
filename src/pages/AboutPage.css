@@ -931,7 +931,316 @@
 
 .about-pricing-tnc { margin: 8px 0 0; font-size: 10px; color: #94a3b8; text-align: center; letter-spacing: 0.02em; }
 
-/* ── Why this price ───────────────────────────────────────────── */
+/* ── Pricing Hero (modular pitch) ────────────────────────────── */
+.about-pricing-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+    border: 1px solid #d1fae5;
+    border-radius: 20px;
+    padding: 2.25rem 2.5rem;
+    margin-top: 0.5rem;
+    align-items: start;
+}
+
+.about-pricing-hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #059669;
+    background: #d1fae5;
+    border: 1px solid #6ee7b7;
+    padding: 0.2rem 0.7rem;
+    border-radius: 100px;
+    margin-bottom: 0.875rem;
+}
+
+.about-pricing-hero-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.35;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+}
+
+.about-pricing-hero-body {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.7;
+    margin: 0 0 1.25rem;
+}
+
+.about-pricing-hero-addons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-pricing-addon {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.875rem;
+    border-radius: 10px;
+    border: 1px solid;
+    font-size: 0.875rem;
+}
+.about-pricing-addon span { flex: 1; font-weight: 500; color: #334155; }
+.about-pricing-addon strong { font-weight: 700; font-size: 0.875rem; white-space: nowrap; }
+.about-pricing-addon strong small { font-size: 0.72rem; font-weight: 500; }
+
+.about-pricing-addon--emerald { background: #f0fdf4; border-color: #bbf7d0; color: #059669; }
+.about-pricing-addon--emerald strong { color: #065f46; }
+.about-pricing-addon--amber   { background: #fffbeb; border-color: #fde68a; color: #d97706; }
+.about-pricing-addon--amber strong   { color: #92400e; }
+.about-pricing-addon--indigo  { background: #eef2ff; border-color: #c7d2fe; color: #4f46e5; }
+.about-pricing-addon--indigo strong  { color: #3730a3; }
+.about-pricing-addon--violet  { background: #f5f3ff; border-color: #ddd6fe; color: #7c3aed; }
+.about-pricing-addon--violet strong  { color: #5b21b6; }
+
+.about-pricing-hero-note {
+    font-size: 0.78rem;
+    color: #64748b;
+    font-style: italic;
+    margin: 0;
+}
+
+/* module pill grid */
+.about-pricing-module-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-pricing-module-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    border: 1px solid;
+    font-size: 0.845rem;
+    font-weight: 500;
+}
+
+.about-pricing-module-pill--in {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.about-pricing-module-pill--addon {
+    background: #fafafa;
+    border-color: #e2e8f0;
+    border-style: dashed;
+    color: #64748b;
+}
+
+.about-pricing-module-pill-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.about-pricing-pill-tag {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+.about-pricing-pill-tag--in    { background: #dcfce7; color: #166534; }
+.about-pricing-pill-tag--addon { background: #f1f5f9; color: #64748b; }
+
+.about-pricing-module-caption {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-align: center;
+    margin: 0.75rem 0 0;
+    font-style: italic;
+}
+
+/* ── Pricing Breakdown (expandable) ─────────────────────────── */
+.about-pricing-breakdown {
+    margin-top: 2rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.about-pricing-breakdown-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #0f172a;
+    transition: background 0.15s;
+}
+.about-pricing-breakdown-toggle:hover { background: #f1f5f9; }
+.about-pricing-breakdown-toggle > span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.about-pricing-breakdown-toggle svg:first-child { color: #059669; }
+
+.about-breakdown-chevron {
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
+    flex-shrink: 0;
+}
+.about-breakdown-chevron--open { transform: rotate(90deg); }
+
+.about-pricing-breakdown-body {
+    padding: 1.75rem;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.about-pricing-breakdown-intro {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.7;
+    margin: 0 0 1.75rem;
+    max-width: 760px;
+}
+
+.about-pricing-breakdown-tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.about-breakdown-tier {
+    border-radius: 14px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+}
+.about-breakdown-tier--emerald { border-color: #a7f3d0; background: #f0fdf4; }
+.about-breakdown-tier--blue    { border-color: #bfdbfe; background: #eff6ff; }
+.about-breakdown-tier--violet  { border-color: #ddd6fe; background: #f5f3ff; }
+
+.about-breakdown-tier-header { margin-bottom: 1.25rem; }
+
+.about-breakdown-tier-name {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.about-breakdown-tier-price {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.025em;
+    line-height: 1;
+}
+.about-breakdown-tier-price span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.about-breakdown-tier-students {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.3rem;
+}
+
+.about-breakdown-section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #059669;
+    margin-bottom: 0.625rem;
+}
+.about-breakdown-section-label--addon {
+    color: #94a3b8;
+    margin-top: 1rem;
+}
+
+.about-breakdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-breakdown-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+}
+
+.about-breakdown-check { color: #059669; flex-shrink: 0; margin-top: 1px; }
+
+.about-breakdown-list li div { display: flex; flex-direction: column; gap: 0.1rem; }
+.about-breakdown-list li strong { font-weight: 600; color: #0f172a; font-size: 0.82rem; }
+.about-breakdown-list li span   { font-size: 0.75rem; color: #64748b; }
+
+.about-breakdown-list--addon li { gap: 0.6rem; }
+
+.about-breakdown-addon-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.about-breakdown-addon-price {
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+}
+.about-breakdown-addon-price--emerald { color: #059669 !important; }
+.about-breakdown-addon-price--amber   { color: #d97706 !important; }
+.about-breakdown-addon-price--indigo  { color: #4f46e5 !important; }
+
+.about-breakdown-tnc {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    margin: 1rem 0 0;
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .about-pricing-hero { grid-template-columns: 1fr; }
+    .about-pricing-breakdown-tiers { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .about-pricing-hero { padding: 1.5rem; }
+    .about-pricing-breakdown-body { padding: 1.25rem; }
+}
 .about-pricing-why {
     margin-top: 3.5rem;
     background: #f8fafc;

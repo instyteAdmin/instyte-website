@@ -317,6 +317,136 @@ const PRICING_PLANS = [
     },
 ];
 
+// ─── Pricing breakdown (expandable) ──────────────────────────────────────────
+
+function PricingBreakdown() {
+    const [open, setOpen] = useState(false);
+
+    const BREAKDOWN = [
+        {
+            tier: 'Starter',
+            price: '₹6,999',
+            color: 'emerald',
+            students: 'Up to 100 active students',
+            included: [
+                { Icon: GraduationCap, label: 'Student Management',  note: 'Full profiles, portals, TC, bulk enrolment' },
+                { Icon: BookOpen,      label: 'Academics',           note: 'Programs, timetable, exams, results'        },
+                { Icon: School,        label: 'Classroom & Circles', note: 'Learning circles, live sessions, materials'  },
+                { Icon: CalendarDays,  label: 'Events & Scheduling', note: 'Public registration, QR check-in, feedback'  },
+                { Icon: Ticket,        label: 'Support Tickets',     note: 'Helpdesk for students, parents & staff'     },
+            ],
+            addons: [
+                { Icon: Target,       label: 'Lead Management', price: '+ ₹2,199/mo', color: 'emerald' },
+                { Icon: DollarSign,   label: 'Finance & Fees',  price: '+ ₹2,599/mo', color: 'amber'   },
+                { Icon: BrainCircuit, label: 'AI Assistant',    price: '+ ₹1,999/mo', color: 'indigo'  },
+            ],
+        },
+        {
+            tier: 'Growth',
+            price: '₹12,999',
+            color: 'blue',
+            students: 'Up to 500 active students',
+            included: [
+                { Icon: GraduationCap, label: 'Student Management',  note: 'Everything in Starter'                   },
+                { Icon: BookOpen,      label: 'Academics',           note: 'Multi-branch academic config'             },
+                { Icon: School,        label: 'Classroom & Circles', note: 'Expanded capacity & analytics'            },
+                { Icon: CalendarDays,  label: 'Events & Scheduling', note: 'Multi-event, capacity reporting'          },
+                { Icon: Ticket,        label: 'Support Tickets',     note: 'SLA timers, priority escalation'          },
+                { Icon: Target,        label: 'Lead Management',     note: 'Full CRM, AI scoring, bulk import'        },
+                { Icon: DollarSign,    label: 'Finance & Fees',      note: 'Full fee lifecycle, branch dashboards'    },
+                { Icon: BrainCircuit,  label: 'AI Assistant',        note: 'Conversational AI + external integrations' },
+            ],
+            addons: [],
+        },
+        {
+            tier: 'Enterprise',
+            price: 'Custom',
+            color: 'violet',
+            students: 'Unlimited students',
+            included: [
+                { Icon: GraduationCap, label: 'Everything in Growth',       note: 'All modules, unlimited scale'          },
+                { Icon: KeyRound,      label: 'Custom integrations & APIs', note: 'Connect to any third-party system'     },
+                { Icon: ShieldCheck,   label: 'SLA-backed uptime',          note: 'Contractual uptime guarantee'          },
+                { Icon: BrainCircuit,  label: 'Custom ML model training',   note: 'Models trained on your institution\'s data' },
+                { Icon: Building2,     label: 'White-labelling',            note: 'Your brand, your domain'               },
+                { Icon: Users,         label: 'Dedicated account manager',  note: 'Direct line to your onboarding team'   },
+            ],
+            addons: [],
+        },
+    ];
+
+    return (
+        <div className="about-pricing-breakdown" data-animate="fade-up">
+            <button className="about-pricing-breakdown-toggle" onClick={() => setOpen(o => !o)}>
+                <span>
+                    <FileText size={15} />
+                    See full module-by-module pricing breakdown
+                </span>
+                <ChevronRight size={16} className={`about-breakdown-chevron ${open ? 'about-breakdown-chevron--open' : ''}`} />
+            </button>
+
+            {open && (
+                <div className="about-pricing-breakdown-body">
+                    <p className="about-pricing-breakdown-intro">
+                        Every plan includes a core set of modules. Premium modules (Lead Management, Finance & Fees, AI Assistant)
+                        are optional add-ons on Starter — and fully included in Growth. All prices are negotiable — reach out if
+                        your institution has specific needs.
+                    </p>
+                    <div className="about-pricing-breakdown-tiers">
+                        {BREAKDOWN.map(tier => (
+                            <div key={tier.tier} className={`about-breakdown-tier about-breakdown-tier--${tier.color}`}>
+                                <div className="about-breakdown-tier-header">
+                                    <div>
+                                        <div className="about-breakdown-tier-name">{tier.tier}</div>
+                                        <div className="about-breakdown-tier-price">
+                                            {tier.price}
+                                            {tier.price !== 'Custom' && <span>/month</span>}
+                                        </div>
+                                        <div className="about-breakdown-tier-students">{tier.students}</div>
+                                    </div>
+                                </div>
+                                <div className="about-breakdown-section-label">Included modules</div>
+                                <ul className="about-breakdown-list">
+                                    {tier.included.map(({ Icon: MI, label, note }) => (
+                                        <li key={label}>
+                                            <Check size={13} className="about-breakdown-check" />
+                                            <div>
+                                                <strong>{label}</strong>
+                                                <span>{note}</span>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                                {tier.addons.length > 0 && (
+                                    <>
+                                        <div className="about-breakdown-section-label about-breakdown-section-label--addon">Optional add-ons</div>
+                                        <ul className="about-breakdown-list about-breakdown-list--addon">
+                                            {tier.addons.map(({ Icon: MI, label, price, color }) => (
+                                                <li key={label}>
+                                                    <div className={`about-icon-bg--${color} about-breakdown-addon-icon`}>
+                                                        <MI size={12} />
+                                                    </div>
+                                                    <div>
+                                                        <strong>{label}</strong>
+                                                        <span className={`about-breakdown-addon-price about-breakdown-addon-price--${color}`}>{price}</span>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </>
+                                )}
+                                {tier.price !== 'Custom' && (
+                                    <p className="about-breakdown-tnc">*T&amp;C apply · Prices negotiable</p>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function AboutPage() {
@@ -753,12 +883,81 @@ export default function AboutPage() {
                     <div className="about-section-label" data-animate="fade-up">
                         <CreditCard size={13} /> Pricing
                     </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">Transparent, education-friendly pricing</h2>
+                    <h2 className="about-section-heading" data-animate="fade-up">
+                        The first EdTech platform that lets you pay for only what you use
+                    </h2>
                     <p className="about-section-sub" data-animate="fade-up">
-                        No per-seat chaos. Simple plans based on student count — switch or cancel any time.
+                        Every other platform forces you into a full bundle — you pay for modules you'll never touch.
+                        Instyte is different. Start with what you need. Add modules as you grow. Pay nothing for what you don't use.
+                        <strong> Nobody else in this market does this.</strong>
                     </p>
 
-                    <div className="about-pricing-grid">
+                    {/* Hero modular message */}
+                    <div className="about-pricing-hero" data-animate="fade-up">
+                        <div className="about-pricing-hero-left">
+                            <div className="about-pricing-hero-tag">Industry first</div>
+                            <h3 className="about-pricing-hero-title">Build your own plan. Pay only for modules you activate.</h3>
+                            <p className="about-pricing-hero-body">
+                                Don't need Lead Management? Don't pay for it. Only want Finance and Student Management?
+                                That's all you pay for. You're in control — and if your needs grow, just add a module.
+                                No renegotiating contracts. No calling sales.
+                            </p>
+                            <div className="about-pricing-hero-addons">
+                                <div className="about-pricing-addon about-pricing-addon--emerald">
+                                    <Target size={14} />
+                                    <span>Lead Management</span>
+                                    <strong>from ₹2,199<small>/mo</small></strong>
+                                </div>
+                                <div className="about-pricing-addon about-pricing-addon--amber">
+                                    <DollarSign size={14} />
+                                    <span>Finance & Fees</span>
+                                    <strong>from ₹2,599<small>/mo</small></strong>
+                                </div>
+                                <div className="about-pricing-addon about-pricing-addon--indigo">
+                                    <BrainCircuit size={14} />
+                                    <span>AI Assistant</span>
+                                    <strong>from ₹1,999<small>/mo</small></strong>
+                                </div>
+                                <div className="about-pricing-addon about-pricing-addon--violet">
+                                    <BookOpen size={14} />
+                                    <span>Academics</span>
+                                    <strong>from ₹1,499<small>/mo</small></strong>
+                                </div>
+                            </div>
+                            <p className="about-pricing-hero-note">
+                                * All prices negotiable. If a plan feels high for your institution's size, just ask — we'll work something out.
+                            </p>
+                        </div>
+                        <div className="about-pricing-hero-right">
+                            <div className="about-pricing-module-grid">
+                                {[
+                                    { label: 'Student Management',   included: true,  Icon: GraduationCap, color: 'blue'    },
+                                    { label: 'Academics',            included: true,  Icon: BookOpen,      color: 'violet'  },
+                                    { label: 'Classroom & Circles',  included: true,  Icon: School,        color: 'cyan'    },
+                                    { label: 'Events & Scheduling',  included: true,  Icon: CalendarDays,  color: 'rose'    },
+                                    { label: 'Support Tickets',      included: true,  Icon: Ticket,        color: 'orange'  },
+                                    { label: 'Lead Management',      included: false, Icon: Target,        color: 'emerald' },
+                                    { label: 'Finance & Fees',       included: false, Icon: DollarSign,    color: 'amber'   },
+                                    { label: 'AI Assistant',         included: false, Icon: BrainCircuit,  color: 'indigo'  },
+                                ].map(({ label, included, Icon: MI, color }) => (
+                                    <div key={label} className={`about-pricing-module-pill ${included ? 'about-pricing-module-pill--in' : 'about-pricing-module-pill--addon'}`}>
+                                        <div className={`about-pricing-module-pill-icon about-icon-bg--${color}`}>
+                                            <MI size={13} />
+                                        </div>
+                                        <span>{label}</span>
+                                        {included
+                                            ? <span className="about-pricing-pill-tag about-pricing-pill-tag--in">Included</span>
+                                            : <span className="about-pricing-pill-tag about-pricing-pill-tag--addon">Add-on</span>
+                                        }
+                                    </div>
+                                ))}
+                            </div>
+                            <p className="about-pricing-module-caption">Starter plan — 5 modules included, 3 optional add-ons</p>
+                        </div>
+                    </div>
+
+                    {/* Plans grid */}
+                    <div className="about-pricing-grid" style={{ marginTop: '3rem' }}>
                         {PRICING_PLANS.map((plan, i) => (
                             <div key={plan.name}
                                 className={`about-pricing-card ${plan.highlighted ? 'about-pricing-card--highlighted' : ''} about-pricing-card--${plan.color}`}
@@ -788,13 +987,16 @@ export default function AboutPage() {
                                     {plan.cta} <ArrowRight size={14} />
                                 </button>
                                 {plan.price !== 'Custom' && (
-                                    <p className="about-pricing-tnc">*T&amp;C apply</p>
+                                    <p className="about-pricing-tnc">*T&amp;C apply · Prices negotiable</p>
                                 )}
                             </div>
                         ))}
                     </div>
 
-                    {/* ── Why this price ── */}
+                    {/* Expandable full breakdown */}
+                    <PricingBreakdown />
+
+                    {/* Why this price */}
                     <div className="about-pricing-why" data-animate="fade-up">
                         <h3 className="about-pricing-why-heading">
                             <DollarSign size={16} /> Why does Instyte cost what it costs?
@@ -815,7 +1017,7 @@ export default function AboutPage() {
                                 <span className="about-pricing-why-dot about-pricing-why-dot--indigo" />
                                 <div>
                                     <strong>AI & ML compute</strong>
-                                    <p>Every lead is scored by a real ML model the moment it arrives. The AI assistant runs on a dedicated gRPC microservice. This isn't a dashboard with a chatbot label — it's real inference, running continuously.</p>
+                                    <p>Every lead is scored by a real ML model the moment it arrives. The AI assistant runs on a dedicated gRPC microservice. This isn't a chatbot label — it's real inference, running continuously.</p>
                                 </div>
                             </div>
                             <div className="about-pricing-why-item">
@@ -835,21 +1037,21 @@ export default function AboutPage() {
                         </div>
                     </div>
 
-                    {/* ── Competitor price comparison ── */}
+                    {/* Competitor comparison */}
                     <div className="about-pricing-cmp" data-animate="fade-up">
                         <h3 className="about-pricing-cmp-heading">How does our pricing compare?</h3>
                         <p className="about-pricing-cmp-sub">
-                            Most education management tools charge more — and deliver less. Here's the honest picture.
+                            Most education management tools charge more, deliver less — and bundle everything whether you want it or not.
                         </p>
                         <div className="about-pricing-cmp-grid">
                             <div className="about-pricing-cmp-card about-pricing-cmp-card--them">
                                 <div className="about-pricing-cmp-label">Typical EdTech CRM</div>
                                 <div className="about-pricing-cmp-price">₹8,000–₹15,000<span>/month</span></div>
                                 <ul>
+                                    <li><X size={13} className="cmp-x" /> Fixed bundle — pay for everything or nothing</li>
                                     <li><X size={13} className="cmp-x" /> Admissions only — no finance module</li>
                                     <li><X size={13} className="cmp-x" /> No AI features</li>
                                     <li><X size={13} className="cmp-x" /> Admin login only — no student/parent portal</li>
-                                    <li><X size={13} className="cmp-x" /> Per-branch add-on charges</li>
                                     <li><X size={13} className="cmp-x" /> Annual contract required</li>
                                 </ul>
                             </div>
@@ -857,27 +1059,27 @@ export default function AboutPage() {
                                 <div className="about-pricing-cmp-label">Generic School ERP</div>
                                 <div className="about-pricing-cmp-price">₹10,000–₹25,000<span>/month</span></div>
                                 <ul>
-                                    <li><X size={13} className="cmp-x" /> Heavyweight — 3–6 month onboarding</li>
+                                    <li><X size={13} className="cmp-x" /> All-or-nothing pricing, no flexibility</li>
+                                    <li><X size={13} className="cmp-x" /> 3–6 month onboarding before you go live</li>
                                     <li><X size={13} className="cmp-x" /> No lead CRM or AI</li>
                                     <li><X size={13} className="cmp-x" /> Outdated mobile experience</li>
-                                    <li><X size={13} className="cmp-x" /> Expensive customisation</li>
-                                    <li><X size={13} className="cmp-x" /> Tied to legacy infrastructure</li>
+                                    <li><X size={13} className="cmp-x" /> Expensive per-module customisation</li>
                                 </ul>
                             </div>
                             <div className="about-pricing-cmp-card about-pricing-cmp-card--us">
                                 <div className="about-pricing-cmp-badge"><Star size={11} /> Instyte</div>
                                 <div className="about-pricing-cmp-price">₹6,999–₹12,999<span>/month</span></div>
                                 <ul>
-                                    <li><Check size={13} className="cmp-check" /> Full finance + fee lifecycle built in</li>
+                                    <li><Check size={13} className="cmp-check" /> Pay only for modules you actually use</li>
+                                    <li><Check size={13} className="cmp-check" /> Full finance + fee lifecycle available as add-on</li>
                                     <li><Check size={13} className="cmp-check" /> AI lead scoring + conversational assistant</li>
                                     <li><Check size={13} className="cmp-check" /> Portal for every role — admin to parent</li>
-                                    <li><Check size={13} className="cmp-check" /> Multi-branch, no add-on charges</li>
-                                    <li><Check size={13} className="cmp-check" /> Month-to-month, cancel any time</li>
+                                    <li><Check size={13} className="cmp-check" /> Month-to-month · Prices negotiable</li>
                                 </ul>
                             </div>
                         </div>
                         <p className="about-pricing-cmp-note">
-                            * Competitor pricing based on publicly available information and market research. All prices approximate and subject to change.
+                            * Competitor pricing based on publicly available market research. All prices approximate and subject to change.
                         </p>
                     </div>
                 </div>
