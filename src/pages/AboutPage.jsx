@@ -262,12 +262,12 @@ function CmpCell({ val }) {
 const PRICING_PLANS = [
     {
         name: 'Starter',
-        price: '₹4,999',
+        price: '₹6,999',
         period: '/month',
         color: 'emerald',
         description: 'Perfect for single-branch coaching centres just getting started.',
         features: [
-            'Up to 500 active students',
+            'Up to 100 active students',
             'Lead CRM & admissions',
             'Basic fee management',
             'Student & teacher portal',
@@ -279,12 +279,12 @@ const PRICING_PLANS = [
     },
     {
         name: 'Growth',
-        price: '₹9,999',
+        price: '₹12,999',
         period: '/month',
         color: 'blue',
         description: 'For growing institutions with multiple branches and advanced needs.',
         features: [
-            'Up to 3,000 active students',
+            'Up to 500 active students',
             'Everything in Starter',
             'Multi-branch management',
             'AI lead scoring & insights',
@@ -792,6 +792,93 @@ export default function AboutPage() {
                                 )}
                             </div>
                         ))}
+                    </div>
+
+                    {/* ── Why this price ── */}
+                    <div className="about-pricing-why" data-animate="fade-up">
+                        <h3 className="about-pricing-why-heading">
+                            <DollarSign size={16} /> Why does Instyte cost what it costs?
+                        </h3>
+                        <p className="about-pricing-why-body">
+                            Running a serious SaaS platform for education isn't cheap — and we'd rather be honest about it
+                            than hide costs in per-seat charges or annual lock-ins. Here's what your subscription actually pays for:
+                        </p>
+                        <div className="about-pricing-why-grid">
+                            <div className="about-pricing-why-item">
+                                <span className="about-pricing-why-dot about-pricing-why-dot--emerald" />
+                                <div>
+                                    <strong>Cloud infrastructure</strong>
+                                    <p>Dedicated database schema per tenant on AWS RDS, S3 for document storage, CloudFront CDN, and auto-scaling compute — your data never shares space with another institution.</p>
+                                </div>
+                            </div>
+                            <div className="about-pricing-why-item">
+                                <span className="about-pricing-why-dot about-pricing-why-dot--indigo" />
+                                <div>
+                                    <strong>AI & ML compute</strong>
+                                    <p>Every lead is scored by a real ML model the moment it arrives. The AI assistant runs on a dedicated gRPC microservice. This isn't a dashboard with a chatbot label — it's real inference, running continuously.</p>
+                                </div>
+                            </div>
+                            <div className="about-pricing-why-item">
+                                <span className="about-pricing-why-dot about-pricing-why-dot--amber" />
+                                <div>
+                                    <strong>WhatsApp & communication APIs</strong>
+                                    <p>Automated fee reminders, admission confirmations, and event notifications go through paid messaging APIs — every message has a real cost that we absorb into your plan.</p>
+                                </div>
+                            </div>
+                            <div className="about-pricing-why-item">
+                                <span className="about-pricing-why-dot about-pricing-why-dot--blue" />
+                                <div>
+                                    <strong>Product & support team</strong>
+                                    <p>Instyte is actively developed — new modules ship regularly. Your subscription funds continued development, onboarding support, and the team that answers your questions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* ── Competitor price comparison ── */}
+                    <div className="about-pricing-cmp" data-animate="fade-up">
+                        <h3 className="about-pricing-cmp-heading">How does our pricing compare?</h3>
+                        <p className="about-pricing-cmp-sub">
+                            Most education management tools charge more — and deliver less. Here's the honest picture.
+                        </p>
+                        <div className="about-pricing-cmp-grid">
+                            <div className="about-pricing-cmp-card about-pricing-cmp-card--them">
+                                <div className="about-pricing-cmp-label">Typical EdTech CRM</div>
+                                <div className="about-pricing-cmp-price">₹8,000–₹15,000<span>/month</span></div>
+                                <ul>
+                                    <li><X size={13} className="cmp-x" /> Admissions only — no finance module</li>
+                                    <li><X size={13} className="cmp-x" /> No AI features</li>
+                                    <li><X size={13} className="cmp-x" /> Admin login only — no student/parent portal</li>
+                                    <li><X size={13} className="cmp-x" /> Per-branch add-on charges</li>
+                                    <li><X size={13} className="cmp-x" /> Annual contract required</li>
+                                </ul>
+                            </div>
+                            <div className="about-pricing-cmp-card about-pricing-cmp-card--them">
+                                <div className="about-pricing-cmp-label">Generic School ERP</div>
+                                <div className="about-pricing-cmp-price">₹10,000–₹25,000<span>/month</span></div>
+                                <ul>
+                                    <li><X size={13} className="cmp-x" /> Heavyweight — 3–6 month onboarding</li>
+                                    <li><X size={13} className="cmp-x" /> No lead CRM or AI</li>
+                                    <li><X size={13} className="cmp-x" /> Outdated mobile experience</li>
+                                    <li><X size={13} className="cmp-x" /> Expensive customisation</li>
+                                    <li><X size={13} className="cmp-x" /> Tied to legacy infrastructure</li>
+                                </ul>
+                            </div>
+                            <div className="about-pricing-cmp-card about-pricing-cmp-card--us">
+                                <div className="about-pricing-cmp-badge"><Star size={11} /> Instyte</div>
+                                <div className="about-pricing-cmp-price">₹6,999–₹12,999<span>/month</span></div>
+                                <ul>
+                                    <li><Check size={13} className="cmp-check" /> Full finance + fee lifecycle built in</li>
+                                    <li><Check size={13} className="cmp-check" /> AI lead scoring + conversational assistant</li>
+                                    <li><Check size={13} className="cmp-check" /> Portal for every role — admin to parent</li>
+                                    <li><Check size={13} className="cmp-check" /> Multi-branch, no add-on charges</li>
+                                    <li><Check size={13} className="cmp-check" /> Month-to-month, cancel any time</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p className="about-pricing-cmp-note">
+                            * Competitor pricing based on publicly available information and market research. All prices approximate and subject to change.
+                        </p>
                     </div>
                 </div>
             </section>

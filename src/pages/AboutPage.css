@@ -931,6 +931,188 @@
 
 .about-pricing-tnc { margin: 8px 0 0; font-size: 10px; color: #94a3b8; text-align: center; letter-spacing: 0.02em; }
 
+/* ── Why this price ───────────────────────────────────────────── */
+.about-pricing-why {
+    margin-top: 3.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2rem 2.25rem;
+}
+
+.about-pricing-why-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+}
+.about-pricing-why-heading svg { color: #059669; flex-shrink: 0; }
+
+.about-pricing-why-body {
+    font-size: 0.9375rem;
+    color: #475569;
+    line-height: 1.7;
+    margin: 0 0 1.75rem;
+    max-width: 760px;
+}
+
+.about-pricing-why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 2rem;
+}
+
+.about-pricing-why-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.about-pricing-why-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+.about-pricing-why-dot--emerald { background: #10b981; }
+.about-pricing-why-dot--indigo  { background: #6366f1; }
+.about-pricing-why-dot--amber   { background: #f59e0b; }
+.about-pricing-why-dot--blue    { background: #3b82f6; }
+
+.about-pricing-why-item strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+}
+
+.about-pricing-why-item p {
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ── Competitor price comparison ──────────────────────────────── */
+.about-pricing-cmp {
+    margin-top: 3rem;
+}
+
+.about-pricing-cmp-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+}
+
+.about-pricing-cmp-sub {
+    font-size: 0.9375rem;
+    color: #475569;
+    margin: 0 0 1.5rem;
+}
+
+.about-pricing-cmp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.about-pricing-cmp-card {
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.about-pricing-cmp-card--them {
+    background: #f8fafc;
+}
+
+.about-pricing-cmp-card--us {
+    background: #ecfdf5;
+    border-color: #6ee7b7;
+    position: relative;
+}
+
+.about-pricing-cmp-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+.about-pricing-cmp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #065f46;
+    background: #d1fae5;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    margin-bottom: 0.5rem;
+}
+
+.about-pricing-cmp-price {
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+}
+.about-pricing-cmp-price span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.about-pricing-cmp-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-pricing-cmp-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.45rem;
+    font-size: 0.8375rem;
+    color: #475569;
+    line-height: 1.45;
+}
+
+.cmp-check { color: #059669; flex-shrink: 0; margin-top: 1px; }
+.cmp-x     { color: #f43f5e; flex-shrink: 0; margin-top: 1px; }
+
+.about-pricing-cmp-note {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    margin: 1.25rem 0 0;
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .about-pricing-cmp-grid { grid-template-columns: 1fr; }
+    .about-pricing-why-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .about-pricing-why { padding: 1.5rem; }
+}
+
 /* ── CTA Banner ───────────────────────────────────────────── */
 .about-cta-banner {
     background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #1e3a5f 100%);
