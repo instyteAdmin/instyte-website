@@ -550,10 +550,6 @@ function PricingCalculator({ onSelectPlan }) {
                             <button className="about-btn-primary" onClick={handleContact}>
                                 Get this plan <ArrowRight size={15} />
                             </button>
-                            <p className="calc-summary-note">
-                                Clicking "Get this plan" pre-fills your selected plan into the contact form below.
-                                All prices are negotiable — just reach out.
-                            </p>
                         </div>
                     </div>
                 </div>
