@@ -423,7 +423,6 @@ function PricingCalculator({ onSelectPlan }) {
     // For fewer addons, scale the discount proportionally: 2=15%, 3=25%, 4=exact bundle saving
     const allAddonTotal = PAID_ADDONS.reduce((s, a) => s + a.price, 0); // 9396
     const maxSaving = base.price + allAddonTotal - base.bundleTarget;    // exact bundle saving
-    const maxSavingPct = maxSaving / allAddonTotal;                       // e.g. 3396/9396 ≈ 36.14%
 
     let discountAmt = 0;
     if (addons.length === 4) {
