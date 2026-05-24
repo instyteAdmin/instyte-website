@@ -1633,6 +1633,26 @@
     padding: 1.75rem 2rem;
     background: linear-gradient(135deg, #0f172a, #1e293b);
     color: #fff;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: opacity 0.15s;
+}
+
+.calc-header:hover { opacity: 0.95; }
+
+.calc-header-text { flex: 1; }
+
+.calc-header-chevron {
+    color: rgba(255,255,255,0.5);
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: transform 0.2s;
+}
+
+.calc-header-chevron--open {
+    transform: rotate(90deg);
 }
 
 .calc-header-icon {

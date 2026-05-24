@@ -400,10 +400,11 @@ const PRICING_PLANS = [
 function PricingCalculator({ onSelectPlan }) {
     const [basePlan, setBasePlan] = useState('foundation');
     const [selectedAddons, setSelectedAddons] = useState(new Set());
+    const [open, setOpen] = useState(false);
 
     const BASE_PLANS = [
-        { id: 'foundation', name: 'Foundation', price: 6999, users: '100 users',  color: 'emerald' },
-        { id: 'momentum',   name: 'Momentum',   price: 8999, users: '500 users',  color: 'blue'    },
+        { id: 'foundation', name: 'Foundation', price: 6999, users: '100 users',  color: 'emerald', bundleTarget: 12999 },
+        { id: 'momentum',   name: 'Momentum',   price: 8999, users: '500 users',  color: 'blue',    bundleTarget: 14999 },
     ];
 
     const toggleAddon = (id) => {
@@ -418,10 +419,23 @@ function PricingCalculator({ onSelectPlan }) {
     const addons = PAID_ADDONS.filter(a => selectedAddons.has(a.id));
     const addonTotal = addons.reduce((s, a) => s + a.price, 0);
 
-    // Tiered discount on add-ons: 1=0%, 2=15%, 3=25%, 4=36%
-    // 4-addon rate derived from: Foundation(6999) + all addons(9396) at bundle = 12999 → saving 3396 → 3396/9396 ≈ 36%
-    const discountPct = addons.length >= 4 ? 36 : addons.length === 3 ? 25 : addons.length === 2 ? 15 : 0;
-    const discountAmt = discountPct > 0 ? Math.round(addonTotal * discountPct / 100) : 0;
+    // When all 4 addons selected, discount is exactly (base + addonTotal - bundleTarget)
+    // For fewer addons, scale the discount proportionally: 2=15%, 3=25%, 4=exact bundle saving
+    const allAddonTotal = PAID_ADDONS.reduce((s, a) => s + a.price, 0); // 9396
+    const maxSaving = base.price + allAddonTotal - base.bundleTarget;    // exact bundle saving
+    const maxSavingPct = maxSaving / allAddonTotal;                       // e.g. 3396/9396 ≈ 36.14%
+
+    let discountAmt = 0;
+    if (addons.length === 4) {
+        discountAmt = maxSaving; // exact — guaranteed to hit bundleTarget
+    } else if (addons.length === 3) {
+        discountAmt = Math.round(addonTotal * 0.25);
+    } else if (addons.length === 2) {
+        discountAmt = Math.round(addonTotal * 0.15);
+    }
+    const discountPct = addonTotal > 0 && discountAmt > 0
+        ? Math.round(discountAmt / addonTotal * 100)
+        : 0;
     const finalTotal = base.price + addonTotal - discountAmt;
 
     const planLabel = [
@@ -438,14 +452,16 @@ function PricingCalculator({ onSelectPlan }) {
 
     return (
         <div className="calc-wrap" data-animate="fade-up">
-            <div className="calc-header">
+            <button className="calc-header" onClick={() => setOpen(o => !o)}>
                 <div className="calc-header-icon"><Calculator size={18} /></div>
-                <div>
+                <div className="calc-header-text">
                     <h3 className="calc-title">Build your own plan</h3>
                     <p className="calc-subtitle">Pick a base plan, add only what you need, see your price instantly.</p>
                 </div>
-            </div>
+                <ChevronRight size={18} className={`calc-header-chevron ${open ? 'calc-header-chevron--open' : ''}`} />
+            </button>
 
+            {open && (
             <div className="calc-body">
                 {/* Step 1 — Base plan */}
                 <div className="calc-step">
@@ -555,6 +571,7 @@ function PricingCalculator({ onSelectPlan }) {
                     </div>
                 </div>
             </div>
+            )}
         </div>
     );
 }
