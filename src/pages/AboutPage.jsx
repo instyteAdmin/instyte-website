@@ -13,6 +13,7 @@ import {
     BotMessageSquare, LineChart, AlertCircle,
     KeyRound, Network, Link,
     ThumbsUp, CalendarOff, TrendingUp, BadgeCheck, ClipboardCheck, Briefcase,
+    BedDouble, Calculator, Tag, Zap, ScrollText,
 } from 'lucide-react';
 import './AboutPage.css';
 
@@ -274,54 +275,97 @@ function CmpCell({ val }) {
     return                        <span className="cmp-no"><X size={14} /> No</span>;
 }
 
+// ─── Paid add-on modules (used in calculator + pricing hero) ─────────────────
+
+const PAID_ADDONS = [
+    {
+        id: 'leads',
+        Icon: Target,
+        color: 'emerald',
+        label: 'Lead Management',
+        price: 2199,
+        desc: 'CRM, enquiry pipeline, demo scheduling, counsellor assignment',
+    },
+    {
+        id: 'finance',
+        Icon: DollarSign,
+        color: 'amber',
+        label: 'Finance & Fees',
+        price: 2599,
+        desc: 'Fee structures, invoicing, payments, receipts, overdue reminders',
+    },
+    {
+        id: 'ai',
+        Icon: BrainCircuit,
+        color: 'indigo',
+        label: 'AI Assistant',
+        price: 1999,
+        desc: 'Conversational AI, lead heat scoring, at-risk alerts, integrations',
+    },
+    {
+        id: 'hostel',
+        Icon: BedDouble,
+        color: 'teal',
+        label: 'Hostel Management',
+        price: 2599,
+        desc: 'Buildings, rooms, beds, allocations, fee automation & feature-flagged activities',
+        badge: 'New',
+    },
+];
+
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 
 const PRICING_PLANS = [
     {
-        name: 'Starter',
-        price: '₹6,999',
+        name: 'Foundation',
+        tagline: 'For single-branch institutions getting started',
+        price: 6999,
         period: '/month',
         color: 'emerald',
-        description: 'Perfect for single-branch coaching centres just getting started.',
+        description: 'Everything a running institution needs — student records, academics, classes, events, and support. Out of the box, on day one.',
+        userLimit: 'Up to 100 active users',
         features: [
-            'Up to 100 active students',
-            'Lead CRM & admissions',
-            'Basic fee management',
+            'Up to 100 active users',
             'Student & teacher portal',
+            'Academics & timetable',
+            'Classroom & Learning Circles',
+            'Events & scheduling',
+            'Support ticket system',
             'Email & WhatsApp notifications',
             'Standard support',
         ],
-        cta: 'Learn More',
+        cta: 'Get Started',
         highlighted: false,
     },
     {
-        name: 'Growth',
-        price: '₹12,999',
+        name: 'Momentum',
+        tagline: 'For growing institutions with multi-branch needs',
+        price: 8999,
         period: '/month',
         color: 'blue',
-        description: 'For growing institutions with multiple branches and advanced needs.',
+        description: 'Everything in Foundation plus multi-branch management. Add the modules you need — Leads, Finance, AI, Hostel — only when you\'re ready.',
+        userLimit: 'Up to 500 active users',
         features: [
-            'Up to 500 active students',
-            'Everything in Starter',
+            'Up to 500 active users',
+            'Everything in Foundation',
             'Multi-branch management',
-            'AI lead scoring & insights',
-            'Events & scheduling module',
-            'Support ticket system',
-            'Finance & fee analytics',
             'Priority support',
+            'Advanced analytics & reporting',
         ],
-        cta: 'Learn More',
+        cta: 'Get Started',
         highlighted: true,
     },
     {
         name: 'Enterprise',
-        price: 'Custom',
+        tagline: 'For large groups, universities & complex requirements',
+        price: null,
         period: '',
         color: 'violet',
-        description: 'For large institutions, universities, and groups with complex requirements.',
+        description: 'Unlimited scale. Custom integrations. Dedicated onboarding and SLA-backed uptime. Built around your institution.',
+        userLimit: 'Unlimited users',
         features: [
-            'Unlimited students',
-            'Everything in Growth',
+            'Unlimited users & branches',
+            'Everything in Momentum',
             'Custom integrations & APIs',
             'Dedicated onboarding team',
             'SLA-backed uptime guarantee',
@@ -334,150 +378,272 @@ const PRICING_PLANS = [
     },
 ];
 
-// ─── Pricing breakdown (expandable) ──────────────────────────────────────────
+// ─── Interactive Pricing Calculator ──────────────────────────────────────────
 
-function PricingBreakdown() {
-    const [open, setOpen] = useState(false);
+function PricingCalculator({ onSelectPlan }) {
+    const [basePlan, setBasePlan] = useState('foundation');
+    const [selectedAddons, setSelectedAddons] = useState(new Set());
 
-    const BREAKDOWN = [
-        {
-            tier: 'Starter',
-            price: '₹6,999',
-            color: 'emerald',
-            students: 'Up to 100 active students',
-            tagline: 'Everything a running institution needs — out of the box.',
-            included: [
-                { Icon: GraduationCap, label: 'Student Management',  note: 'Profiles, portals, guardian info, TC, bulk enrolment' },
-                { Icon: BookOpen,      label: 'Academics',           note: 'Programs, timetable, exams, results, resources'       },
-                { Icon: School,        label: 'Classroom & Circles', note: 'Learning circles, live sessions, shared materials'    },
-                { Icon: CalendarDays,  label: 'Events & Scheduling', note: 'Public registration, QR check-in, feedback forms'    },
-                { Icon: Ticket,        label: 'Support Tickets',     note: 'Helpdesk for students, parents & staff'              },
-            ],
-            addons: [
-                { Icon: Target,      label: 'Lead Management', price: '+ ₹2,199/mo', color: 'emerald',
-                  note: 'CRM, enquiry capture, demo scheduling, counsellor assignment. Add only if you want to track admissions pipeline.' },
-                { Icon: DollarSign,  label: 'Finance & Fees',  price: '+ ₹2,599/mo', color: 'amber',
-                  note: 'Fee structures, invoicing, online/counter payments, receipts, WhatsApp reminders. Add only if you collect fees through Instyte.' },
-                { Icon: BrainCircuit, label: 'AI Assistant',   price: '+ ₹1,999/mo', color: 'indigo',
-                  note: 'Conversational AI, lead heat scoring, at-risk alerts, external tool integrations. Included free in Growth.' },
-            ],
-            addonNote: 'Add one, some, or none — you only pay for what you turn on. All three together is still ₹797 cheaper than Growth.',
-        },
-        {
-            tier: 'Growth',
-            price: '₹12,999',
-            color: 'blue',
-            students: 'Up to 500 active students',
-            tagline: 'All modules included. The best value if you need the full picture.',
-            included: [
-                { Icon: GraduationCap, label: 'Student Management',  note: 'Everything in Starter, multi-branch'             },
-                { Icon: BookOpen,      label: 'Academics',           note: 'Multi-branch academic config & timetables'       },
-                { Icon: School,        label: 'Classroom & Circles', note: 'Expanded capacity & engagement analytics'        },
-                { Icon: CalendarDays,  label: 'Events & Scheduling', note: 'Multi-event management & reporting'              },
-                { Icon: Ticket,        label: 'Support Tickets',     note: 'SLA timers, priority escalation'                 },
-                { Icon: Target,        label: 'Lead Management',     note: 'Full CRM, AI heat scoring, bulk import'         },
-                { Icon: DollarSign,    label: 'Finance & Fees',      note: 'Full fee lifecycle, branch revenue dashboards'  },
-                { Icon: BrainCircuit,  label: 'AI Assistant',        note: 'Conversational AI + external tool integrations' },
-            ],
-            addons: [],
-            addonNote: null,
-        },
-        {
-            tier: 'Enterprise',
-            price: 'Custom',
-            color: 'violet',
-            students: 'Unlimited students',
-            tagline: 'Large institutions, groups, and universities with bespoke requirements.',
-            included: [
-                { Icon: GraduationCap, label: 'Everything in Growth',       note: 'All modules, unlimited scale'               },
-                { Icon: KeyRound,      label: 'Custom integrations & APIs', note: 'Connect to any third-party system'          },
-                { Icon: ShieldCheck,   label: 'SLA-backed uptime',          note: 'Contractual uptime guarantee'               },
-                { Icon: BrainCircuit,  label: 'Custom ML model training',   note: 'Models trained on your institution\'s data' },
-                { Icon: Building2,     label: 'White-labelling',            note: 'Your brand, your domain'                   },
-                { Icon: Users,         label: 'Dedicated account manager',  note: 'Direct line to your onboarding team'       },
-            ],
-            addons: [],
-            addonNote: null,
-        },
+    const BASE_PLANS = [
+        { id: 'foundation', name: 'Foundation', price: 6999, users: '100 users',  color: 'emerald' },
+        { id: 'momentum',   name: 'Momentum',   price: 8999, users: '500 users',  color: 'blue'    },
     ];
 
-    return (
-        <div className="about-pricing-breakdown" data-animate="fade-up">
-            <button className="about-pricing-breakdown-toggle" onClick={() => setOpen(o => !o)}>
-                <span>
-                    <FileText size={15} />
-                    See full module-by-module breakdown — what's included vs. add-on
-                </span>
-                <ChevronRight size={16} className={`about-breakdown-chevron ${open ? 'about-breakdown-chevron--open' : ''}`} />
-            </button>
+    const toggleAddon = (id) => {
+        setSelectedAddons(prev => {
+            const next = new Set(prev);
+            next.has(id) ? next.delete(id) : next.add(id);
+            return next;
+        });
+    };
 
-            {open && (
-                <div className="about-pricing-breakdown-body">
-                    <p className="about-pricing-breakdown-intro">
-                        Starter includes everything needed to run your institution day-to-day —
-                        student records, academics, classes, events, and support. Lead Management and Finance
-                        are <strong>optional add-ons</strong> because not every institution needs them from day one.
-                        Growth bundles everything (including AI) at the best combined price.
-                        All prices are <strong>negotiable</strong> — just reach out.
-                    </p>
-                    <div className="about-pricing-breakdown-tiers">
-                        {BREAKDOWN.map(tier => (
-                            <div key={tier.tier} className={`about-breakdown-tier about-breakdown-tier--${tier.color}`}>
-                                <div className="about-breakdown-tier-header">
-                                    <div className="about-breakdown-tier-name">{tier.tier}</div>
-                                    <div className="about-breakdown-tier-price">
-                                        {tier.price}
-                                        {tier.price !== 'Custom' && <span>/month</span>}
-                                    </div>
-                                    <div className="about-breakdown-tier-students">{tier.students}</div>
-                                    <div className="about-breakdown-tier-tagline">{tier.tagline}</div>
+    const base = BASE_PLANS.find(p => p.id === basePlan);
+    const addons = PAID_ADDONS.filter(a => selectedAddons.has(a.id));
+    const addonTotal = addons.reduce((s, a) => s + a.price, 0);
+    const total = base.price + addonTotal;
+
+    const allSelected = selectedAddons.size === PAID_ADDONS.length;
+    const offerSaving = allSelected ? Math.round(addonTotal * 0.1) : 0;
+    const finalTotal = total - offerSaving;
+
+    const planLabel = [
+        base.name,
+        ...addons.map(a => a.label),
+    ].join(' + ');
+
+    const formatINR = (n) => `₹${n.toLocaleString('en-IN')}`;
+
+    const handleContact = () => {
+        onSelectPlan(planLabel);
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    return (
+        <div className="calc-wrap" data-animate="fade-up">
+            <div className="calc-header">
+                <div className="calc-header-icon"><Calculator size={18} /></div>
+                <div>
+                    <h3 className="calc-title">Build your own plan</h3>
+                    <p className="calc-subtitle">Pick a base plan, add only what you need, see your price instantly.</p>
+                </div>
+            </div>
+
+            <div className="calc-body">
+                {/* Step 1 — Base plan */}
+                <div className="calc-step">
+                    <div className="calc-step-label"><span>1</span> Choose your base plan</div>
+                    <div className="calc-base-options">
+                        {BASE_PLANS.map(p => (
+                            <button
+                                key={p.id}
+                                className={`calc-base-card ${basePlan === p.id ? `calc-base-card--active calc-base-card--${p.color}` : ''}`}
+                                onClick={() => setBasePlan(p.id)}
+                            >
+                                <div className="calc-base-card-top">
+                                    <div className="calc-base-name">{p.name}</div>
+                                    {basePlan === p.id && <Check size={14} className="calc-base-check" />}
                                 </div>
-                                <div className="about-breakdown-section-label">Included</div>
-                                <ul className="about-breakdown-list">
-                                    {tier.included.map(({ Icon: MI, label, note }) => (
-                                        <li key={label}>
-                                            <Check size={13} className="about-breakdown-check" />
-                                            <div>
-                                                <strong>{label}</strong>
-                                                <span>{note}</span>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                                {tier.addons.length > 0 && (
-                                    <>
-                                        <div className="about-breakdown-section-label about-breakdown-section-label--addon">
-                                            Optional add-ons — pay only if you need them
-                                        </div>
-                                        <ul className="about-breakdown-list about-breakdown-list--addon">
-                                            {tier.addons.map(({ Icon: MI, label, price, color, note }) => (
-                                                <li key={label}>
-                                                    <div className={`about-icon-bg--${color} about-breakdown-addon-icon`}>
-                                                        <MI size={12} />
-                                                    </div>
-                                                    <div>
-                                                        <div className="about-breakdown-addon-row">
-                                                            <strong>{label}</strong>
-                                                            <span className={`about-breakdown-addon-price about-breakdown-addon-price--${color}`}>{price}</span>
-                                                        </div>
-                                                        <span className="about-breakdown-addon-note">{note}</span>
-                                                    </div>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        {tier.addonNote && (
-                                            <p className="about-breakdown-addon-footer">{tier.addonNote}</p>
-                                        )}
-                                    </>
-                                )}
-                                {tier.price !== 'Custom' && (
-                                    <p className="about-breakdown-tnc">*T&amp;C apply · Prices negotiable</p>
-                                )}
-                            </div>
+                                <div className="calc-base-price">{formatINR(p.price)}<span>/mo</span></div>
+                                <div className="calc-base-users">{p.users}</div>
+                                <div className="calc-base-includes">
+                                    5 core modules included
+                                    {p.id === 'momentum' && ' · Multi-branch'}
+                                </div>
+                            </button>
                         ))}
                     </div>
                 </div>
-            )}
+
+                {/* Step 2 — Add-ons */}
+                <div className="calc-step">
+                    <div className="calc-step-label">
+                        <span>2</span> Add paid modules
+                        <em>Only pay for what you turn on</em>
+                    </div>
+                    <div className="calc-addons">
+                        {PAID_ADDONS.map(a => {
+                            const active = selectedAddons.has(a.id);
+                            return (
+                                <button
+                                    key={a.id}
+                                    className={`calc-addon ${active ? `calc-addon--active calc-addon--${a.color}` : ''}`}
+                                    onClick={() => toggleAddon(a.id)}
+                                >
+                                    <div className={`calc-addon-icon about-icon-bg--${a.color}`}>
+                                        <a.Icon size={14} />
+                                    </div>
+                                    <div className="calc-addon-info">
+                                        <div className="calc-addon-name">
+                                            {a.label}
+                                            {a.badge && <span className="calc-addon-badge">{a.badge}</span>}
+                                        </div>
+                                        <div className="calc-addon-desc">{a.desc}</div>
+                                    </div>
+                                    <div className="calc-addon-price">
+                                        {active
+                                            ? <><Check size={12} /> {formatINR(a.price)}/mo</>
+                                            : <>+ {formatINR(a.price)}/mo</>
+                                        }
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                    {allSelected && (
+                        <div className="calc-offer-banner">
+                            <Zap size={14} />
+                            All modules selected — enjoy a <strong>10% bundle discount</strong> on add-ons! You save {formatINR(offerSaving)}/mo.
+                        </div>
+                    )}
+                </div>
+
+                {/* Step 3 — Summary */}
+                <div className="calc-step calc-step--summary">
+                    <div className="calc-step-label"><span>3</span> Your price</div>
+                    <div className="calc-summary">
+                        <div className="calc-summary-rows">
+                            <div className="calc-summary-row">
+                                <span>{base.name} base plan ({base.users})</span>
+                                <strong>{formatINR(base.price)}/mo</strong>
+                            </div>
+                            {addons.map(a => (
+                                <div key={a.id} className="calc-summary-row calc-summary-row--addon">
+                                    <span>+ {a.label}</span>
+                                    <strong>{formatINR(a.price)}/mo</strong>
+                                </div>
+                            ))}
+                            {offerSaving > 0 && (
+                                <div className="calc-summary-row calc-summary-row--save">
+                                    <span>Bundle discount (10% on add-ons)</span>
+                                    <strong>− {formatINR(offerSaving)}/mo</strong>
+                                </div>
+                            )}
+                            <div className="calc-summary-divider" />
+                            <div className="calc-summary-row calc-summary-row--total">
+                                <span>Total per month</span>
+                                <strong className="calc-total-price">{formatINR(finalTotal)}</strong>
+                            </div>
+                        </div>
+                        <div className="calc-summary-actions">
+                            <button className="about-btn-primary" onClick={handleContact}>
+                                Get this plan <ArrowRight size={15} />
+                            </button>
+                            <p className="calc-summary-note">
+                                Clicking "Get this plan" pre-fills your selected plan into the contact form below.
+                                All prices are negotiable — just reach out.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// ─── Terms & Conditions Modal ─────────────────────────────────────────────────
+
+const TC_SECTIONS = [
+    {
+        title: '1. Acceptance of Terms',
+        body: `By accessing or using the Instyte platform ("Service"), you agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use the Service. These terms apply to all users including administrators, teachers, students, parents, and any other person who accesses the platform.`,
+    },
+    {
+        title: '2. Description of Service',
+        body: `Instyte is a cloud-based educational institution management platform that provides tools for lead management, student management, academics, finance, hostel management, and related services. The Service is provided on a subscription basis and is subject to the plan and modules selected by the institution.`,
+    },
+    {
+        title: '3. Subscription & Pricing',
+        body: `Subscription fees are charged monthly based on the plan selected. Pricing is subject to change with 30 days' prior notice. Add-on modules (Lead Management, Finance, AI Assistant, Hostel Management, etc.) are billed in addition to the base plan price. Bundling all add-on modules qualifies for a 10% discount on those modules. All prices are exclusive of applicable taxes (GST as per Indian law). Instyte reserves the right to negotiate pricing on a case-by-case basis — any such arrangement must be confirmed in writing.`,
+    },
+    {
+        title: '4. Payment Terms',
+        body: `Payment is due at the beginning of each billing cycle. Failure to pay within 7 days of the due date may result in suspension of service. Instyte is not responsible for any loss of data or business arising from service suspension due to non-payment. Refunds are not provided for partial months except at Instyte's sole discretion.`,
+    },
+    {
+        title: '5. Data Ownership & Privacy',
+        body: `All data entered into Instyte by your institution remains your property. Instyte will not sell, share, or disclose your institution's data to any third party except as required by law or as necessary to operate the Service (e.g., cloud infrastructure providers). Each institution is isolated in its own database schema — no data is shared between tenants. Instyte stores data on AWS infrastructure in compliance with applicable data protection regulations.`,
+    },
+    {
+        title: '6. Data Security',
+        body: `Instyte employs industry-standard security practices including JWT-based authentication, schema-level data isolation, role-based access control, and audit logging. However, no system can guarantee absolute security. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account.`,
+    },
+    {
+        title: '7. Acceptable Use',
+        body: `You agree not to use the Service for any unlawful purpose, to transmit any harmful or offensive content, to attempt to gain unauthorised access to any part of the Service, or to interfere with the operation of the Service. Instyte reserves the right to terminate accounts that violate these conditions without notice.`,
+    },
+    {
+        title: '8. Uptime & Service Availability',
+        body: `Instyte targets 99.9% uptime. However, the Service may be unavailable during scheduled maintenance windows or due to circumstances beyond Instyte's control (force majeure, third-party infrastructure outages, etc.). Enterprise plan customers are entitled to SLA-backed uptime guarantees as specified in their individual contracts. Standard and Momentum plan customers do not have contractual uptime guarantees.`,
+    },
+    {
+        title: '9. Intellectual Property',
+        body: `All software, designs, algorithms, and content comprising the Instyte platform are the intellectual property of Instyte and its licensors. You may not copy, reproduce, modify, distribute, or create derivative works from any part of the Service without prior written permission. Your institution's data remains your property as stated in Section 5.`,
+    },
+    {
+        title: '10. Termination',
+        body: `Either party may terminate the subscription with 30 days' written notice. Upon termination, you may request an export of your institution's data within 30 days. After that period, Instyte reserves the right to delete the data. Instyte may terminate accounts immediately for violation of these terms or non-payment.`,
+    },
+    {
+        title: '11. Limitation of Liability',
+        body: `To the maximum extent permitted by law, Instyte shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of the Service. Instyte's total liability shall not exceed the fees paid by you in the 3 months prior to the claim.`,
+    },
+    {
+        title: '12. Modifications to Terms',
+        body: `Instyte reserves the right to update these Terms and Conditions at any time. Users will be notified of material changes via email or an in-app notice at least 14 days before the changes take effect. Continued use of the Service after changes are in effect constitutes acceptance of the new terms.`,
+    },
+    {
+        title: '13. Governing Law',
+        body: `These Terms and Conditions are governed by the laws of India. Any disputes arising from these terms or your use of the Service shall be subject to the exclusive jurisdiction of the courts in Hyderabad, Telangana, India.`,
+    },
+    {
+        title: '14. Contact',
+        body: `For questions about these Terms and Conditions, please contact us at hello@instyte.com or through the contact form on this website.`,
+    },
+];
+
+function TermsModal({ onClose }) {
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [onClose]);
+
+    return (
+        <div className="tc-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+            <div className="tc-modal">
+                <div className="tc-modal-header">
+                    <div className="tc-modal-header-left">
+                        <div className="tc-modal-icon"><ScrollText size={20} /></div>
+                        <div>
+                            <h2 className="tc-modal-title">Terms &amp; Conditions</h2>
+                            <p className="tc-modal-meta">Instyte Platform · Last updated: May 2026 · <em>Full legal terms will be updated shortly</em></p>
+                        </div>
+                    </div>
+                    <button className="tc-modal-close" onClick={onClose}><X size={18} /></button>
+                </div>
+                <div className="tc-modal-body">
+                    <div className="tc-notice">
+                        <AlertTriangle size={14} />
+                        These are preliminary terms. Complete, legally reviewed Terms &amp; Conditions will be published shortly. By using Instyte, you acknowledge these interim terms.
+                    </div>
+                    {TC_SECTIONS.map(s => (
+                        <div key={s.title} className="tc-section">
+                            <h3 className="tc-section-title">{s.title}</h3>
+                            <p className="tc-section-body">{s.body}</p>
+                        </div>
+                    ))}
+                </div>
+                <div className="tc-modal-footer">
+                    <p className="tc-modal-footer-note">© {new Date().getFullYear()} Instyte. All rights reserved.</p>
+                    <button className="about-btn-primary" onClick={onClose}>
+                        Close <X size={14} />
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }
@@ -490,6 +656,8 @@ export default function AboutPage() {
     const [activeModule,   setActiveModule]   = useState(0);
     const [activeGallery,  setActiveGallery]  = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [selectedPlan,   setSelectedPlan]   = useState('');
+    const [termsOpen,      setTermsOpen]      = useState(false);
     const [contactForm,    setContactForm]    = useState({ name: '', email: '', phone: '', organization: '', message: '' });
     const [contactState,   setContactState]   = useState('idle');
     const heroRef   = useRef(null);
@@ -550,14 +718,18 @@ export default function AboutPage() {
     const submitEnquiry = async (e) => {
         e.preventDefault();
         setContactState('submitting');
+        const fullMessage = selectedPlan
+            ? `${selectedPlan} — ${contactForm.message}`
+            : contactForm.message;
         try {
             await fetch(`${API_URL}/instyte/api/v1/public/customer-enquiry`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...contactForm, source: 'www.instyte.com' }),
+                body: JSON.stringify({ ...contactForm, message: fullMessage, source: 'www.instyte.com' }),
             });
             setContactState('success');
             setContactForm({ name: '', email: '', phone: '', organization: '', message: '' });
+            setSelectedPlan('');
         } catch {
             setContactState('error');
         }
@@ -932,35 +1104,32 @@ export default function AboutPage() {
                     <div className="about-pricing-hero" data-animate="fade-up">
                         <div className="about-pricing-hero-left">
                             <div className="about-pricing-hero-tag">Industry first</div>
-                            <h3 className="about-pricing-hero-title">Don't need Leads or Finance? Don't pay for them.</h3>
+                            <h3 className="about-pricing-hero-title">Don't need Leads, Finance, or Hostel? Don't pay for them.</h3>
                             <p className="about-pricing-hero-body">
                                 Every other EdTech platform forces you into a bundle — you pay for every module
-                                whether you use it or not. We don't. Starter covers everything your institution
-                                needs to operate: student records, academics, classes, events, and support.
-                                Lead Management and Finance are <strong>completely optional</strong> — activate them
-                                only when you're ready, and only then does the price change.
+                                whether you use it or not. We don't. <strong>Foundation</strong> and <strong>Momentum</strong> cover
+                                everything your institution needs to operate: student records, academics, classes, events, and support.
+                                Lead Management, Finance, AI, and Hostel Management are <strong>completely optional</strong> — activate
+                                them only when you're ready, and only then does the price change.
                             </p>
                             <div className="about-pricing-hero-addons">
-                                <div className="about-pricing-addon about-pricing-addon--emerald">
-                                    <Target size={14} />
-                                    <div>
-                                        <span>Lead Management</span>
-                                        <small>CRM, enquiry pipeline, demo scheduling, counsellor assignment</small>
+                                {PAID_ADDONS.map(a => (
+                                    <div key={a.id} className={`about-pricing-addon about-pricing-addon--${a.color}`}>
+                                        <a.Icon size={14} />
+                                        <div>
+                                            <span>
+                                                {a.label}
+                                                {a.badge && <span className="about-pricing-addon-new">{a.badge}</span>}
+                                            </span>
+                                            <small>{a.desc}</small>
+                                        </div>
+                                        <strong>+ ₹{a.price.toLocaleString('en-IN')}<small>/mo</small></strong>
                                     </div>
-                                    <strong>+ ₹2,199<small>/mo</small></strong>
-                                </div>
-                                <div className="about-pricing-addon about-pricing-addon--amber">
-                                    <DollarSign size={14} />
-                                    <div>
-                                        <span>Finance & Fees</span>
-                                        <small>Fee structures, invoicing, payments, receipts, overdue reminders</small>
-                                    </div>
-                                    <strong>+ ₹2,599<small>/mo</small></strong>
-                                </div>
+                                ))}
                             </div>
                             <div className="about-pricing-hero-math">
                                 <div className="about-pricing-math-row">
-                                    <span>Starter (5 core modules)</span>
+                                    <span>Foundation (5 core modules, 100 users)</span>
                                     <strong>₹6,999</strong>
                                 </div>
                                 <div className="about-pricing-math-row about-pricing-math-row--opt">
@@ -975,22 +1144,26 @@ export default function AboutPage() {
                                     <span>+ AI Assistant</span>
                                     <strong>₹1,999</strong>
                                 </div>
+                                <div className="about-pricing-math-row about-pricing-math-row--opt about-pricing-math-row--new">
+                                    <span>+ Hostel Management</span>
+                                    <strong>₹2,599</strong>
+                                </div>
                                 <div className="about-pricing-math-row about-pricing-math-subtotal">
-                                    <span>If bought separately</span>
-                                    <strong>₹13,796</strong>
+                                    <span>If all add-ons bought separately</span>
+                                    <strong>₹16,395</strong>
                                 </div>
                                 <div className="about-pricing-math-divider" />
                                 <div className="about-pricing-math-row about-pricing-math-row--total">
-                                    <span>Growth — everything bundled</span>
-                                    <strong>₹12,999</strong>
+                                    <span>All add-ons together (10% bundle offer)</span>
+                                    <strong>₹15,756</strong>
                                 </div>
                                 <div className="about-pricing-math-row about-pricing-math-row--save">
-                                    <span>You save</span>
-                                    <strong>₹797/mo</strong>
+                                    <span>You save with bundle</span>
+                                    <strong>₹639/mo</strong>
                                 </div>
                             </div>
                             <p className="about-pricing-hero-note">
-                                * Prices are negotiable. If these numbers feel high for your institution's scale, reach out — we'll work something out.
+                                * Prices are negotiable. Use the calculator below to build your exact plan.
                             </p>
                         </div>
                         <div className="about-pricing-hero-right">
@@ -1004,12 +1177,13 @@ export default function AboutPage() {
                                     { label: 'Lead Management',      included: false, Icon: Target,        color: 'emerald', price: '+ ₹2,199' },
                                     { label: 'Finance & Fees',       included: false, Icon: DollarSign,    color: 'amber',   price: '+ ₹2,599' },
                                     { label: 'AI Assistant',         included: false, Icon: BrainCircuit,  color: 'indigo',  price: '+ ₹1,999' },
-                                ].map(({ label, included, Icon: MI, color, price }) => (
+                                    { label: 'Hostel Management',    included: false, Icon: BedDouble,     color: 'teal',    price: '+ ₹2,599', badge: 'New' },
+                                ].map(({ label, included, Icon: MI, color, price, badge }) => (
                                     <div key={label} className={`about-pricing-module-pill ${included ? 'about-pricing-module-pill--in' : 'about-pricing-module-pill--addon'}`}>
                                         <div className={`about-pricing-module-pill-icon about-icon-bg--${color}`}>
                                             <MI size={13} />
                                         </div>
-                                        <span>{label}</span>
+                                        <span>{label}{badge && <em className="about-pricing-pill-new">{badge}</em>}</span>
                                         {included
                                             ? <span className="about-pricing-pill-tag about-pricing-pill-tag--in">Included</span>
                                             : <span className="about-pricing-pill-tag about-pricing-pill-tag--addon">{price}</span>
@@ -1017,7 +1191,7 @@ export default function AboutPage() {
                                     </div>
                                 ))}
                             </div>
-                            <p className="about-pricing-module-caption">Starter plan modules — add Leads or Finance only if you need them</p>
+                            <p className="about-pricing-module-caption">Foundation plan modules — add paid modules only if you need them</p>
                         </div>
                     </div>
 
@@ -1032,11 +1206,14 @@ export default function AboutPage() {
                                         <Star size={11} /> Most Popular
                                     </div>
                                 )}
-                                <div className="about-pricing-name">{plan.name}</div>
+                                <div className="about-pricing-plan-tag">
+                                    <Tag size={11} /> {plan.name}
+                                </div>
                                 <div className="about-pricing-price">
-                                    {plan.price}
+                                    {plan.price ? `₹${plan.price.toLocaleString('en-IN')}` : 'Custom'}
                                     {plan.period && <span className="about-pricing-period">{plan.period}</span>}
                                 </div>
+                                <div className="about-pricing-users">{plan.userLimit}</div>
                                 <p className="about-pricing-desc">{plan.description}</p>
                                 <ul className="about-pricing-features">
                                     {plan.features.map(f => (
@@ -1046,20 +1223,29 @@ export default function AboutPage() {
                                         </li>
                                     ))}
                                 </ul>
+                                {plan.price && (
+                                    <div className="about-pricing-addons-note">
+                                        <Sparkles size={12} />
+                                        Leads, Finance, AI & Hostel available as add-ons
+                                    </div>
+                                )}
                                 <button
                                     className={`about-pricing-btn about-pricing-btn--${plan.color} ${plan.highlighted ? 'about-pricing-btn--solid' : ''}`}
-                                    onClick={scrollToContact}>
+                                    onClick={() => {
+                                        setSelectedPlan(plan.name);
+                                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                    }}>
                                     {plan.cta} <ArrowRight size={14} />
                                 </button>
-                                {plan.price !== 'Custom' && (
+                                {plan.price && (
                                     <p className="about-pricing-tnc">*T&amp;C apply · Prices negotiable</p>
                                 )}
                             </div>
                         ))}
                     </div>
 
-                    {/* Expandable full breakdown */}
-                    <PricingBreakdown />
+                    {/* Interactive calculator */}
+                    <PricingCalculator onSelectPlan={(plan) => { setSelectedPlan(plan); }} />
 
                     {/* Why this price */}
                     <div className="about-pricing-why" data-animate="fade-up">
@@ -1133,11 +1319,12 @@ export default function AboutPage() {
                             </div>
                             <div className="about-pricing-cmp-card about-pricing-cmp-card--us">
                                 <div className="about-pricing-cmp-badge"><Star size={11} /> Instyte</div>
-                                <div className="about-pricing-cmp-price">₹6,999–₹12,999<span>/month</span></div>
+                                <div className="about-pricing-cmp-price">₹6,999–₹8,999<span>/month base</span></div>
                                 <ul>
                                     <li><Check size={13} className="cmp-check" /> Pay only for modules you actually use</li>
-                                    <li><Check size={13} className="cmp-check" /> Full finance + fee lifecycle available as add-on</li>
+                                    <li><Check size={13} className="cmp-check" /> Full finance + fee lifecycle as add-on</li>
                                     <li><Check size={13} className="cmp-check" /> AI lead scoring + conversational assistant</li>
+                                    <li><Check size={13} className="cmp-check" /> Hostel & PG management as add-on</li>
                                     <li><Check size={13} className="cmp-check" /> Portal for every role — admin to parent</li>
                                     <li><Check size={13} className="cmp-check" /> Month-to-month · Prices negotiable</li>
                                 </ul>
@@ -1225,6 +1412,13 @@ export default function AboutPage() {
                                 </div>
                                 <div className="about-contact-field">
                                     <label>Message</label>
+                                    {selectedPlan && (
+                                        <div className="about-contact-plan-tag">
+                                            <Tag size={12} />
+                                            <span>Plan: <strong>{selectedPlan}</strong></span>
+                                            <button onClick={() => setSelectedPlan('')}><X size={11} /></button>
+                                        </div>
+                                    )}
                                     <textarea
                                         rows={4}
                                         placeholder="Tell us about your institution and what you're looking for…"
@@ -1287,9 +1481,13 @@ export default function AboutPage() {
                                 {l.label}
                             </a>
                         ))}
+                        <button className="about-footer-link about-footer-tc-btn" onClick={() => setTermsOpen(true)}>
+                            <ScrollText size={12} /> Terms &amp; Conditions
+                        </button>
                     </div>
                     <div className="about-footer-copy">
-                        &copy; {new Date().getFullYear()} Instyte. All rights reserved.
+                        &copy; {new Date().getFullYear()} Instyte. All rights reserved. &nbsp;·&nbsp;
+                        <button className="about-footer-tc-inline" onClick={() => setTermsOpen(true)}>Terms &amp; Conditions</button>
                     </div>
                 </div>
             </footer>
@@ -1298,6 +1496,9 @@ export default function AboutPage() {
             <button className="about-float-cta" onClick={scrollToContact}>
                 Contact Us
             </button>
+
+            {/* ── Terms Modal ───────────────────────────────────────────── */}
+            {termsOpen && <TermsModal onClose={() => setTermsOpen(false)} />}
 
         </div>
     );
