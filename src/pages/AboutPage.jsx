@@ -418,8 +418,9 @@ function PricingCalculator({ onSelectPlan }) {
     const addons = PAID_ADDONS.filter(a => selectedAddons.has(a.id));
     const addonTotal = addons.reduce((s, a) => s + a.price, 0);
 
-    // Tiered discount: 1 addon = 0%, 2 = 5%, 3 = 7%, 4 = 10%
-    const discountPct = addons.length >= 4 ? 10 : addons.length === 3 ? 7 : addons.length === 2 ? 5 : 0;
+    // Tiered discount on add-ons: 1=0%, 2=15%, 3=25%, 4=36%
+    // 4-addon rate derived from: Foundation(6999) + all addons(9396) at bundle = 12999 → saving 3396 → 3396/9396 ≈ 36%
+    const discountPct = addons.length >= 4 ? 36 : addons.length === 3 ? 25 : addons.length === 2 ? 15 : 0;
     const discountAmt = discountPct > 0 ? Math.round(addonTotal * discountPct / 100) : 0;
     const finalTotal = base.price + addonTotal - discountAmt;
 
@@ -506,17 +507,17 @@ function PricingCalculator({ onSelectPlan }) {
                             );
                         })}
                     </div>
-                    {discountPct > 0 && (
-                        <div className="calc-offer-banner">
-                            <Zap size={14} />
-                            {addons.length >= 4
-                                ? <><strong>All 4 modules selected — 10% bundle discount</strong> applied. You save {formatINR(discountAmt)}/mo.</>
-                                : addons.length === 3
-                                ? <><strong>3 modules selected — 7% discount</strong> applied. Add one more for 10%. You save {formatINR(discountAmt)}/mo.</>
-                                : <><strong>2 modules selected — 5% discount</strong> applied. Add more to unlock bigger savings. You save {formatINR(discountAmt)}/mo.</>
-                            }
-                        </div>
-                    )}
+                            {discountPct > 0 && (
+                                <div className="calc-offer-banner">
+                                    <Zap size={14} />
+                                    {addons.length >= 4
+                                        ? <><strong>All 4 modules — 36% bundle discount</strong> applied. You save {formatINR(discountAmt)}/mo.</>
+                                        : addons.length === 3
+                                        ? <><strong>3 modules — 25% discount</strong> applied. Add one more for 36%. You save {formatINR(discountAmt)}/mo.</>
+                                        : <><strong>2 modules — 15% discount</strong> applied. Add more to unlock bigger savings. You save {formatINR(discountAmt)}/mo.</>
+                                    }
+                                </div>
+                            )}
                 </div>
 
                 {/* Step 3 — Summary */}
@@ -1172,7 +1173,7 @@ export default function AboutPage() {
                                 </div>
                                 <div className="about-pricing-math-divider" />
                                 <div className="about-pricing-math-row about-pricing-math-row--total">
-                                    <span>Foundation + all 4 add-ons (bundle offer)</span>
+                                    <span>Foundation + all 4 add-ons (36% bundle discount)</span>
                                     <strong>₹12,999</strong>
                                 </div>
                                 <div className="about-pricing-math-row about-pricing-math-row--save">
