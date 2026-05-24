@@ -190,6 +190,23 @@ const MODULES = [
             { Icon: ClipboardCheck,  text: 'Class completion tracking & session notes'                  },
         ],
     },
+    {
+        Icon: BedDouble,
+        color: 'teal',
+        badge: 'Paid Add-on',
+        title: 'Hostel Management',
+        subtitle: 'Full hostel & PG operations — buildings, rooms, residents & more',
+        description:
+            'Instyte Hostel Management is built for both institutional hostels (boarding schools, college hostels) and standalone PGs. Manage multiple buildings, floors, rooms, and beds. Track resident allocations with full history, automate monthly fee generation, issue keys, and run onboarding checklists. Feature-flagged activities — daily attendance, outings/gate pass, mess, visitors, complaints, warden inspections — can be switched on or off per institution type. For PG businesses, adds vacating workflows, notice periods, security deposit handling, and resident document management.',
+        features: [
+            { Icon: Building2,    text: 'Multi-building, multi-room, bed-level allocation with history' },
+            { Icon: Users,        text: 'Resident profiles linked to IAM — works for students & PG tenants' },
+            { Icon: DollarSign,   text: 'Auto monthly fee generation via existing finance module'       },
+            { Icon: KeyRound,     text: 'Key / access card issuance, lost key & replacement tracking'  },
+            { Icon: ClipboardList,text: 'Onboarding checklist — ID, deposit, agreement, room condition' },
+            { Icon: Sparkles,     text: 'Feature-flagged: attendance, outings, mess, visitors, complaints' },
+        ],
+    },
 ];
 
 // ─── Why / Differentiators ────────────────────────────────────────────────────
@@ -400,11 +417,11 @@ function PricingCalculator({ onSelectPlan }) {
     const base = BASE_PLANS.find(p => p.id === basePlan);
     const addons = PAID_ADDONS.filter(a => selectedAddons.has(a.id));
     const addonTotal = addons.reduce((s, a) => s + a.price, 0);
-    const total = base.price + addonTotal;
 
-    const allSelected = selectedAddons.size === PAID_ADDONS.length;
-    const offerSaving = allSelected ? Math.round(addonTotal * 0.1) : 0;
-    const finalTotal = total - offerSaving;
+    // Tiered discount: 1 addon = 0%, 2 = 5%, 3 = 7%, 4 = 10%
+    const discountPct = addons.length >= 4 ? 10 : addons.length === 3 ? 7 : addons.length === 2 ? 5 : 0;
+    const discountAmt = discountPct > 0 ? Math.round(addonTotal * discountPct / 100) : 0;
+    const finalTotal = base.price + addonTotal - discountAmt;
 
     const planLabel = [
         base.name,
@@ -489,10 +506,15 @@ function PricingCalculator({ onSelectPlan }) {
                             );
                         })}
                     </div>
-                    {allSelected && (
+                    {discountPct > 0 && (
                         <div className="calc-offer-banner">
                             <Zap size={14} />
-                            All modules selected — enjoy a <strong>10% bundle discount</strong> on add-ons! You save {formatINR(offerSaving)}/mo.
+                            {addons.length >= 4
+                                ? <><strong>All 4 modules selected — 10% bundle discount</strong> applied. You save {formatINR(discountAmt)}/mo.</>
+                                : addons.length === 3
+                                ? <><strong>3 modules selected — 7% discount</strong> applied. Add one more for 10%. You save {formatINR(discountAmt)}/mo.</>
+                                : <><strong>2 modules selected — 5% discount</strong> applied. Add more to unlock bigger savings. You save {formatINR(discountAmt)}/mo.</>
+                            }
                         </div>
                     )}
                 </div>
@@ -512,10 +534,10 @@ function PricingCalculator({ onSelectPlan }) {
                                     <strong>{formatINR(a.price)}/mo</strong>
                                 </div>
                             ))}
-                            {offerSaving > 0 && (
+                            {discountAmt > 0 && (
                                 <div className="calc-summary-row calc-summary-row--save">
-                                    <span>Bundle discount (10% on add-ons)</span>
-                                    <strong>− {formatINR(offerSaving)}/mo</strong>
+                                    <span>Bundle discount ({discountPct}% on add-ons)</span>
+                                    <strong>− {formatINR(discountAmt)}/mo</strong>
                                 </div>
                             )}
                             <div className="calc-summary-divider" />
@@ -980,9 +1002,9 @@ export default function AboutPage() {
                     <div className="about-section-label" data-animate="fade-up">
                         <BookOpen size={13} /> Modules
                     </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">Nine modules. Zero gaps.</h2>
+                    <h2 className="about-section-heading" data-animate="fade-up">Ten modules. Zero gaps.</h2>
                     <p className="about-section-sub" data-animate="fade-up">
-                        From the first enquiry to the last receipt — and every class, exam, and support ticket in between.
+                        From the first enquiry to the last receipt — and every class, exam, hostel check-in, and support ticket in between.
                         Everything is connected, so your team never has to re-enter data or switch tools.
                     </p>
 
@@ -1154,12 +1176,12 @@ export default function AboutPage() {
                                 </div>
                                 <div className="about-pricing-math-divider" />
                                 <div className="about-pricing-math-row about-pricing-math-row--total">
-                                    <span>All add-ons together (10% bundle offer)</span>
-                                    <strong>₹15,756</strong>
+                                    <span>Foundation + all 4 add-ons (bundle offer)</span>
+                                    <strong>₹12,999</strong>
                                 </div>
                                 <div className="about-pricing-math-row about-pricing-math-row--save">
                                     <span>You save with bundle</span>
-                                    <strong>₹639/mo</strong>
+                                    <strong>₹3,396/mo</strong>
                                 </div>
                             </div>
                             <p className="about-pricing-hero-note">
