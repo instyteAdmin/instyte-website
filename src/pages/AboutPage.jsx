@@ -1083,6 +1083,9 @@ export default function AboutPage() {
                 </div>
             </section>
 
+            {/* ── Mobile App Showcase ───────────────────────────────────── */}
+            <MobileAppSection />
+
             {/* ── Spotlight: Finance + AI ───────────────────────────────── */}
             <section className="about-spotlight">
                 <div className="about-section-inner">
@@ -1617,9 +1620,6 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
-
-            {/* ── Mobile App Showcase ───────────────────────────────────── */}
-            <MobileAppSection />
 
             {/* ── CTA Banner ────────────────────────────────────────────── */}
             <section className="about-cta-banner">
