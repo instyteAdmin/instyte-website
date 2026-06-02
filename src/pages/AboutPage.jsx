@@ -683,6 +683,142 @@ function TermsModal({ onClose }) {
     );
 }
 
+// ─── Mobile App Section ───────────────────────────────────────────────────────
+
+const MOBILE_ROLES = [
+    {
+        key: 'admin',
+        label: 'Admin',
+        color: 'amber',
+        headline: 'Fee & Finance — right in your pocket',
+        description: 'Admins get a dedicated mobile view for everything money-related: track invoices, see outstanding dues, record payments, and fire bulk reminders to defaulters — all without opening a laptop.',
+        features: ['Invoice list with totals & outstanding', 'One-tap bulk payment reminders', 'Per-student fee breakdown', 'Overdue alerts at a glance'],
+        screens: [
+            { file: 'Screenshot_20260602-191533.png', caption: 'Invoice list with totals' },
+            { file: 'Screenshot_20260602-191557.png', caption: 'Bulk send reminders' },
+        ],
+    },
+    {
+        key: 'teacher',
+        label: 'Staff / Teacher',
+        color: 'emerald',
+        headline: 'Classes & Attendance — wherever you teach',
+        description: 'Teachers and staff get a purpose-built home screen: view their scheduled classes, mark student attendance per session, track curriculum progress, upload class resources, and receive instant notifications — all from their phone.',
+        features: ['Upcoming classes & schedule', 'Per-class attendance marking', 'Student progress tracking', 'Class resources & notes upload', 'Instant notifications for next class'],
+        screens: [
+            { file: 'Screenshot_20260602-190632.png', caption: 'Classes schedule' },
+            { file: 'Screenshot_20260602-190655.png', caption: 'Attendance calendar' },
+            { file: 'Screenshot_20260602-190957.png', caption: 'Mark attendance' },
+            { file: 'Screenshot_20260602-190926.png', caption: 'Student list' },
+            { file: 'Screenshot_20260602-191006.png', caption: 'Class resources' },
+        ],
+    },
+    {
+        key: 'student',
+        label: 'Student',
+        color: 'indigo',
+        headline: 'My Journey — track every milestone',
+        description: 'Students see a personalised journey view: their enrollment timeline, upcoming classes, attendance percentage, curriculum completion, and fee payment history — all in one clean screen.',
+        features: ['My Journey timeline', 'Attendance % & streaks', 'Curriculum progress', 'Fee & payment history'],
+        screens: [
+            { file: 'Screenshot_20260602-190618.png', caption: 'Student journey & overview' },
+            { file: 'Screenshot_20260602-190730.png', caption: 'Profile & payments menu' },
+        ],
+    },
+];
+
+function MobileAppSection() {
+    const [activeRole, setActiveRole] = useState(0);
+    const [activeScreen, setActiveScreen] = useState(0);
+    const role = MOBILE_ROLES[activeRole];
+
+    const switchRole = (idx) => {
+        setActiveRole(idx);
+        setActiveScreen(0);
+    };
+
+    return (
+        <section className="about-mobile-section" id="mobile-app">
+            <div className="about-mobile-inner">
+                <div className="about-mobile-header" data-animate="fade-up">
+                    <div className="about-mobile-badge">
+                        <Smartphone size={14} />
+                        Native Mobile App
+                    </div>
+                    <h2 className="about-mobile-title">
+                        Everything Instyte can do — <span className="about-mobile-title-accent">now in your hands</span>
+                    </h2>
+                    <p className="about-mobile-subtitle">
+                        A single Flutter app built for every role. Admins manage fees, teachers run classes,
+                        students track their journey — all offline-capable, all real-time.
+                    </p>
+                </div>
+
+                <div className="about-mobile-role-tabs">
+                    {MOBILE_ROLES.map((r, i) => (
+                        <button
+                            key={r.key}
+                            className={`about-mobile-role-tab about-mobile-role-tab--${r.color} ${activeRole === i ? 'about-mobile-role-tab--active' : ''}`}
+                            onClick={() => switchRole(i)}
+                        >
+                            {r.label}
+                        </button>
+                    ))}
+                </div>
+
+                <div className="about-mobile-body">
+                    <div className="about-mobile-info" data-animate="fade-right">
+                        <h3 className={`about-mobile-info-title about-mobile-info-title--${role.color}`}>
+                            {role.headline}
+                        </h3>
+                        <p className="about-mobile-info-desc">{role.description}</p>
+                        <ul className="about-mobile-features">
+                            {role.features.map(f => (
+                                <li key={f}>
+                                    <Check size={13} className={`about-mobile-check--${role.color}`} />
+                                    {f}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="about-mobile-phones" data-animate="fade-left">
+                        {role.screens.map((s, i) => (
+                            <button
+                                key={s.file}
+                                className={`about-mobile-phone-frame ${activeScreen === i ? 'about-mobile-phone-frame--active' : ''}`}
+                                onClick={() => setActiveScreen(i)}
+                                title={s.caption}
+                            >
+                                <div className="about-mobile-phone-notch" />
+                                <img
+                                    src={`/mobile/${s.file}`}
+                                    alt={s.caption}
+                                    className="about-mobile-phone-img"
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="about-mobile-screen-dots">
+                    {role.screens.map((s, i) => (
+                        <button
+                            key={i}
+                            className={`about-mobile-dot ${activeScreen === i ? `about-mobile-dot--${role.color}` : ''}`}
+                            onClick={() => setActiveScreen(i)}
+                            title={s.caption}
+                        />
+                    ))}
+                    {role.screens[activeScreen] && (
+                        <span className="about-mobile-caption">{role.screens[activeScreen].caption}</span>
+                    )}
+                </div>
+            </div>
+        </section>
+    );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function AboutPage() {
@@ -1481,6 +1617,9 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
+
+            {/* ── Mobile App Showcase ───────────────────────────────────── */}
+            <MobileAppSection />
 
             {/* ── CTA Banner ────────────────────────────────────────────── */}
             <section className="about-cta-banner">
