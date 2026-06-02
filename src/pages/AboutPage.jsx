@@ -254,7 +254,7 @@ const DIFFERENTIATORS = [
 
 const ARCH_CARDS = [
     { Icon: LayoutDashboard, color: 'emerald', title: 'Admin & Branch Dashboard', body: 'Full-control web app for admins and branch managers — leads, students, finance, staff, and analytics in one pane of glass.' },
-    { Icon: Smartphone,      color: 'blue',    title: 'Mobile App',               body: 'Native Flutter app for counsellors and teachers. Attend to leads, mark attendance, and collect fees on the go — works even with spotty connectivity.' },
+    { Icon: Smartphone,      color: 'blue',    title: 'Mobile App',               body: 'Native Flutter app for counsellors and teachers. Attend to leads, mark attendance, and collect fees on the go — purpose-built for every role.' },
     { Icon: GraduationCap,   color: 'violet',  title: 'Student & Parent Portal',  body: 'Students check marks, attendance, fee dues, and class schedules. Parents track their child\'s progress and raise support tickets — all without calling the office.' },
     { Icon: Globe,           color: 'cyan',    title: 'Public Landing Pages',     body: 'No-login pages for lead capture, event registration, demo booking, and post-event feedback. Every visitor is a potential admission.' },
     { Icon: Cpu,             color: 'indigo',  title: 'AI Microservice',          body: 'Dedicated AI engine running XGBoost lead scoring and a conversational assistant — answers questions, surfaces insights, and connects to external tools automatically.' },
@@ -750,7 +750,7 @@ function MobileAppSection() {
                     </h2>
                     <p className="about-mobile-subtitle">
                         A single Flutter app built for every role. Admins manage fees, teachers run classes,
-                        students track their journey — all offline-capable, all real-time.
+                        students track their journey — all in real-time, from anywhere.
                     </p>
                 </div>
 
