@@ -873,7 +873,7 @@ function MobileAppSection() {
     return (
         <section className="about-mobile-section" id="mobile-app">
             <div className="about-mobile-inner">
-                <div className="about-mobile-header" data-animate="fade-up">
+                <div className="about-mobile-header" data-animate="fade-down">
                     <div className="about-mobile-badge">
                         <Smartphone size={14} />
                         Native Mobile App
@@ -1135,7 +1135,8 @@ export default function AboutPage() {
                 entries.forEach(e => {
                     if (e.isIntersecting) {
                         e.target.classList.add('in-view');
-                        observer.unobserve(e.target);
+                    } else {
+                        e.target.classList.remove('in-view');
                     }
                 });
             },
@@ -1153,15 +1154,16 @@ export default function AboutPage() {
                 entries.forEach(e => {
                     if (e.isIntersecting) {
                         e.target.classList.add('in-view');
-                        observer.unobserve(e.target);
+                    } else {
+                        e.target.classList.remove('in-view');
                     }
                 });
             },
-            { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
+            { root: eduPanelRef.current, threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
         );
         // small delay so the DOM has rendered the new elements
         const t = setTimeout(() => {
-            document.querySelectorAll('[data-animate]:not(.in-view)').forEach(el => observer.observe(el));
+            document.querySelectorAll('.edu-panel [data-animate]').forEach(el => observer.observe(el));
         }, 50);
         return () => { clearTimeout(t); observer.disconnect(); };
     }, [pricingRevealed]);
@@ -1177,13 +1179,17 @@ export default function AboutPage() {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach(e => {
-                    if (e.isIntersecting) { e.target.classList.add('in-view'); observer.unobserve(e.target); }
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in-view');
+                    } else {
+                        e.target.classList.remove('in-view');
+                    }
                 });
             },
-            { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
+            { root: eduPanelRef.current, threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
         );
         const t = setTimeout(() => {
-            document.querySelectorAll('.edu-panel [data-animate]:not(.in-view)').forEach(el => observer.observe(el));
+            document.querySelectorAll('.edu-panel [data-animate]').forEach(el => observer.observe(el));
         }, 80);
         return () => { clearTimeout(t); observer.disconnect(); };
     }, [eduOpen]);
@@ -1275,20 +1281,20 @@ export default function AboutPage() {
             <section id="hero" className="about-hero" ref={heroRef}>
                 <div className="about-hero-bg" />
                 <div className="about-hero-inner">
-                    <div className="about-hero-badge hero-fade-up" style={{ animationDelay: '0.1s' }}>
+                    <div className="about-hero-badge" data-animate="fade-down" style={{ '--delay': '0.05s' }}>
                         <Sparkles size={13} />
                         Instyte Labs · Software &amp; Product Studio
                     </div>
-                    <h1 className="about-hero-heading hero-fade-up" style={{ animationDelay: '0.22s' }}>
+                    <h1 className="about-hero-heading" data-animate="fade-up" style={{ '--delay': '0.12s' }}>
                         We build software products<br />
                         <span className="about-hero-gradient">for real businesses</span>
                     </h1>
-                    <p className="about-hero-sub hero-fade-up" style={{ animationDelay: '0.34s' }}>
+                    <p className="about-hero-sub" data-animate="fade-up" style={{ '--delay': '0.22s' }}>
                         SaaS platforms, on-premise tools, mobile apps, and custom software —
                         from small businesses to medium enterprises. Our own product, <strong style={{ color: '#e2e8f0' }}>Instyte Education</strong>,
                         is already running in schools across India.
                     </p>
-                    <div className="about-hero-actions hero-fade-up" style={{ animationDelay: '0.46s' }}>
+                    <div className="about-hero-actions" data-animate="fade-up" style={{ '--delay': '0.32s' }}>
                         <button className="about-btn-primary" onClick={() => scrollTo('#what-we-build')}>
                             What we build <ArrowRight size={16} />
                         </button>
@@ -1297,7 +1303,7 @@ export default function AboutPage() {
                         </button>
                     </div>
 
-                    <div className="about-stats hero-fade-up" style={{ animationDelay: '0.58s' }}>
+                    <div className="about-stats" data-animate="zoom-in" style={{ '--delay': '0.42s' }}>
                         {STATS.map(({ Icon: SI, color, value, label }) => (
                             <div key={label} className="about-stat">
                                 <div className={`about-stat-icon-wrap about-icon-bg--${color}`}>
@@ -1311,7 +1317,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* hero product screenshot */}
-                <div className="about-hero-screenshot hero-fade-up" style={{ animationDelay: '0.72s' }}>
+                <div className="about-hero-screenshot" data-animate="fade-left" style={{ '--delay': '0.18s' }}>
                     <div className="about-hero-screen-frame">
                         <div className="about-hero-screen-bar">
                             <span className="about-screen-dot--red" />
@@ -1328,20 +1334,20 @@ export default function AboutPage() {
             {/* ── What We Build ─────────────────────────────────────────── */}
             <section id="what-we-build" className="about-section about-section--alt">
                 <div className="about-section-inner">
-                    <div className="about-section-label" data-animate="fade-up">
+                    <div className="about-section-label" data-animate="fade-right">
                         <Briefcase size={13} /> Instyte Labs
                     </div>
                     <h2 className="about-section-heading" data-animate="fade-up">
                         We build software. Any software.
                     </h2>
-                    <p className="about-section-sub" data-animate="fade-up">
+                    <p className="about-section-sub" data-animate="fade-left">
                         From small business tools to medium enterprise platforms — SaaS, on-premise, mobile, AI, or custom.
                         If your business has a problem software can solve, we build it. Instyte Education is what we built for ourselves.
                         Your product could be next.
                     </p>
                     <div className="about-arch-grid">
                         {WHAT_WE_BUILD.map(({ Icon: WI, color, title, body }, i) => (
-                            <div key={title} className="about-arch-card" data-animate="fade-up" style={{ '--delay': `${i * 0.07}s` }}>
+                            <div key={title} className="about-arch-card" data-animate="zoom-in" style={{ '--delay': `${i * 0.07}s` }}>
                                 <div className={`about-arch-icon-wrap about-icon-bg--${color}`}>
                                     <WI size={22} />
                                 </div>
@@ -1350,7 +1356,7 @@ export default function AboutPage() {
                             </div>
                         ))}
                     </div>
-                    <div className="about-whatwebuild-cta" data-animate="fade-up">
+                    <div className="about-whatwebuild-cta" data-animate="zoom-up">
                         <p>Have a project in mind? We work with businesses of all sizes — from a single founder to a 200-person company.</p>
                         <button className="about-btn-primary" onClick={scrollToContact}>
                             Tell us what you need <ArrowRight size={15} />
@@ -1362,15 +1368,15 @@ export default function AboutPage() {
             {/* ── Instyte Education product suite ───────────────────────── */}
             <section id="products" className="about-section about-products-section">
                 <div className="about-section-inner">
-                    <div className="about-section-label" data-animate="fade-up">
+                    <div className="about-section-label" data-animate="fade-down">
                         <GraduationCap size={13} /> Instyte Education
                     </div>
                     <h2 className="about-section-heading" data-animate="fade-up">Our flagship product — built for schools &amp; institutions</h2>
-                    <p className="about-section-sub" data-animate="fade-up">
+                    <p className="about-section-sub" data-animate="fade-right">
                         Instyte Education is a complete Educational Operating System — leads, admissions, finance, AI, academics, hostel —
                         available as SaaS, on-premise, or lightweight standalone. Already running in schools across India.
                     </p>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }} data-animate="fade-up">
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }} data-animate="zoom-in">
                         <button className="about-btn-primary" onClick={openEdu}>
                             Explore Instyte Education <GraduationCap size={15} />
                         </button>
@@ -1381,7 +1387,7 @@ export default function AboutPage() {
                             <div
                                 key={id}
                                 className={`about-product-card about-product-card--${color} ${highlighted ? 'about-product-card--highlighted' : ''}`}
-                                data-animate="fade-up"
+                                data-animate={i % 2 === 0 ? 'fade-right' : 'fade-left'}
                                 style={{ '--delay': `${i * 0.1}s` }}
                             >
                                 {highlighted && (
@@ -1431,13 +1437,13 @@ export default function AboutPage() {
             {/* ── Trusted By ────────────────────────────────────────────── */}
             <section className="about-customers-section">
                 <div className="about-customers-inner">
-                    <div className="about-customers-label" data-animate="fade-up">
+                    <div className="about-customers-label" data-animate="fade-down">
                         <Award size={13} /> Trusted By
                     </div>
                     <p className="about-customers-sub" data-animate="fade-up">
                         Schools already running on Instyte Education
                     </p>
-                    <div className="about-customers-marquee-wrap" data-animate="fade-up">
+                    <div className="about-customers-marquee-wrap" data-animate="zoom-in">
                         <div className="about-customers-marquee-fade about-customers-marquee-fade--left" />
                         <div className="about-customers-marquee-fade about-customers-marquee-fade--right" />
                         <div className="about-customers-track">
@@ -1513,26 +1519,26 @@ export default function AboutPage() {
                 <section className="edu-hero">
                     <div className="edu-hero-bg" />
                     <div className="edu-hero-inner">
-                        <div className="edu-hero-eyebrow">
+                        <div className="edu-hero-eyebrow" data-animate="fade-down">
                             <GraduationCap size={14} /> Instyte Education · Educational Operating System
                         </div>
-                        <h1 className="edu-hero-heading">
+                        <h1 className="edu-hero-heading" data-animate="fade-up">
                             The complete operating system<br />
                             <span className="edu-hero-gradient">for modern institutions</span>
                         </h1>
-                        <p className="edu-hero-sub">
+                        <p className="edu-hero-sub" data-animate="fade-up" style={{ '--delay': '0.1s' }}>
                             Most schools run on a patchwork of spreadsheets, WhatsApp groups, and disconnected tools.
                             Instyte Education replaces all of it — leads, admissions, academics, finance, AI, hostel,
                             mobile apps — in one platform, available as cloud or on-premise.
                         </p>
-                        <div className="edu-hero-pills">
+                        <div className="edu-hero-pills" data-animate="fade-up" style={{ '--delay': '0.2s' }}>
                             <span className="edu-hero-pill"><Check size={12} /> 10 integrated modules</span>
                             <span className="edu-hero-pill"><Check size={12} /> Role portals for every stakeholder</span>
                             <span className="edu-hero-pill"><Check size={12} /> Flutter mobile app included</span>
                             <span className="edu-hero-pill"><Check size={12} /> AI assistant + lead scoring</span>
                             <span className="edu-hero-pill"><Check size={12} /> Cloud or self-hosted</span>
                         </div>
-                        <div className="edu-hero-actions">
+                        <div className="edu-hero-actions" data-animate="fade-up" style={{ '--delay': '0.3s' }}>
                             <button className="about-btn-primary" onClick={() => setDemoOpen(true)}>
                                 <CalendarDays size={16} /> Get a Demo
                             </button>
@@ -1546,18 +1552,18 @@ export default function AboutPage() {
                 {/* Platform Overview */}
                 <section id="edu-platform" className="about-section about-section--alt">
                     <div className="about-section-inner">
-                        <div className="about-section-label" data-animate="fade-up">
+                        <div className="about-section-label" data-animate="fade-right">
                             <LayoutDashboard size={13} /> Platform
                         </div>
                         <h2 className="about-section-heading" data-animate="fade-up">Every tool your institution needs, in one place</h2>
-                        <p className="about-section-sub" data-animate="fade-up">
+                        <p className="about-section-sub" data-animate="fade-left">
                             Instyte Cloud is a schema-isolated multi-tenant SaaS platform built on Spring Boot and React.
                             Each institution gets its own isolated data environment, role-based access, and a mobile app —
                             without any of the complexity of managing infrastructure.
                         </p>
                         <div className="about-arch-grid">
                             {ARCH_CARDS.map(({ Icon: AI, color, title, body }, i) => (
-                                <div key={title} className="about-arch-card" data-animate="fade-up" style={{ '--delay': `${i * 0.08}s` }}>
+                                <div key={title} className="about-arch-card" data-animate="zoom-in" style={{ '--delay': `${i * 0.08}s` }}>
                                     <div className={`about-arch-icon-wrap about-icon-bg--${color}`}>
                                         <AI size={22} />
                                     </div>
@@ -1572,15 +1578,15 @@ export default function AboutPage() {
                 {/* Modules */}
                 <section id="edu-modules" className="about-section">
                     <div className="about-section-inner">
-                        <div className="about-section-label" data-animate="fade-up">
+                        <div className="about-section-label" data-animate="fade-down">
                             <BookOpen size={13} /> Modules
                         </div>
                         <h2 className="about-section-heading" data-animate="fade-up">Ten modules. Zero gaps.</h2>
-                        <p className="about-section-sub" data-animate="fade-up">
+                        <p className="about-section-sub" data-animate="fade-right">
                             From the first enquiry to the last receipt — and every class, exam, hostel check-in, and support ticket in between.
                             Everything is connected, so your team never has to re-enter data or switch tools.
                         </p>
-                        <div className="about-modules-layout" data-animate="fade-up">
+                        <div className="about-modules-layout" data-animate="zoom-up">
                             <div className="about-modules-tabs">
                                 {MODULES.map((m, i) => {
                                     const MI = m.Icon;
@@ -1626,11 +1632,11 @@ export default function AboutPage() {
                 {/* Screenshot Gallery */}
                 <section className="about-gallery">
                     <div className="about-section-inner">
-                        <div className="about-section-label" data-animate="fade-up">
+                        <div className="about-section-label" data-animate="fade-down">
                             <MonitorPlay size={13} /> See It In Action
                         </div>
-                        <h2 className="about-section-heading" data-animate="fade-up">A closer look at what you're getting</h2>
-                        <p className="about-section-sub" data-animate="fade-up">
+                        <h2 className="about-section-heading" data-animate="fade-down">A closer look at what you're getting</h2>
+                        <p className="about-section-sub" data-animate="fade-down">
                             Real screens your team, students, and counsellors will use every day.
                         </p>
                         <div className="about-gallery-wrap">
@@ -1725,21 +1731,21 @@ export default function AboutPage() {
                 {/* Why Instyte */}
                 <section className="about-section about-section--alt">
                     <div className="about-section-inner">
-                        <div className="about-section-label" data-animate="fade-up"><Award size={13} /> Why Instyte</div>
+                        <div className="about-section-label" data-animate="fade-left"><Award size={13} /> Why Instyte</div>
                         <h2 className="about-section-heading" data-animate="fade-up">What every other EdTech tool is missing</h2>
-                        <p className="about-section-sub" data-animate="fade-up">
+                        <p className="about-section-sub" data-animate="fade-right">
                             We focused on the gaps most education platforms leave open — and built tools that actually close them.
                         </p>
                         <div className="about-diff-grid">
                             {DIFFERENTIATORS.map(({ Icon: DI, color, title, body }, i) => (
-                                <div key={title} className="about-diff-card" data-animate="fade-up" style={{ '--delay': `${i * 0.07}s` }}>
+                                <div key={title} className="about-diff-card" data-animate="zoom-in" style={{ '--delay': `${i * 0.07}s` }}>
                                     <div className={`about-diff-icon-wrap about-icon-bg--${color}`}><DI size={22} /></div>
                                     <h3 className="about-diff-title">{title}</h3>
                                     <p className="about-diff-body">{body}</p>
                                 </div>
                             ))}
                         </div>
-                        <div className="about-compare" data-animate="fade-up">
+                        <div className="about-compare" data-animate="zoom-up">
                             <h3 className="about-compare-heading">Instyte vs. the alternatives</h3>
                             <div className="about-compare-scroll">
                                 <table className="about-compare-table">
@@ -1768,19 +1774,19 @@ export default function AboutPage() {
                 {/* Pricing */}
                 <section id="edu-pricing" className="about-section about-section--alt">
                     <div className="about-section-inner">
-                        <div className="about-section-label" data-animate="fade-up">
+                        <div className="about-section-label" data-animate="fade-right">
                             <CreditCard size={13} /> Pricing
                         </div>
                         <h2 className="about-section-heading" data-animate="fade-up">
                             Transparent pricing — no sales call required
                         </h2>
-                        <p className="about-section-sub" data-animate="fade-up">
+                        <p className="about-section-sub" data-animate="fade-left">
                             Instyte Cloud has fixed monthly plans — pay only for the modules you use.
                             On-Premise products are priced based on your institution's size. <strong>Every number is public.</strong>
                         </p>
 
                         {/* Radical Transparency Banner */}
-                        <div className="about-pricing-transparency" data-animate="fade-up">
+                        <div className="about-pricing-transparency" data-animate="zoom-in">
                             <div className="about-pricing-transparency-left">
                                 <div className="about-pricing-transparency-eyebrow">
                                     <Zap size={13} /> Why we show prices publicly
@@ -1839,7 +1845,7 @@ export default function AboutPage() {
 
                         {/* Pricing Reveal Gate */}
                         {!pricingRevealed ? (
-                            <div className="about-pricing-gate" data-animate="fade-up">
+                            <div className="about-pricing-gate" data-animate="zoom-in">
                                 <div className="about-pricing-gate-inner">
                                     <div className="about-pricing-gate-icon"><CreditCard size={28} /></div>
                                     <h3 className="about-pricing-gate-title">Full pricing — right here, no sales call needed</h3>
@@ -1852,7 +1858,7 @@ export default function AboutPage() {
                         ) : (
                             <>
                             {/* Unified product pricing card */}
-                            <div className="about-pricing-unified" data-animate="fade-up">
+                            <div className="about-pricing-unified" data-animate="zoom-up">
                                 <div className="about-pricing-unified-col about-pricing-unified-col--cloud">
                                     <div className="about-pricing-unified-header">
                                         <div className="about-pricing-unified-icon about-pricing-unified-icon--indigo"><Globe size={18} /></div>
@@ -1932,7 +1938,7 @@ export default function AboutPage() {
                             <PricingCalculator onSelectPlan={(plan) => { setSelectedPlan(plan); }} onBook={() => setDemoOpen(true)} />
 
                             {/* Why this price */}
-                            <div className="about-pricing-why" data-animate="fade-up">
+                            <div className="about-pricing-why" data-animate="fade-right">
                                 <h3 className="about-pricing-why-heading"><DollarSign size={16} /> Why does Instyte cost what it costs?</h3>
                                 <p className="about-pricing-why-body">
                                     Running a serious SaaS platform for education isn't cheap — here's what your subscription actually pays for:
@@ -1958,7 +1964,7 @@ export default function AboutPage() {
                             </div>
 
                             {/* Competitor comparison */}
-                            <div className="about-pricing-cmp" data-animate="fade-up">
+                            <div className="about-pricing-cmp" data-animate="zoom-in">
                                 <h3 className="about-pricing-cmp-heading">How does our pricing compare?</h3>
                                 <p className="about-pricing-cmp-sub">Most education management tools charge more, deliver less — and bundle everything whether you want it or not.</p>
                                 <div className="about-pricing-cmp-grid">
@@ -2193,7 +2199,7 @@ export default function AboutPage() {
 
             {/* ── CTA Banner ────────────────────────────────────────────── */}
             <section className="about-cta-banner">
-                <div className="about-cta-inner" data-animate="fade-up">
+                <div className="about-cta-inner" data-animate="zoom-in">
                     <h2 className="about-cta-heading">Ready to transform your institution?</h2>
                     <p className="about-cta-sub">
                         Join schools already using Instyte Education — or talk to us about building something new for your business.

@@ -2401,12 +2401,6 @@
     to   { opacity: 1; transform: translateX(0);    }
 }
 
-/* Hero items animate in on load */
-.hero-fade-up {
-    opacity: 0;
-    animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
 /* Scroll-triggered elements */
 [data-animate] {
     opacity: 0;
@@ -2415,8 +2409,11 @@
     transition-delay: var(--delay, 0s);
 }
 [data-animate="fade-up"]    { transform: translateY(32px); }
+[data-animate="fade-down"]  { transform: translateY(-32px); }
 [data-animate="fade-right"] { transform: translateX(-36px); }
 [data-animate="fade-left"]  { transform: translateX(36px); }
+[data-animate="zoom-in"]    { transform: scale(0.88); }
+[data-animate="zoom-up"]    { transform: translateY(24px) scale(0.92); }
 
 [data-animate].in-view {
     opacity: 1;
@@ -2739,8 +2736,11 @@
 
 /* ── Stronger scroll-reveal (bigger lift, spring easing) ────── */
 [data-animate="fade-up"]    { transform: translateY(48px); }
+[data-animate="fade-down"]  { transform: translateY(-48px); }
 [data-animate="fade-right"] { transform: translateX(-52px); }
 [data-animate="fade-left"]  { transform: translateX(52px); }
+[data-animate="zoom-in"]    { transform: scale(0.85); }
+[data-animate="zoom-up"]    { transform: translateY(32px) scale(0.9); }
 
 [data-animate] {
     transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
@@ -2749,10 +2749,6 @@
 }
 
 /* Hero items: more dramatic entrance */
-.hero-fade-up {
-    animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(44px); }
     to   { opacity: 1; transform: translateY(0);    }
