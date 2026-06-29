@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import './AboutPage.css';
 
-const LOGO = '/logo.png';
+const LOGO = '/Instyte_dark-removebg-preview.png';
 
 const scrollToContact = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 const API_URL = process.env.REACT_APP_API_URL || '';
@@ -25,20 +25,153 @@ const API_URL = process.env.REACT_APP_API_URL || '';
 // ─── Nav ──────────────────────────────────────────────────────────────────────
 
 const NAV_LINKS = [
-    { label: 'Platform',    href: '#platform' },
-    { label: 'Modules',     href: '#modules'  },
-    { label: 'Why Instyte', href: '#why'      },
-    { label: 'Pricing',     href: '#pricing'  },
-    { label: 'Contact',     href: '#contact'  },
+    { label: 'What We Build',      href: '#what-we-build' },
+    { label: 'Instyte Education',  href: '#products', openEdu: true },
+    { label: 'Contact',            href: '#contact'       },
+];
+
+// ─── What We Build ────────────────────────────────────────────────────────────
+
+const WHAT_WE_BUILD = [
+    {
+        Icon: Globe,
+        color: 'indigo',
+        title: 'SaaS Products',
+        body: 'We design and ship multi-tenant SaaS platforms with modern stacks — Spring Boot, React, Flutter. Instyte Education is our own SaaS product. We can build yours too.',
+    },
+    {
+        Icon: Cpu,
+        color: 'emerald',
+        title: 'On-Premise Software',
+        body: 'Not everything belongs in the cloud. We build self-hosted software deployed via Docker — running on your hardware, under your control, with no cloud dependency.',
+    },
+    {
+        Icon: Smartphone,
+        color: 'blue',
+        title: 'Mobile Apps',
+        body: 'Cross-platform mobile apps in Flutter. Role-based, offline-capable, and production-grade — not prototypes. Instyte Education ships a Flutter app to real users every day.',
+    },
+    {
+        Icon: BrainCircuit,
+        color: 'violet',
+        title: 'AI & Automation',
+        body: 'ML-powered lead scoring, conversational AI assistants, workflow automation, and third-party integrations. We build AI that actually works in production — not just demos.',
+    },
+    {
+        Icon: Briefcase,
+        color: 'amber',
+        title: 'Custom Development',
+        body: 'From small business tools to medium enterprise systems — if you have a problem that off-the-shelf software doesn\'t solve, we build it for you from scratch.',
+    },
+    {
+        Icon: Building2,
+        color: 'teal',
+        title: 'Integrations & APIs',
+        body: 'WhatsApp, payment gateways, ERP connectors, third-party CRMs — we wire your systems together so data flows without manual work and without buying new software.',
+    },
 ];
 
 // ─── Stats ────────────────────────────────────────────────────────────────────
 
 const STATS = [
-    { Icon: Building2, color: 'emerald', value: '50+',   label: 'Institutions'     },
-    { Icon: Users,     color: 'blue',    value: '10k+',  label: 'Users'            },
-    { Icon: Clock,     color: 'violet',  value: '99.9%', label: 'Uptime SLA'       },
-    { Icon: Star,      color: 'amber',   value: '4.9',   label: 'Customer Rating'  },
+    { Icon: Building2, color: 'emerald', value: '5+',    label: 'Institutions Live'  },
+    { Icon: Users,     color: 'blue',    value: '4,200+', label: 'Active Users'      },
+    { Icon: Clock,     color: 'violet',  value: '99.9%', label: 'Uptime SLA'        },
+    { Icon: Star,      color: 'amber',   value: '4.9',   label: 'Customer Rating'   },
+];
+
+// ─── Products ─────────────────────────────────────────────────────────────────
+
+const PRODUCTS = [
+    {
+        id: 'cloud',
+        Icon: Globe,
+        color: 'indigo',
+        badge: 'SaaS · Multi-tenant',
+        name: 'Instyte Cloud',
+        tagline: 'The full platform, fully managed — zero infrastructure to worry about',
+        description:
+            'Instyte Cloud is our flagship SaaS offering. Your institution gets a dedicated, schema-isolated environment on our cloud infrastructure — fully managed, always updated, and backed by our 99.9% uptime SLA. Every module, every role portal, AI, mobile app, and multi-branch support — all included, nothing to install.',
+        highlights: [
+            { Icon: ShieldCheck, text: 'Schema-isolated multi-tenant — your data never touches another institution' },
+            { Icon: BrainCircuit, text: 'AI lead scoring + conversational assistant included' },
+            { Icon: Smartphone, text: 'Native Flutter mobile app for every role' },
+            { Icon: Building2, text: 'True multi-branch — one owner view across all locations' },
+            { Icon: Clock, text: '99.9% uptime SLA · Managed updates · AWS infrastructure' },
+            { Icon: LayoutDashboard, text: 'All 9 modules available — Finance, Leads, AI, Hostel & more' },
+        ],
+        cta: 'Get Started',
+        ctaHref: '#contact',
+        highlighted: true,
+    },
+    {
+        id: 'onpremise',
+        Icon: Cpu,
+        color: 'emerald',
+        badge: 'Self-hosted · On-Premise',
+        name: 'Instyte OnPremise',
+        tagline: 'Full Instyte power, deployed inside your own infrastructure',
+        description:
+            'For institutions with data sovereignty requirements or strong IT preferences. Instyte OnPremise is the same platform — Spring Boot, React, Flutter — deployed on your servers. Our Relay + Connector architecture lets you securely access it remotely without opening firewall ports, while your data stays entirely on your premises.',
+        highlights: [
+            { Icon: ShieldCheck, text: 'Complete data sovereignty — runs on your hardware, your network' },
+            { Icon: Network, text: 'Relay + Connector: secure remote access with no open inbound ports' },
+            { Icon: Globe, text: 'Full-featured: all modules identical to Instyte Cloud' },
+            { Icon: Cpu, text: 'Spring Boot 3 + React 18 + Flutter — modern, maintainable stack' },
+            { Icon: Building2, text: 'Docker-based deployment — runs anywhere containers run' },
+            { Icon: KeyRound, text: 'Multi-tenant on your schema — isolate branches within your instance' },
+        ],
+        cta: 'Contact Sales',
+        ctaHref: '#contact',
+        highlighted: false,
+    },
+    {
+        id: 'lite',
+        Icon: Zap,
+        color: 'amber',
+        badge: 'Lightweight · Standalone',
+        name: 'Instyte OnPremise Lite',
+        tagline: 'Streamlined Finance + Student Management — simple, fast, offline-capable',
+        description:
+            'Built for schools that need reliable fee collection and student records without the overhead of a full platform. Instyte OnPremise Lite (powered by InfantJ) is a self-contained Java + React application delivered as pre-built Docker images — drop it on any machine, activate it once, and you\'re live. WhatsApp integration included.',
+        highlights: [
+            { Icon: Zap, text: 'Pre-built Docker images — up and running in under an hour' },
+            { Icon: DollarSign, text: 'Full fee management: structures, invoices, receipts, overdue reminders' },
+            { Icon: GraduationCap, text: 'Student management: profiles, enrollment, progress tracking' },
+            { Icon: MessageSquare, text: 'WhatsApp integration for fee reminders & notifications' },
+            { Icon: ShieldCheck, text: 'Runs entirely on-premise — no cloud dependency required' },
+            { Icon: Building2, text: 'Ideal for single-branch schools wanting simplicity over scale' },
+        ],
+        cta: 'Learn More',
+        ctaHref: '#contact',
+        highlighted: false,
+    },
+];
+
+// ─── Customers ────────────────────────────────────────────────────────────────
+
+const CUSTOMERS = [
+    {
+        id: 'fathima',
+        type: 'text',
+        name: 'Fathima EM High School',
+        initials: 'FH',
+        color: 'emerald',
+    },
+    {
+        id: 'infantjesus',
+        type: 'text',
+        name: 'Infant Jesus EM School',
+        initials: 'IJ',
+        color: 'blue',
+    },
+    {
+        id: 'muzigal',
+        type: 'text',
+        name: 'Muzigal Nellore',
+        initials: 'MN',
+        color: 'violet',
+    },
 ];
 
 // ─── Modules ──────────────────────────────────────────────────────────────────
@@ -269,7 +402,7 @@ const GALLERY_TABS = [
     { key: 'invoices',   label: 'Invoices',          desc: 'Full fee lifecycle — every rupee tracked',        src: '/screens/invoices.png',          color: 'emerald' },
     { key: 'invoice',    label: 'Invoice Detail',    desc: 'GST-ready invoices with instalment schedule',    src: '/screens/invoice-detail.png',    color: 'orange'  },
     { key: 'student',    label: 'Student Profile',   desc: 'Complete record — enrollment, fees, academics',  src: '/screens/student-profile.png',   color: 'blue'    },
-    { key: 'enrollment', label: 'Enrollment',        desc: 'Academic config, timetable, subjects in one view',src: '/screens/student-enrollment.png',color: 'violet'  },
+    { key: 'enrollment', label: 'Enrollment',        desc: 'Student list with enrollment status & progress',  src: '/screens/enrollment-students.png',color: 'violet'  },
     { key: 'enr-detail', label: 'Enrollment Detail', desc: 'Classroom details, faculty, schedule & dates',   src: '/screens/enrollment-detail.png', color: 'cyan'    },
 ];
 
@@ -397,7 +530,7 @@ const PRICING_PLANS = [
 
 // ─── Interactive Pricing Calculator ──────────────────────────────────────────
 
-function PricingCalculator({ onSelectPlan }) {
+function PricingCalculator({ onSelectPlan, onBook }) {
     const [basePlan, setBasePlan] = useState('foundation');
     const [selectedAddons, setSelectedAddons] = useState(new Set());
     const [open, setOpen] = useState(false);
@@ -446,7 +579,7 @@ function PricingCalculator({ onSelectPlan }) {
 
     const handleContact = () => {
         onSelectPlan(planLabel);
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        onBook();
     };
 
     return (
@@ -673,7 +806,7 @@ function TermsModal({ onClose }) {
                     ))}
                 </div>
                 <div className="tc-modal-footer">
-                    <p className="tc-modal-footer-note">© {new Date().getFullYear()} Instyte. All rights reserved.</p>
+                    <p className="tc-modal-footer-note">© {new Date().getFullYear()} Instyte Labs. All rights reserved.</p>
                     <button className="about-btn-primary" onClick={onClose}>
                         Close <X size={14} />
                     </button>
@@ -821,6 +954,130 @@ function MobileAppSection() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+// ─── Demo Booking Modal ───────────────────────────────────────────────────────
+
+function DemoModal({ onClose, onBook }) {
+    const today = new Date();
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [org, setOrg] = useState('');
+    const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+
+    const timeSlots = [
+        '09:00 AM', '10:00 AM', '11:00 AM',
+        '12:00 PM', '02:00 PM', '03:00 PM',
+        '04:00 PM', '05:00 PM', '06:00 PM',
+    ];
+
+    /* generate next 7 days as selectable pills */
+    const days = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        const val  = d.toISOString().split('T')[0];
+        const day  = d.toLocaleDateString('en-IN', { weekday: 'short' });
+        const num  = d.getDate();
+        const mon  = d.toLocaleDateString('en-IN', { month: 'short' });
+        return { val, day, num, mon };
+    });
+
+    const handleBook = async (e) => {
+        e.preventDefault();
+        if (!date || !time || !name || !phone) return;
+        setSubmitting(true);
+        const message = `Demo Request — Preferred slot: ${date} at ${time}`;
+        try {
+            await fetch(`${process.env.REACT_APP_API_URL || ''}/instyte/api/v1/public/customer-enquiry`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, phone, organization: org, email: '', message, source: 'www.instyte.com' }),
+            });
+        } catch { /* fail silently */ }
+        setSubmitted(true);
+        setSubmitting(false);
+        onBook && onBook({ date, time, name });
+    };
+
+    return (
+        <div className="demo-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+            <div className="demo-modal">
+                <button className="demo-modal-close" onClick={onClose}><X size={18} /></button>
+                {submitted ? (
+                    <div className="demo-modal-success">
+                        <div className="demo-modal-success-icon"><Check size={32} /></div>
+                        <h3>Demo booked!</h3>
+                        <p>We'll confirm your slot for <strong>{date} at {time}</strong> and reach out to <strong>{name}</strong> shortly.</p>
+                        <button className="about-btn-primary" onClick={onClose}>Done</button>
+                    </div>
+                ) : (
+                    <>
+                        <div className="demo-modal-header">
+                            <div className="demo-modal-icon"><CalendarDays size={22} /></div>
+                            <div>
+                                <h3 className="demo-modal-title">Book a Demo</h3>
+                                <p className="demo-modal-sub">Pick a date and time — we'll walk you through Instyte Education live.</p>
+                            </div>
+                        </div>
+                        <form className="demo-modal-form" onSubmit={handleBook}>
+                            <div className="demo-modal-row">
+                                <div className="demo-modal-field">
+                                    <label>Your name *</label>
+                                    <input type="text" required placeholder="Jane Smith" value={name} onChange={e => setName(e.target.value)} />
+                                </div>
+                                <div className="demo-modal-field">
+                                    <label>Phone *</label>
+                                    <input type="tel" required placeholder="+91 98765 43210" value={phone} onChange={e => setPhone(e.target.value)} />
+                                </div>
+                            </div>
+                            <div className="demo-modal-field">
+                                <label>School / Organisation</label>
+                                <input type="text" placeholder="Your institution name" value={org} onChange={e => setOrg(e.target.value)} />
+                            </div>
+
+                            {/* Date pill strip */}
+                            <div className="demo-modal-field">
+                                <label>Preferred date *</label>
+                                <div className="demo-date-strip">
+                                    {days.map(d => (
+                                        <button type="button" key={d.val}
+                                            className={`demo-date-pill ${date === d.val ? 'demo-date-pill--active' : ''}`}
+                                            onClick={() => setDate(d.val)}>
+                                            <span className="demo-date-day">{d.day}</span>
+                                            <span className="demo-date-num">{d.num}</span>
+                                            <span className="demo-date-mon">{d.mon}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Time slot grid */}
+                            <div className="demo-modal-field">
+                                <label>Preferred time *</label>
+                                <div className="demo-time-grid">
+                                    {timeSlots.map(t => (
+                                        <button type="button" key={t}
+                                            className={`demo-time-pill ${time === t ? 'demo-time-pill--active' : ''}`}
+                                            onClick={() => setTime(t)}>
+                                            {t}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <button type="submit" className="about-btn-primary demo-modal-submit"
+                                disabled={submitting || !date || !time || !name || !phone}>
+                                {submitting ? 'Booking…' : <><CalendarDays size={15} /> Confirm Demo Slot</>}
+                            </button>
+                        </form>
+                    </>
+                )}
+            </div>
+        </div>
+    );
+}
+
 export default function AboutPage() {
     const [scrolled,       setScrolled]       = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -829,10 +1086,35 @@ export default function AboutPage() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [selectedPlan,   setSelectedPlan]   = useState('');
     const [termsOpen,      setTermsOpen]      = useState(false);
+    const [pricingRevealed, setPricingRevealed] = useState(false);
+    const [eduOpen,         setEduOpen]         = useState(false);
+    const [inkOrigin,       setInkOrigin]       = useState({ x: '50%', y: '50%' });
+    const [inkPhase,        setInkPhase]        = useState('idle'); // idle | expanding | revealing | open
+    const [demoOpen,        setDemoOpen]        = useState(false);
     const [contactForm,    setContactForm]    = useState({ name: '', email: '', phone: '', organization: '', message: '' });
     const [contactState,   setContactState]   = useState('idle');
     const heroRef   = useRef(null);
     const galleryTimer = useRef(null);
+    const eduPanelRef = useRef(null);
+
+    const openEdu = (e) => {
+        const rect = e?.currentTarget?.getBoundingClientRect();
+        const x = rect ? `${rect.left + rect.width / 2}px` : '50%';
+        const y = rect ? `${rect.top + rect.height / 2}px` : '50%';
+        setInkOrigin({ x, y });
+        setInkPhase('expanding');
+        setTimeout(() => {
+            setEduOpen(true);
+            if (eduPanelRef.current) eduPanelRef.current.scrollTop = 0;
+            setInkPhase('revealing');
+        }, 320);
+        setTimeout(() => setInkPhase('open'), 480);
+    };
+
+    const closeEdu = () => {
+        setEduOpen(false);
+        setInkPhase('idle');
+    };
 
     useEffect(() => {
         const onScroll = () => {
@@ -862,6 +1144,49 @@ export default function AboutPage() {
         els.forEach(el => observer.observe(el));
         return () => observer.disconnect();
     }, []);
+
+    /* re-observe newly revealed pricing elements after gate is clicked */
+    useEffect(() => {
+        if (!pricingRevealed) return;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in-view');
+                        observer.unobserve(e.target);
+                    }
+                });
+            },
+            { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
+        );
+        // small delay so the DOM has rendered the new elements
+        const t = setTimeout(() => {
+            document.querySelectorAll('[data-animate]:not(.in-view)').forEach(el => observer.observe(el));
+        }, 50);
+        return () => { clearTimeout(t); observer.disconnect(); };
+    }, [pricingRevealed]);
+
+    /* lock body scroll when edu panel is open; re-observe its elements */
+    useEffect(() => {
+        document.body.style.overflow = eduOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [eduOpen]);
+
+    useEffect(() => {
+        if (!eduOpen) return;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('in-view'); observer.unobserve(e.target); }
+                });
+            },
+            { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
+        );
+        const t = setTimeout(() => {
+            document.querySelectorAll('.edu-panel [data-animate]:not(.in-view)').forEach(el => observer.observe(el));
+        }, 80);
+        return () => { clearTimeout(t); observer.disconnect(); };
+    }, [eduOpen]);
 
     /* gallery auto-cycle */
     useEffect(() => {
@@ -917,23 +1242,26 @@ export default function AboutPage() {
                 <div className="about-nav-inner">
                     <a href="#hero" className="about-nav-brand"
                         onClick={e => { e.preventDefault(); scrollTo('#hero'); }}>
-                        <img src={LOGO} alt="Instyte" className="about-nav-logo"
+                        <img src={LOGO} alt="Instyte Labs" className="about-nav-logo"
                             onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
-                        <span className="about-nav-name" style={{ display: 'none' }}>Instyte</span>
+                        <span className="about-nav-name" style={{ display: 'none' }}>Instyte Labs</span>
                     </a>
 
                     <ul className={`about-nav-links ${mobileMenuOpen ? 'about-nav-links--open' : ''}`}>
                         {NAV_LINKS.map(l => (
                             <li key={l.label}>
-                                <a href={l.href} className="about-nav-link"
-                                    onClick={e => { e.preventDefault(); scrollTo(l.href); }}>
+                                <a href={l.href} className={`about-nav-link ${l.openEdu ? 'about-nav-link--edu' : ''}`}
+                                    onClick={e => { e.preventDefault(); if (l.openEdu) { openEdu(e); setMobileMenuOpen(false); } else scrollTo(l.href); }}>
+                                    {l.openEdu && <GraduationCap size={13} />}
                                     {l.label}
                                 </a>
                             </li>
                         ))}
-                        <li>
-                        </li>
                     </ul>
+
+                    <button className="about-nav-demo-cta" onClick={() => setDemoOpen(true)}>
+                        <CalendarDays size={14} /> Get a Demo
+                    </button>
 
                     <button className="about-hamburger"
                         onClick={() => setMobileMenuOpen(p => !p)}
@@ -949,23 +1277,23 @@ export default function AboutPage() {
                 <div className="about-hero-inner">
                     <div className="about-hero-badge hero-fade-up" style={{ animationDelay: '0.1s' }}>
                         <Sparkles size={13} />
-                        Purpose-built for education
+                        Instyte Labs · Software &amp; Product Studio
                     </div>
                     <h1 className="about-hero-heading hero-fade-up" style={{ animationDelay: '0.22s' }}>
-                        The complete operating system<br />
-                        <span className="about-hero-gradient">for modern educational institutions</span>
+                        We build software products<br />
+                        <span className="about-hero-gradient">for real businesses</span>
                     </h1>
                     <p className="about-hero-sub hero-fade-up" style={{ animationDelay: '0.34s' }}>
-                        Most EdTech tools handle admissions — and stop there. Instyte goes further: built-in finance,
-                        AI you can talk to, Learning Circles for staff and students, and a dedicated login for every
-                        person in your organisation. One platform. Zero gaps.
+                        SaaS platforms, on-premise tools, mobile apps, and custom software —
+                        from small businesses to medium enterprises. Our own product, <strong style={{ color: '#e2e8f0' }}>Instyte Education</strong>,
+                        is already running in schools across India.
                     </p>
                     <div className="about-hero-actions hero-fade-up" style={{ animationDelay: '0.46s' }}>
-                        <button className="about-btn-primary" onClick={() => window.open('/demo', '_blank')}>
-                            Try Demo <ArrowRight size={16} />
+                        <button className="about-btn-primary" onClick={() => scrollTo('#what-we-build')}>
+                            What we build <ArrowRight size={16} />
                         </button>
-                        <button className="about-btn-ghost" onClick={() => scrollTo('#modules')}>
-                            Explore modules <ChevronRight size={16} />
+                        <button className="about-btn-ghost" onClick={openEdu}>
+                            Instyte Education <GraduationCap size={16} />
                         </button>
                     </div>
 
@@ -991,535 +1319,777 @@ export default function AboutPage() {
                             <span className="about-screen-dot--green" />
                             <span className="about-hero-screen-url">app.instyte.com</span>
                         </div>
-                        <img src="/screens/dashboard-ai.png" alt="Instyte Dashboard" className="about-hero-screen-img" />
+                        <img src="/screens/invoices.png" alt="Instyte Dashboard" className="about-hero-screen-img" />
                     </div>
                     <div className="about-hero-screen-glow" />
                 </div>
             </section>
 
-            {/* ── Platform Overview ─────────────────────────────────────── */}
-            <section id="platform" className="about-section about-section--alt">
+            {/* ── What We Build ─────────────────────────────────────────── */}
+            <section id="what-we-build" className="about-section about-section--alt">
                 <div className="about-section-inner">
                     <div className="about-section-label" data-animate="fade-up">
-                        <LayoutDashboard size={13} /> The Platform
+                        <Briefcase size={13} /> Instyte Labs
                     </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">Every tool your institution needs, in one place</h2>
+                    <h2 className="about-section-heading" data-animate="fade-up">
+                        We build software. Any software.
+                    </h2>
                     <p className="about-section-sub" data-animate="fade-up">
-                        Instyte is a schema-isolated multi-tenant SaaS platform built on Spring Boot and React.
-                        Each institution gets its own isolated data environment, role-based access, and a mobile app —
-                        without any of the complexity of managing infrastructure.
+                        From small business tools to medium enterprise platforms — SaaS, on-premise, mobile, AI, or custom.
+                        If your business has a problem software can solve, we build it. Instyte Education is what we built for ourselves.
+                        Your product could be next.
                     </p>
-
                     <div className="about-arch-grid">
-                        {ARCH_CARDS.map(({ Icon: AI, color, title, body }, i) => (
-                            <div key={title} className="about-arch-card" data-animate="fade-up" style={{ '--delay': `${i * 0.08}s` }}>
+                        {WHAT_WE_BUILD.map(({ Icon: WI, color, title, body }, i) => (
+                            <div key={title} className="about-arch-card" data-animate="fade-up" style={{ '--delay': `${i * 0.07}s` }}>
                                 <div className={`about-arch-icon-wrap about-icon-bg--${color}`}>
-                                    <AI size={22} />
+                                    <WI size={22} />
                                 </div>
                                 <h3>{title}</h3>
                                 <p>{body}</p>
                             </div>
                         ))}
                     </div>
+                    <div className="about-whatwebuild-cta" data-animate="fade-up">
+                        <p>Have a project in mind? We work with businesses of all sizes — from a single founder to a 200-person company.</p>
+                        <button className="about-btn-primary" onClick={scrollToContact}>
+                            Tell us what you need <ArrowRight size={15} />
+                        </button>
+                    </div>
                 </div>
             </section>
 
-            {/* ── Screenshot Gallery ────────────────────────────────────── */}
-            <section className="about-gallery">
+            {/* ── Instyte Education product suite ───────────────────────── */}
+            <section id="products" className="about-section about-products-section">
                 <div className="about-section-inner">
                     <div className="about-section-label" data-animate="fade-up">
-                        <MonitorPlay size={13} /> See It In Action
+                        <GraduationCap size={13} /> Instyte Education
                     </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">A closer look at what you're getting</h2>
+                    <h2 className="about-section-heading" data-animate="fade-up">Our flagship product — built for schools &amp; institutions</h2>
                     <p className="about-section-sub" data-animate="fade-up">
-                        We believe the product should speak for itself. Here's a walkthrough of the actual screens
-                        your team, students, and counsellors will use every day.
+                        Instyte Education is a complete Educational Operating System — leads, admissions, finance, AI, academics, hostel —
+                        available as SaaS, on-premise, or lightweight standalone. Already running in schools across India.
                     </p>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }} data-animate="fade-up">
+                        <button className="about-btn-primary" onClick={openEdu}>
+                            Explore Instyte Education <GraduationCap size={15} />
+                        </button>
+                    </div>
 
-                    <div className="about-gallery-wrap">
-                        {/* tab pills */}
-                        <div className="about-gallery-tabs">
-                            {GALLERY_TABS.map((t, i) => (
-                                <button
-                                    key={t.key}
-                                    className={`about-gallery-tab about-gallery-tab--${t.color} ${activeGallery === i ? 'about-gallery-tab--active' : ''}`}
-                                    onClick={() => goGallery(i)}>
-                                    {t.label}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* screenshot display */}
-                        <div className="about-gallery-display">
-                            <div className="about-gallery-browser">
-                                <div className="about-gallery-browser-bar">
-                                    <span className="about-screen-dot--red" />
-                                    <span className="about-screen-dot--yellow" />
-                                    <span className="about-screen-dot--green" />
-                                    <span className="about-gallery-url">app.instyte.com · {GALLERY_TABS[activeGallery].label}</span>
-                                    <div className="about-gallery-progress">
-                                        {GALLERY_TABS.map((_, i) => (
-                                            <span key={i} className={`about-gallery-pip ${activeGallery === i ? 'about-gallery-pip--active' : ''}`} onClick={() => goGallery(i)} />
-                                        ))}
+                    <div className="about-products-grid">
+                        {PRODUCTS.map(({ id, Icon: PI, color, badge, name, tagline, description, highlights, cta, ctaHref, highlighted }, i) => (
+                            <div
+                                key={id}
+                                className={`about-product-card about-product-card--${color} ${highlighted ? 'about-product-card--highlighted' : ''}`}
+                                data-animate="fade-up"
+                                style={{ '--delay': `${i * 0.1}s` }}
+                            >
+                                {highlighted && (
+                                    <div className="about-product-card-badge-top">
+                                        <Star size={11} /> Flagship Product
+                                    </div>
+                                )}
+                                <div className="about-product-card-header">
+                                    <div className={`about-product-card-icon about-icon-bg--${color}`}>
+                                        <PI size={24} />
+                                    </div>
+                                    <div>
+                                        <div className="about-product-badge-inline">{badge}</div>
+                                        <h3 className="about-product-name">{name}</h3>
                                     </div>
                                 </div>
-                                <div className="about-gallery-img-wrap">
-                                    {GALLERY_TABS.map((t, i) => (
-                                        <img
-                                            key={t.key}
-                                            src={t.src}
-                                            alt={t.label}
-                                            className={`about-gallery-img ${activeGallery === i ? 'about-gallery-img--active' : ''}`}
-                                        />
+                                <p className="about-product-tagline">{tagline}</p>
+                                <p className="about-product-desc">{description}</p>
+                                <ul className="about-product-highlights">
+                                    {highlights.map(({ Icon: HI, text }) => (
+                                        <li key={text}>
+                                            <HI size={13} className={`about-product-hi-icon about-product-hi-icon--${color}`} />
+                                            {text}
+                                        </li>
                                     ))}
-                                </div>
-                            </div>
-                            <div className="about-gallery-caption">
-                                <span className={`about-gallery-caption-dot about-gallery-caption-dot--${GALLERY_TABS[activeGallery].color}`} />
-                                {GALLERY_TABS[activeGallery].desc}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ── Mobile App Showcase ───────────────────────────────────── */}
-            <MobileAppSection />
-
-            {/* ── Spotlight: Finance + AI ───────────────────────────────── */}
-            <section className="about-spotlight">
-                <div className="about-section-inner">
-                    <div className="about-spotlight-grid">
-                        <div className="about-spotlight-card about-spotlight-card--amber" data-animate="fade-right">
-                            <div className="about-spotlight-card-icon about-icon-bg--amber">
-                                <DollarSign size={28} />
-                            </div>
-                            <div className="about-spotlight-label">
-                                <Sparkles size={12} /> Most EdTech tools skip this
-                            </div>
-                            <h3 className="about-spotlight-title">Finance is not an afterthought</h3>
-                            <p className="about-spotlight-body">
-                                Many education management tools handle admissions beautifully — then leave you
-                                with a spreadsheet for fees. Instyte includes a complete fee lifecycle in the same platform:
-                                flexible structures, automated invoicing, online and counter payments, digital receipts, and
-                                WhatsApp reminders before dues go overdue. No reconciliation. No separate accounting tool.
-                                No manual matching.
-                            </p>
-                            <ul className="about-spotlight-list">
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Multi-tier fee structures per program, batch & scholarship</li>
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Online + offline payment in one system</li>
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Auto overdue reminders via WhatsApp & email</li>
-                                <li><Check size={13} className="about-spotlight-check--amber" /> Branch-wise revenue dashboards in real time</li>
-                            </ul>
-                            <div className="about-spotlight-screens">
-                                <img src="/screens/invoices.png" alt="Invoices" className="about-spotlight-ss about-spotlight-ss--main" />
-                                <img src="/screens/invoice-detail.png" alt="Invoice Detail" className="about-spotlight-ss about-spotlight-ss--float" />
-                            </div>
-                        </div>
-
-                        <div className="about-spotlight-card about-spotlight-card--indigo" data-animate="fade-left">
-                            <div className="about-spotlight-card-icon about-icon-bg--indigo">
-                                <BrainCircuit size={28} />
-                            </div>
-                            <div className="about-spotlight-label">
-                                <Sparkles size={12} /> AI that works for you
-                            </div>
-                            <h3 className="about-spotlight-title">AI you can talk to — and that talks back to your tools</h3>
-                            <p className="about-spotlight-body">
-                                Most platforms show you dashboards and expect you to figure out the rest. Instyte's AI lets
-                                you ask questions in plain language and get real answers: <em>"Which leads haven't been called
-                                in 3 days?"</em>, <em>"How much fee is overdue this month?"</em>, <em>"Which students have
-                                missed class twice this week?"</em> — and it acts on the answer. It also connects Instyte
-                                to the tools your team already uses — WhatsApp, calendars, Google Sheets, or your CRM —
-                                automatically, without writing a single line of code.
-                            </p>
-                            <ul className="about-spotlight-list">
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> Ask anything, get instant answers — no training needed</li>
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> AI scores every lead the moment it arrives</li>
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> Auto-connects to WhatsApp, calendars & external tools</li>
-                                <li><Check size={13} className="about-spotlight-check--indigo" /> Student at-risk alerts before dropout happens</li>
-                            </ul>
-                            <div className="about-spotlight-screens">
-                                <img src="/screens/finance-dashboard.png" alt="Finance Dashboard" className="about-spotlight-ss about-spotlight-ss--main" />
-                                <img src="/screens/student-profile.png" alt="Student Profile" className="about-spotlight-ss about-spotlight-ss--float" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ── Modules ───────────────────────────────────────────────── */}
-            <section id="modules" className="about-section">
-                <div className="about-section-inner">
-                    <div className="about-section-label" data-animate="fade-up">
-                        <BookOpen size={13} /> Modules
-                    </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">Ten modules. Zero gaps.</h2>
-                    <p className="about-section-sub" data-animate="fade-up">
-                        From the first enquiry to the last receipt — and every class, exam, hostel check-in, and support ticket in between.
-                        Everything is connected, so your team never has to re-enter data or switch tools.
-                    </p>
-
-                    <div className="about-modules-layout" data-animate="fade-up">
-                        <div className="about-modules-tabs">
-                            {MODULES.map((m, i) => {
-                                const MI = m.Icon;
-                                return (
+                                </ul>
+                                <div className="about-product-card-actions">
                                     <button
-                                        key={m.title}
-                                        className={`about-module-tab ${activeModule === i
-                                            ? `about-module-tab--active about-module-tab--${m.color}`
-                                            : ''}`}
-                                        onClick={() => setActiveModule(i)}>
-                                        <MI size={16} className="about-module-tab-icon" />
-                                        <span className="about-module-tab-label">{m.title}</span>
+                                        className={`about-product-cta ${highlighted ? 'about-btn-primary' : `about-product-cta--${color}`}`}
+                                        onClick={openEdu}
+                                    >
+                                        {cta} <ArrowRight size={14} />
                                     </button>
-                                );
-                            })}
-                        </div>
-
-                        <div className={`about-module-detail about-module-detail--${MODULES[activeModule].color}`}>
-                            <div className="about-module-detail-header">
-                                <div className={`about-module-detail-icon-wrap about-module-icon-bg--${MODULES[activeModule].color}`}>
-                                    <ActiveModIcon size={28} />
+                                    <button
+                                        className="about-product-cta-demo"
+                                        onClick={() => setDemoOpen(true)}
+                                    >
+                                        Get a Demo <CalendarDays size={13} />
+                                    </button>
                                 </div>
-                                <div>
-                                    {MODULES[activeModule].badge && (
-                                        <span className={`about-module-badge about-module-badge--${MODULES[activeModule].color}`}>
-                                            <Sparkles size={11} /> {MODULES[activeModule].badge}
-                                        </span>
-                                    )}
-                                    <h3 className="about-module-detail-title">{MODULES[activeModule].title}</h3>
-                                    <p className="about-module-detail-subtitle">{MODULES[activeModule].subtitle}</p>
-                                </div>
-                            </div>
-                            <p className="about-module-detail-desc">{MODULES[activeModule].description}</p>
-                            <ul className="about-module-features">
-                                {MODULES[activeModule].features.map(({ Icon: FI, text }) => (
-                                    <li key={text}>
-                                        <FI size={14} className={`about-feature-icon about-feature-icon--${MODULES[activeModule].color}`} />
-                                        {text}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ── Why Instyte ───────────────────────────────────────────── */}
-            <section id="why" className="about-section about-section--alt">
-                <div className="about-section-inner">
-                    <div className="about-section-label" data-animate="fade-up">
-                        <Award size={13} /> Why Instyte
-                    </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">What every other EdTech tool is missing</h2>
-                    <p className="about-section-sub" data-animate="fade-up">
-                        We focused on the gaps that most education platforms leave open —
-                        and built tools that actually close them.
-                    </p>
-
-                    <div className="about-diff-grid">
-                        {DIFFERENTIATORS.map(({ Icon: DI, color, title, body }, i) => (
-                            <div key={title} className="about-diff-card" data-animate="fade-up" style={{ '--delay': `${i * 0.07}s` }}>
-                                <div className={`about-diff-icon-wrap about-icon-bg--${color}`}>
-                                    <DI size={22} />
-                                </div>
-                                <h3 className="about-diff-title">{title}</h3>
-                                <p className="about-diff-body">{body}</p>
                             </div>
                         ))}
                     </div>
+                </div>
+            </section>
 
-                    <div className="about-compare" data-animate="fade-up">
-                        <h3 className="about-compare-heading">Instyte vs. the alternatives</h3>
-                        <div className="about-compare-scroll">
-                            <table className="about-compare-table">
-                                <thead>
-                                    <tr>
+            {/* ── Trusted By ────────────────────────────────────────────── */}
+            <section className="about-customers-section">
+                <div className="about-customers-inner">
+                    <div className="about-customers-label" data-animate="fade-up">
+                        <Award size={13} /> Trusted By
+                    </div>
+                    <p className="about-customers-sub" data-animate="fade-up">
+                        Schools already running on Instyte Education
+                    </p>
+                    <div className="about-customers-marquee-wrap" data-animate="fade-up">
+                        <div className="about-customers-marquee-fade about-customers-marquee-fade--left" />
+                        <div className="about-customers-marquee-fade about-customers-marquee-fade--right" />
+                        <div className="about-customers-track">
+                            {[...CUSTOMERS, ...CUSTOMERS, ...CUSTOMERS].map((c, i) => (
+                                <div key={`${c.id}-${i}`} className={`about-customer-tile about-customer-tile--${c.color}`}>
+                                    {c.type === 'logo' ? (
+                                        <img
+                                            src={c.logoFile}
+                                            alt={c.name}
+                                            className="about-customer-logo-img"
+                                            onError={e => {
+                                                e.target.style.display = 'none';
+                                                e.target.nextSibling.style.display = 'flex';
+                                            }}
+                                        />
+                                    ) : null}
+                                    <div
+                                        className="about-customer-text-tile"
+                                        style={{ display: c.type === 'logo' ? 'none' : 'flex' }}
+                                    >
+                                        <div className={`about-customer-initials about-customer-initials--${c.color}`}>
+                                            {c.initials}
+                                        </div>
+                                        <span className="about-customer-name">{c.name}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Platform Overview ─────────────────────────────────────── */}
+            {/* MOVED TO EDU PANEL */}
+
+            {/* ── Screenshot Gallery ────────────────────────────────────── */}
+            {/* MOVED TO EDU PANEL */}
+
+            {/* ── Mobile App Showcase ───────────────────────────────────── */}
+            {/* MOVED TO EDU PANEL */}
+
+            {/* ── Spotlight: Finance + AI ───────────────────────────────── */}
+            {/* MOVED TO EDU PANEL */}
+
+            {/* ── Modules ───────────────────────────────────────────────── */}
+            {/* MOVED TO EDU PANEL */}
+
+            {/* ── Why Instyte ───────────────────────────────────────────── */}
+            {/* MOVED TO EDU PANEL */}
+
+            {/* ── Ink transition overlay ────────────────────────────────── */}
+            <div
+                className={`edu-ink ${inkPhase !== 'idle' ? `edu-ink--${inkPhase}` : ''}`}
+                style={{ '--ink-x': inkOrigin.x, '--ink-y': inkOrigin.y }}
+            />
+
+            {/* ── Education Detail Panel ────────────────────────────────── */}
+            <div className={`edu-panel ${eduOpen ? 'edu-panel--open' : ''}`} ref={eduPanelRef}>
+
+                {/* Back bar */}
+                <div className="edu-back-bar">
+                    <button className="edu-back-btn" onClick={closeEdu}>
+                        <ArrowRight size={16} style={{ transform: 'rotate(180deg)' }} />
+                        Back to Instyte Labs
+                    </button>
+                    <span className="edu-back-title">Instyte Education</span>
+                    <button className="about-btn-primary edu-back-demo" onClick={() => setDemoOpen(true)}>
+                        <CalendarDays size={14} /> Get a Demo
+                    </button>
+                </div>
+
+                {/* Education Hero */}
+                <section className="edu-hero">
+                    <div className="edu-hero-bg" />
+                    <div className="edu-hero-inner">
+                        <div className="edu-hero-eyebrow">
+                            <GraduationCap size={14} /> Instyte Education · Educational Operating System
+                        </div>
+                        <h1 className="edu-hero-heading">
+                            The complete operating system<br />
+                            <span className="edu-hero-gradient">for modern institutions</span>
+                        </h1>
+                        <p className="edu-hero-sub">
+                            Most schools run on a patchwork of spreadsheets, WhatsApp groups, and disconnected tools.
+                            Instyte Education replaces all of it — leads, admissions, academics, finance, AI, hostel,
+                            mobile apps — in one platform, available as cloud or on-premise.
+                        </p>
+                        <div className="edu-hero-pills">
+                            <span className="edu-hero-pill"><Check size={12} /> 10 integrated modules</span>
+                            <span className="edu-hero-pill"><Check size={12} /> Role portals for every stakeholder</span>
+                            <span className="edu-hero-pill"><Check size={12} /> Flutter mobile app included</span>
+                            <span className="edu-hero-pill"><Check size={12} /> AI assistant + lead scoring</span>
+                            <span className="edu-hero-pill"><Check size={12} /> Cloud or self-hosted</span>
+                        </div>
+                        <div className="edu-hero-actions">
+                            <button className="about-btn-primary" onClick={() => setDemoOpen(true)}>
+                                <CalendarDays size={16} /> Get a Demo
+                            </button>
+                            <button className="about-btn-ghost" onClick={() => window.open('/demo', '_blank')}>
+                                Try Live Demo <ArrowRight size={16} />
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Platform Overview */}
+                <section id="edu-platform" className="about-section about-section--alt">
+                    <div className="about-section-inner">
+                        <div className="about-section-label" data-animate="fade-up">
+                            <LayoutDashboard size={13} /> Platform
+                        </div>
+                        <h2 className="about-section-heading" data-animate="fade-up">Every tool your institution needs, in one place</h2>
+                        <p className="about-section-sub" data-animate="fade-up">
+                            Instyte Cloud is a schema-isolated multi-tenant SaaS platform built on Spring Boot and React.
+                            Each institution gets its own isolated data environment, role-based access, and a mobile app —
+                            without any of the complexity of managing infrastructure.
+                        </p>
+                        <div className="about-arch-grid">
+                            {ARCH_CARDS.map(({ Icon: AI, color, title, body }, i) => (
+                                <div key={title} className="about-arch-card" data-animate="fade-up" style={{ '--delay': `${i * 0.08}s` }}>
+                                    <div className={`about-arch-icon-wrap about-icon-bg--${color}`}>
+                                        <AI size={22} />
+                                    </div>
+                                    <h3>{title}</h3>
+                                    <p>{body}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Modules */}
+                <section id="edu-modules" className="about-section">
+                    <div className="about-section-inner">
+                        <div className="about-section-label" data-animate="fade-up">
+                            <BookOpen size={13} /> Modules
+                        </div>
+                        <h2 className="about-section-heading" data-animate="fade-up">Ten modules. Zero gaps.</h2>
+                        <p className="about-section-sub" data-animate="fade-up">
+                            From the first enquiry to the last receipt — and every class, exam, hostel check-in, and support ticket in between.
+                            Everything is connected, so your team never has to re-enter data or switch tools.
+                        </p>
+                        <div className="about-modules-layout" data-animate="fade-up">
+                            <div className="about-modules-tabs">
+                                {MODULES.map((m, i) => {
+                                    const MI = m.Icon;
+                                    return (
+                                        <button key={m.title}
+                                            className={`about-module-tab ${activeModule === i ? `about-module-tab--active about-module-tab--${m.color}` : ''}`}
+                                            onClick={() => setActiveModule(i)}>
+                                            <MI size={16} className="about-module-tab-icon" />
+                                            <span className="about-module-tab-label">{m.title}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                            <div className={`about-module-detail about-module-detail--${MODULES[activeModule].color}`}>
+                                <div className="about-module-detail-header">
+                                    <div className={`about-module-detail-icon-wrap about-module-icon-bg--${MODULES[activeModule].color}`}>
+                                        <ActiveModIcon size={28} />
+                                    </div>
+                                    <div>
+                                        {MODULES[activeModule].badge && (
+                                            <span className={`about-module-badge about-module-badge--${MODULES[activeModule].color}`}>
+                                                <Sparkles size={11} /> {MODULES[activeModule].badge}
+                                            </span>
+                                        )}
+                                        <h3 className="about-module-detail-title">{MODULES[activeModule].title}</h3>
+                                        <p className="about-module-detail-subtitle">{MODULES[activeModule].subtitle}</p>
+                                    </div>
+                                </div>
+                                <p className="about-module-detail-desc">{MODULES[activeModule].description}</p>
+                                <ul className="about-module-features">
+                                    {MODULES[activeModule].features.map(({ Icon: FI, text }) => (
+                                        <li key={text}>
+                                            <FI size={14} className={`about-feature-icon about-feature-icon--${MODULES[activeModule].color}`} />
+                                            {text}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Screenshot Gallery */}
+                <section className="about-gallery">
+                    <div className="about-section-inner">
+                        <div className="about-section-label" data-animate="fade-up">
+                            <MonitorPlay size={13} /> See It In Action
+                        </div>
+                        <h2 className="about-section-heading" data-animate="fade-up">A closer look at what you're getting</h2>
+                        <p className="about-section-sub" data-animate="fade-up">
+                            Real screens your team, students, and counsellors will use every day.
+                        </p>
+                        <div className="about-gallery-wrap">
+                            <div className="about-gallery-tabs">
+                                {GALLERY_TABS.map((t, i) => (
+                                    <button key={t.key}
+                                        className={`about-gallery-tab about-gallery-tab--${t.color} ${activeGallery === i ? 'about-gallery-tab--active' : ''}`}
+                                        onClick={() => goGallery(i)}>
+                                        {t.label}
+                                    </button>
+                                ))}
+                            </div>
+                            <div className="about-gallery-display">
+                                <div className="about-gallery-browser">
+                                    <div className="about-gallery-browser-bar">
+                                        <span className="about-screen-dot--red" />
+                                        <span className="about-screen-dot--yellow" />
+                                        <span className="about-screen-dot--green" />
+                                        <span className="about-gallery-url">app.instyte.com · {GALLERY_TABS[activeGallery].label}</span>
+                                        <div className="about-gallery-progress">
+                                            {GALLERY_TABS.map((_, i) => (
+                                                <span key={i} className={`about-gallery-pip ${activeGallery === i ? 'about-gallery-pip--active' : ''}`} onClick={() => goGallery(i)} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="about-gallery-img-wrap">
+                                        {GALLERY_TABS.map((t, i) => (
+                                            <img key={t.key} src={t.src} alt={t.label}
+                                                className={`about-gallery-img ${activeGallery === i ? 'about-gallery-img--active' : ''}`} />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="about-gallery-caption">
+                                    <span className={`about-gallery-caption-dot about-gallery-caption-dot--${GALLERY_TABS[activeGallery].color}`} />
+                                    {GALLERY_TABS[activeGallery].desc}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Mobile App */}
+                <MobileAppSection />
+
+                {/* Spotlight: Finance + AI */}
+                <section className="about-spotlight">
+                    <div className="about-section-inner">
+                        <div className="about-spotlight-grid">
+                            <div className="about-spotlight-card about-spotlight-card--amber" data-animate="fade-right">
+                                <div className="about-spotlight-card-icon about-icon-bg--amber"><DollarSign size={28} /></div>
+                                <div className="about-spotlight-label"><Sparkles size={12} /> Most EdTech tools skip this</div>
+                                <h3 className="about-spotlight-title">Finance is not an afterthought</h3>
+                                <p className="about-spotlight-body">
+                                    Many education management tools handle admissions beautifully — then leave you with a spreadsheet for fees.
+                                    Instyte includes a complete fee lifecycle: flexible structures, automated invoicing, online and counter payments,
+                                    digital receipts, and WhatsApp reminders before dues go overdue.
+                                </p>
+                                <ul className="about-spotlight-list">
+                                    <li><Check size={13} className="about-spotlight-check--amber" /> Multi-tier fee structures per program, batch & scholarship</li>
+                                    <li><Check size={13} className="about-spotlight-check--amber" /> Online + offline payment in one system</li>
+                                    <li><Check size={13} className="about-spotlight-check--amber" /> Auto overdue reminders via WhatsApp & email</li>
+                                    <li><Check size={13} className="about-spotlight-check--amber" /> Branch-wise revenue dashboards in real time</li>
+                                </ul>
+                                <div className="about-spotlight-screens">
+                                    <img src="/screens/invoices.png" alt="Invoices" className="about-spotlight-ss about-spotlight-ss--main" />
+                                    <img src="/screens/invoice-detail.png" alt="Invoice Detail" className="about-spotlight-ss about-spotlight-ss--float" />
+                                </div>
+                            </div>
+                            <div className="about-spotlight-card about-spotlight-card--indigo" data-animate="fade-left">
+                                <div className="about-spotlight-card-icon about-icon-bg--indigo"><BrainCircuit size={28} /></div>
+                                <div className="about-spotlight-label"><Sparkles size={12} /> AI that works for you</div>
+                                <h3 className="about-spotlight-title">AI you can talk to — and that talks back to your tools</h3>
+                                <p className="about-spotlight-body">
+                                    Ask in plain language: <em>"Which leads haven't been called in 3 days?"</em> or <em>"How much fee is overdue?"</em>
+                                    — and get real answers. Instyte's AI also connects to WhatsApp, calendars, Google Sheets, or your CRM automatically.
+                                </p>
+                                <ul className="about-spotlight-list">
+                                    <li><Check size={13} className="about-spotlight-check--indigo" /> Ask anything, get instant answers — no training needed</li>
+                                    <li><Check size={13} className="about-spotlight-check--indigo" /> AI scores every lead the moment it arrives</li>
+                                    <li><Check size={13} className="about-spotlight-check--indigo" /> Auto-connects to WhatsApp, calendars & external tools</li>
+                                    <li><Check size={13} className="about-spotlight-check--indigo" /> Student at-risk alerts before dropout happens</li>
+                                </ul>
+                                <div className="about-spotlight-screens">
+                                    <img src="/screens/finance-dashboard.png" alt="Finance Dashboard" className="about-spotlight-ss about-spotlight-ss--main" />
+                                    <img src="/screens/student-profile.png" alt="Student Profile" className="about-spotlight-ss about-spotlight-ss--float" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Why Instyte */}
+                <section className="about-section about-section--alt">
+                    <div className="about-section-inner">
+                        <div className="about-section-label" data-animate="fade-up"><Award size={13} /> Why Instyte</div>
+                        <h2 className="about-section-heading" data-animate="fade-up">What every other EdTech tool is missing</h2>
+                        <p className="about-section-sub" data-animate="fade-up">
+                            We focused on the gaps most education platforms leave open — and built tools that actually close them.
+                        </p>
+                        <div className="about-diff-grid">
+                            {DIFFERENTIATORS.map(({ Icon: DI, color, title, body }, i) => (
+                                <div key={title} className="about-diff-card" data-animate="fade-up" style={{ '--delay': `${i * 0.07}s` }}>
+                                    <div className={`about-diff-icon-wrap about-icon-bg--${color}`}><DI size={22} /></div>
+                                    <h3 className="about-diff-title">{title}</h3>
+                                    <p className="about-diff-body">{body}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="about-compare" data-animate="fade-up">
+                            <h3 className="about-compare-heading">Instyte vs. the alternatives</h3>
+                            <div className="about-compare-scroll">
+                                <table className="about-compare-table">
+                                    <thead><tr>
                                         <th>Capability</th>
                                         <th className="about-compare-us">Instyte</th>
                                         <th>Generic CRM</th>
                                         <th>Spreadsheets</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {CMP_ROWS.map(([cap, us, generic, sheets]) => (
-                                        <tr key={cap}>
-                                            <td>{cap}</td>
-                                            <td className="about-compare-us"><CmpCell val={us} /></td>
-                                            <td><CmpCell val={generic} /></td>
-                                            <td><CmpCell val={sheets} /></td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </tr></thead>
+                                    <tbody>
+                                        {CMP_ROWS.map(([cap, us, generic, sheets]) => (
+                                            <tr key={cap}>
+                                                <td>{cap}</td>
+                                                <td className="about-compare-us"><CmpCell val={us} /></td>
+                                                <td><CmpCell val={generic} /></td>
+                                                <td><CmpCell val={sheets} /></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* ── Pricing ───────────────────────────────────────────────── */}
-            <section id="pricing" className="about-section">
-                <div className="about-section-inner">
-                    <div className="about-section-label" data-animate="fade-up">
-                        <CreditCard size={13} /> Pricing
-                    </div>
-                    <h2 className="about-section-heading" data-animate="fade-up">
-                        The first EdTech platform that lets you pay for only what you use
-                    </h2>
-                    <p className="about-section-sub" data-animate="fade-up">
-                        Every other platform forces you into a full bundle — you pay for modules you'll never touch.
-                        Instyte is different. Start with what you need. Add modules as you grow. Pay nothing for what you don't use.
-                        <strong> Nobody else in this market does this.</strong>
-                    </p>
+                {/* Pricing */}
+                <section id="edu-pricing" className="about-section about-section--alt">
+                    <div className="about-section-inner">
+                        <div className="about-section-label" data-animate="fade-up">
+                            <CreditCard size={13} /> Pricing
+                        </div>
+                        <h2 className="about-section-heading" data-animate="fade-up">
+                            Transparent pricing — no sales call required
+                        </h2>
+                        <p className="about-section-sub" data-animate="fade-up">
+                            Instyte Cloud has fixed monthly plans — pay only for the modules you use.
+                            On-Premise products are priced based on your institution's size. <strong>Every number is public.</strong>
+                        </p>
 
-                    {/* Hero modular message */}
-                    <div className="about-pricing-hero" data-animate="fade-up">
-                        <div className="about-pricing-hero-left">
-                            <div className="about-pricing-hero-tag">Industry first</div>
-                            <h3 className="about-pricing-hero-title">Don't need Leads, Finance, or Hostel? Don't pay for them.</h3>
-                            <p className="about-pricing-hero-body">
-                                Every other EdTech platform forces you into a bundle — you pay for every module
-                                whether you use it or not. We don't. <strong>Foundation</strong> and <strong>Momentum</strong> cover
-                                everything your institution needs to operate: student records, academics, classes, events, and support.
-                                Lead Management, Finance, AI, and Hostel Management are <strong>completely optional</strong> — activate
-                                them only when you're ready, and only then does the price change.
-                            </p>
-                            <div className="about-pricing-hero-addons">
-                                {PAID_ADDONS.map(a => (
-                                    <div key={a.id} className={`about-pricing-addon about-pricing-addon--${a.color}`}>
-                                        <a.Icon size={14} />
+                        {/* Radical Transparency Banner */}
+                        <div className="about-pricing-transparency" data-animate="fade-up">
+                            <div className="about-pricing-transparency-left">
+                                <div className="about-pricing-transparency-eyebrow">
+                                    <Zap size={13} /> Why we show prices publicly
+                                </div>
+                                <h3 className="about-pricing-transparency-heading">
+                                    Nobody in this market shows their prices before a call.<br />
+                                    <span>We do — because we have nothing to hide.</span>
+                                </h3>
+                                <p className="about-pricing-transparency-body">
+                                    Every competitor will make you book a demo, sit through a pitch, and wait for a "customised quote"
+                                    before they whisper a number. That number is always inflated — because they're padding for negotiation room.
+                                    We don't play that game.
+                                </p>
+                                <p className="about-pricing-transparency-body">
+                                    Instyte delivers <strong>200% of what the market offers</strong> at <strong>70% of what they charge</strong>.
+                                    Our pricing is public because our product earns it.
+                                </p>
+                                <div className="about-pricing-transparency-pills">
+                                    <span className="about-pricing-tp-pill about-pricing-tp-pill--green"><Check size={12} /> 70% lower than market rate</span>
+                                    <span className="about-pricing-tp-pill about-pricing-tp-pill--indigo"><Sparkles size={12} /> 200% more features included</span>
+                                    <span className="about-pricing-tp-pill about-pricing-tp-pill--amber"><ShieldCheck size={12} /> Zero hidden fees</span>
+                                </div>
+                            </div>
+                            <div className="about-pricing-transparency-right">
+                                <div className="about-pricing-vs-card">
+                                    <div className="about-pricing-vs-row about-pricing-vs-row--them">
+                                        <span className="about-pricing-vs-label">Typical EdTech platform</span>
+                                        <div className="about-pricing-vs-price">
+                                            <span className="about-pricing-vs-amount">₹10k–25k</span>
+                                            <span className="about-pricing-vs-period">/month</span>
+                                        </div>
+                                        <ul className="about-pricing-vs-points">
+                                            <li><X size={11} /> Full bundle forced — pay for everything</li>
+                                            <li><X size={11} /> Prices hidden until sales call</li>
+                                            <li><X size={11} /> Annual contract required</li>
+                                            <li><X size={11} /> No AI, no finance module</li>
+                                        </ul>
+                                    </div>
+                                    <div className="about-pricing-vs-divider"><span>VS</span></div>
+                                    <div className="about-pricing-vs-row about-pricing-vs-row--us">
+                                        <span className="about-pricing-vs-label">Instyte</span>
+                                        <div className="about-pricing-vs-price">
+                                            <span className="about-pricing-vs-amount">₹6,999</span>
+                                            <span className="about-pricing-vs-period">/month base</span>
+                                        </div>
+                                        <ul className="about-pricing-vs-points">
+                                            <li><Check size={11} /> Pay only for modules you use</li>
+                                            <li><Check size={11} /> Prices fully public — no calls needed</li>
+                                            <li><Check size={11} /> Month-to-month, cancel anytime</li>
+                                            <li><Check size={11} /> AI + Finance + Hostel all available</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Pricing Reveal Gate */}
+                        {!pricingRevealed ? (
+                            <div className="about-pricing-gate" data-animate="fade-up">
+                                <div className="about-pricing-gate-inner">
+                                    <div className="about-pricing-gate-icon"><CreditCard size={28} /></div>
+                                    <h3 className="about-pricing-gate-title">Full pricing — right here, no sales call needed</h3>
+                                    <p className="about-pricing-gate-sub">Plans start at <strong>₹6,999/month</strong>. Every rupee visible. No surprises.</p>
+                                    <button className="about-pricing-gate-btn" onClick={() => setPricingRevealed(true)}>
+                                        <Sparkles size={15} /> Show me the pricing
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                            {/* Unified product pricing card */}
+                            <div className="about-pricing-unified" data-animate="fade-up">
+                                <div className="about-pricing-unified-col about-pricing-unified-col--cloud">
+                                    <div className="about-pricing-unified-header">
+                                        <div className="about-pricing-unified-icon about-pricing-unified-icon--indigo"><Globe size={18} /></div>
                                         <div>
-                                            <span>
-                                                {a.label}
-                                                {a.badge && <span className="about-pricing-addon-new">{a.badge}</span>}
-                                            </span>
-                                            <small>{a.desc}</small>
+                                            <div className="about-pricing-unified-name">Instyte Cloud</div>
+                                            <div className="about-pricing-unified-tagline">SaaS · Hosted · Monthly</div>
                                         </div>
-                                        <strong>+ ₹{a.price.toLocaleString('en-IN')}<small>/mo</small></strong>
                                     </div>
-                                ))}
+                                    <div className="about-pricing-unified-plans">
+                                        {PRICING_PLANS.map((plan) => (
+                                            <div key={plan.name} className={`about-pricing-unified-plan ${plan.highlighted ? 'about-pricing-unified-plan--popular' : ''}`}>
+                                                {plan.highlighted && <span className="about-pricing-unified-popular-tag"><Star size={9} /> Popular</span>}
+                                                <div className="about-pricing-unified-plan-name">{plan.name}</div>
+                                                <div className="about-pricing-unified-plan-price">
+                                                    {plan.price ? <>₹{plan.price.toLocaleString('en-IN')}<span>/mo</span></> : <span className="about-pricing-unified-custom">Custom</span>}
+                                                </div>
+                                                <div className="about-pricing-unified-plan-users">{plan.userLimit}</div>
+                                                <ul className="about-pricing-unified-features">
+                                                    {plan.features.map(f => <li key={f}><Check size={11} />{f}</li>)}
+                                                </ul>
+                                                <button
+                                                    className={`about-pricing-unified-btn ${plan.highlighted ? 'about-pricing-unified-btn--solid' : ''}`}
+                                                    onClick={() => { setSelectedPlan(plan.name); setDemoOpen(true); }}>
+                                                    {plan.cta} <ArrowRight size={13} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="about-pricing-unified-note">Add-ons: Leads +₹2,199 · Finance +₹2,599 · AI +₹1,999 · Hostel +₹2,599 · Prices negotiable</p>
+                                </div>
+                                <div className="about-pricing-unified-divider" />
+                                <div className="about-pricing-unified-col about-pricing-unified-col--onprem">
+                                    <div className="about-pricing-unified-header">
+                                        <div className="about-pricing-unified-icon about-pricing-unified-icon--emerald"><Cpu size={18} /></div>
+                                        <div>
+                                            <div className="about-pricing-unified-name">On-Premise</div>
+                                            <div className="about-pricing-unified-tagline">Self-hosted · Your servers · One-time</div>
+                                        </div>
+                                    </div>
+                                    <div className="about-pricing-unified-plans">
+                                        <div className="about-pricing-unified-plan about-pricing-unified-plan--onprem">
+                                            <div className="about-pricing-unified-plan-name">Instyte OnPremise</div>
+                                            <div className="about-pricing-unified-plan-price about-pricing-unified-custom">Discuss</div>
+                                            <div className="about-pricing-unified-plan-users">Full platform · All modules · Docker</div>
+                                            <ul className="about-pricing-unified-features">
+                                                <li><Check size={11} />Identical to Cloud — every module</li>
+                                                <li><Check size={11} />Data stays on your premises</li>
+                                                <li><Check size={11} />Remote access via Relay + Connector</li>
+                                                <li><Check size={11} />One-time licence + support contract</li>
+                                            </ul>
+                                            <button className="about-pricing-unified-btn about-pricing-unified-btn--emerald"
+                                                onClick={() => { setSelectedPlan('Instyte OnPremise'); setDemoOpen(true); }}>
+                                                Get a Quote <ArrowRight size={13} />
+                                            </button>
+                                        </div>
+                                        <div className="about-pricing-unified-plan about-pricing-unified-plan--onprem">
+                                            <div className="about-pricing-unified-plan-name">OnPremise Lite</div>
+                                            <div className="about-pricing-unified-plan-price about-pricing-unified-custom">Discuss</div>
+                                            <div className="about-pricing-unified-plan-users">Lightweight · Java + React · WhatsApp</div>
+                                            <ul className="about-pricing-unified-features">
+                                                <li><Check size={11} />Student records & fee collection</li>
+                                                <li><Check size={11} />WhatsApp integration included</li>
+                                                <li><Check size={11} />Self-contained, no cloud needed</li>
+                                                <li><Check size={11} />One-time activation · minimal infra</li>
+                                            </ul>
+                                            <button className="about-pricing-unified-btn about-pricing-unified-btn--amber"
+                                                onClick={() => { setSelectedPlan('Instyte OnPremise Lite'); setDemoOpen(true); }}>
+                                                Get a Quote <ArrowRight size={13} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p className="about-pricing-unified-note">Pricing based on number of users — contact us for a tailored quote</p>
+                                </div>
                             </div>
-                            <div className="about-pricing-hero-math">
-                                <div className="about-pricing-math-row">
-                                    <span>Foundation (5 core modules, 100 users)</span>
-                                    <strong>₹6,999</strong>
-                                </div>
-                                <div className="about-pricing-math-row about-pricing-math-row--opt">
-                                    <span>+ Lead Management</span>
-                                    <strong>₹2,199</strong>
-                                </div>
-                                <div className="about-pricing-math-row about-pricing-math-row--opt">
-                                    <span>+ Finance & Fees</span>
-                                    <strong>₹2,599</strong>
-                                </div>
-                                <div className="about-pricing-math-row about-pricing-math-row--opt">
-                                    <span>+ AI Assistant</span>
-                                    <strong>₹1,999</strong>
-                                </div>
-                                <div className="about-pricing-math-row about-pricing-math-row--opt about-pricing-math-row--new">
-                                    <span>+ Hostel Management</span>
-                                    <strong>₹2,599</strong>
-                                </div>
-                                <div className="about-pricing-math-row about-pricing-math-subtotal">
-                                    <span>If all add-ons bought separately</span>
-                                    <strong>₹16,395</strong>
-                                </div>
-                                <div className="about-pricing-math-divider" />
-                                <div className="about-pricing-math-row about-pricing-math-row--total">
-                                    <span>Foundation + all 4 add-ons (36% bundle discount)</span>
-                                    <strong>₹12,999</strong>
-                                </div>
-                                <div className="about-pricing-math-row about-pricing-math-row--save">
-                                    <span>You save with bundle</span>
-                                    <strong>₹3,396/mo</strong>
+
+                            {/* Interactive calculator */}
+                            <PricingCalculator onSelectPlan={(plan) => { setSelectedPlan(plan); }} onBook={() => setDemoOpen(true)} />
+
+                            {/* Why this price */}
+                            <div className="about-pricing-why" data-animate="fade-up">
+                                <h3 className="about-pricing-why-heading"><DollarSign size={16} /> Why does Instyte cost what it costs?</h3>
+                                <p className="about-pricing-why-body">
+                                    Running a serious SaaS platform for education isn't cheap — here's what your subscription actually pays for:
+                                </p>
+                                <div className="about-pricing-why-grid">
+                                    <div className="about-pricing-why-item">
+                                        <span className="about-pricing-why-dot about-pricing-why-dot--emerald" />
+                                        <div><strong>Cloud infrastructure</strong><p>Dedicated database schema per tenant on AWS RDS, S3 for document storage, CloudFront CDN, and auto-scaling compute.</p></div>
+                                    </div>
+                                    <div className="about-pricing-why-item">
+                                        <span className="about-pricing-why-dot about-pricing-why-dot--indigo" />
+                                        <div><strong>AI & ML compute</strong><p>Every lead is scored by a real ML model. The AI assistant runs on a dedicated gRPC microservice — real inference, running continuously.</p></div>
+                                    </div>
+                                    <div className="about-pricing-why-item">
+                                        <span className="about-pricing-why-dot about-pricing-why-dot--amber" />
+                                        <div><strong>WhatsApp & communication APIs</strong><p>Automated fee reminders, admission confirmations, and event notifications — every message has a real cost we absorb.</p></div>
+                                    </div>
+                                    <div className="about-pricing-why-item">
+                                        <span className="about-pricing-why-dot about-pricing-why-dot--blue" />
+                                        <div><strong>Product & support team</strong><p>Instyte is actively developed — new modules ship regularly. Your subscription funds continued development and onboarding support.</p></div>
+                                    </div>
                                 </div>
                             </div>
-                            <p className="about-pricing-hero-note">
-                                * Prices are negotiable. Use the calculator below to build your exact plan.
+
+                            {/* Competitor comparison */}
+                            <div className="about-pricing-cmp" data-animate="fade-up">
+                                <h3 className="about-pricing-cmp-heading">How does our pricing compare?</h3>
+                                <p className="about-pricing-cmp-sub">Most education management tools charge more, deliver less — and bundle everything whether you want it or not.</p>
+                                <div className="about-pricing-cmp-grid">
+                                    <div className="about-pricing-cmp-card about-pricing-cmp-card--them">
+                                        <div className="about-pricing-cmp-label">Typical EdTech CRM</div>
+                                        <div className="about-pricing-cmp-price">₹8,000–₹15,000<span>/month</span></div>
+                                        <ul>
+                                            <li><X size={13} className="cmp-x" /> Fixed bundle — pay for everything or nothing</li>
+                                            <li><X size={13} className="cmp-x" /> Admissions only — no finance module</li>
+                                            <li><X size={13} className="cmp-x" /> No AI features</li>
+                                            <li><X size={13} className="cmp-x" /> Admin login only — no student/parent portal</li>
+                                            <li><X size={13} className="cmp-x" /> Annual contract required</li>
+                                        </ul>
+                                    </div>
+                                    <div className="about-pricing-cmp-card about-pricing-cmp-card--them">
+                                        <div className="about-pricing-cmp-label">Generic School ERP</div>
+                                        <div className="about-pricing-cmp-price">₹10,000–₹25,000<span>/month</span></div>
+                                        <ul>
+                                            <li><X size={13} className="cmp-x" /> All-or-nothing pricing, no flexibility</li>
+                                            <li><X size={13} className="cmp-x" /> 3–6 month onboarding before you go live</li>
+                                            <li><X size={13} className="cmp-x" /> No lead CRM or AI</li>
+                                            <li><X size={13} className="cmp-x" /> Outdated mobile experience</li>
+                                            <li><X size={13} className="cmp-x" /> Expensive per-module customisation</li>
+                                        </ul>
+                                    </div>
+                                    <div className="about-pricing-cmp-card about-pricing-cmp-card--us">
+                                        <div className="about-pricing-cmp-badge"><Star size={11} /> Instyte</div>
+                                        <div className="about-pricing-cmp-price">₹6,999–₹8,999<span>/month base</span></div>
+                                        <ul>
+                                            <li><Check size={13} className="cmp-check" /> Pay only for modules you actually use</li>
+                                            <li><Check size={13} className="cmp-check" /> Full finance + fee lifecycle as add-on</li>
+                                            <li><Check size={13} className="cmp-check" /> AI lead scoring + conversational assistant</li>
+                                            <li><Check size={13} className="cmp-check" /> Hostel & PG management as add-on</li>
+                                            <li><Check size={13} className="cmp-check" /> Portal for every role — admin to parent</li>
+                                            <li><Check size={13} className="cmp-check" /> Month-to-month · Prices negotiable</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p className="about-pricing-cmp-note">* Competitor pricing based on publicly available market research. All prices approximate and subject to change.</p>
+                            </div>
+                            </>
+                        )}
+                    </div>
+                </section>
+
+                {/* Contact inside panel */}
+                <section className="about-contact edu-panel-contact">
+                    <div className="about-contact-inner">
+                        <div className="about-contact-left" data-animate="fade-right">
+                            <h2 className="about-section-label">Get in Touch</h2>
+                            <p className="about-contact-heading">Ready to see Instyte in action?</p>
+                            <p className="about-contact-body">
+                                Drop us a message and we'll set up a personalised demo for your institution within one business day.
                             </p>
+                            <div className="about-contact-info">
+                                <div className="about-contact-info-item">
+                                    <div className="about-icon-bg about-icon-bg--emerald" style={{ width: 34, height: 34, borderRadius: 8 }}><Send size={16} /></div>
+                                    <span>hello@instyte.com</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="about-pricing-hero-right">
-                            <div className="about-pricing-module-grid">
-                                {[
-                                    { label: 'Student Management',   included: true,  Icon: GraduationCap, color: 'blue'    },
-                                    { label: 'Academics',            included: true,  Icon: BookOpen,      color: 'violet'  },
-                                    { label: 'Classroom & Circles',  included: true,  Icon: School,        color: 'cyan'    },
-                                    { label: 'Events & Scheduling',  included: true,  Icon: CalendarDays,  color: 'rose'    },
-                                    { label: 'Support Tickets',      included: true,  Icon: Ticket,        color: 'orange'  },
-                                    { label: 'Lead Management',      included: false, Icon: Target,        color: 'emerald', price: '+ ₹2,199' },
-                                    { label: 'Finance & Fees',       included: false, Icon: DollarSign,    color: 'amber',   price: '+ ₹2,599' },
-                                    { label: 'AI Assistant',         included: false, Icon: BrainCircuit,  color: 'indigo',  price: '+ ₹1,999' },
-                                    { label: 'Hostel Management',    included: false, Icon: BedDouble,     color: 'teal',    price: '+ ₹2,599', badge: 'New' },
-                                ].map(({ label, included, Icon: MI, color, price, badge }) => (
-                                    <div key={label} className={`about-pricing-module-pill ${included ? 'about-pricing-module-pill--in' : 'about-pricing-module-pill--addon'}`}>
-                                        <div className={`about-pricing-module-pill-icon about-icon-bg--${color}`}>
-                                            <MI size={13} />
+                        <div className="about-contact-right" data-animate="fade-left">
+                            {contactState === 'success' ? (
+                                <div className="about-contact-success">
+                                    <Check size={32} />
+                                    <h3>Message received!</h3>
+                                    <p>We'll be in touch within one business day.</p>
+                                    <button className="about-btn-secondary" onClick={() => setContactState('idle')}>Send another message</button>
+                                </div>
+                            ) : (
+                                <form className="about-contact-form" onSubmit={submitEnquiry}>
+                                    <div className="about-contact-row">
+                                        <div className="about-contact-field">
+                                            <label>Your name *</label>
+                                            <input type="text" required placeholder="Jane Smith" value={contactForm.name}
+                                                onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} />
                                         </div>
-                                        <span>{label}{badge && <em className="about-pricing-pill-new">{badge}</em>}</span>
-                                        {included
-                                            ? <span className="about-pricing-pill-tag about-pricing-pill-tag--in">Included</span>
-                                            : <span className="about-pricing-pill-tag about-pricing-pill-tag--addon">{price}</span>
-                                        }
+                                        <div className="about-contact-field">
+                                            <label>Organization</label>
+                                            <input type="text" placeholder="Your school / institute name" value={contactForm.organization}
+                                                onChange={e => setContactForm(f => ({ ...f, organization: e.target.value }))} />
+                                        </div>
                                     </div>
-                                ))}
-                            </div>
-                            <p className="about-pricing-module-caption">Foundation plan modules — add paid modules only if you need them</p>
+                                    <div className="about-contact-row">
+                                        <div className="about-contact-field">
+                                            <label>Email</label>
+                                            <input type="email" placeholder="you@example.com" value={contactForm.email}
+                                                onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} />
+                                        </div>
+                                        <div className="about-contact-field">
+                                            <label>Phone</label>
+                                            <input type="tel" placeholder="+91 98765 43210" value={contactForm.phone}
+                                                onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} />
+                                        </div>
+                                    </div>
+                                    <div className="about-contact-field">
+                                        <label>Message</label>
+                                        {selectedPlan && (
+                                            <div className="about-contact-plan-tag">
+                                                <Tag size={12} />
+                                                <span>Plan: <strong>{selectedPlan}</strong></span>
+                                                <button onClick={() => setSelectedPlan('')}><X size={11} /></button>
+                                            </div>
+                                        )}
+                                        <textarea rows={4} placeholder="Tell us about your institution and what you're looking for…"
+                                            value={contactForm.message}
+                                            onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} />
+                                    </div>
+                                    {contactState === 'error' && (
+                                        <p className="about-contact-error"><AlertTriangle size={14} /> Something went wrong — please try again or email us directly.</p>
+                                    )}
+                                    <button type="submit" className="about-btn-primary about-contact-submit" disabled={contactState === 'submitting'}>
+                                        {contactState === 'submitting' ? 'Sending…' : <><Send size={16} /> Send message</>}
+                                    </button>
+                                </form>
+                            )}
                         </div>
                     </div>
+                </section>
 
-                    {/* Plans grid */}
-                    <div className="about-pricing-grid" style={{ marginTop: '3rem' }}>
-                        {PRICING_PLANS.map((plan, i) => (
-                            <div key={plan.name}
-                                className={`about-pricing-card ${plan.highlighted ? 'about-pricing-card--highlighted' : ''} about-pricing-card--${plan.color}`}
-                                data-animate="fade-up" style={{ '--delay': `${i * 0.1}s` }}>
-                                {plan.highlighted && (
-                                    <div className="about-pricing-badge">
-                                        <Star size={11} /> Most Popular
-                                    </div>
-                                )}
-                                <div className="about-pricing-plan-tag">
-                                    <Tag size={11} /> {plan.name}
-                                </div>
-                                <div className="about-pricing-price">
-                                    {plan.price ? `₹${plan.price.toLocaleString('en-IN')}` : 'Custom'}
-                                    {plan.period && <span className="about-pricing-period">{plan.period}</span>}
-                                </div>
-                                <div className="about-pricing-users">{plan.userLimit}</div>
-                                <p className="about-pricing-desc">{plan.description}</p>
-                                <ul className="about-pricing-features">
-                                    {plan.features.map(f => (
-                                        <li key={f}>
-                                            <Check size={13} className="about-pricing-check" />
-                                            {f}
-                                        </li>
-                                    ))}
-                                </ul>
-                                {plan.price && (
-                                    <div className="about-pricing-addons-note">
-                                        <Sparkles size={12} />
-                                        Leads, Finance, AI & Hostel available as add-ons
-                                    </div>
-                                )}
-                                <button
-                                    className={`about-pricing-btn about-pricing-btn--${plan.color} ${plan.highlighted ? 'about-pricing-btn--solid' : ''}`}
-                                    onClick={() => {
-                                        setSelectedPlan(plan.name);
-                                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                                    }}>
-                                    {plan.cta} <ArrowRight size={14} />
-                                </button>
-                                {plan.price && (
-                                    <p className="about-pricing-tnc">*T&amp;C apply · Prices negotiable</p>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Interactive calculator */}
-                    <PricingCalculator onSelectPlan={(plan) => { setSelectedPlan(plan); }} />
-
-                    {/* Why this price */}
-                    <div className="about-pricing-why" data-animate="fade-up">
-                        <h3 className="about-pricing-why-heading">
-                            <DollarSign size={16} /> Why does Instyte cost what it costs?
-                        </h3>
-                        <p className="about-pricing-why-body">
-                            Running a serious SaaS platform for education isn't cheap — and we'd rather be honest about it
-                            than hide costs in per-seat charges or annual lock-ins. Here's what your subscription actually pays for:
-                        </p>
-                        <div className="about-pricing-why-grid">
-                            <div className="about-pricing-why-item">
-                                <span className="about-pricing-why-dot about-pricing-why-dot--emerald" />
-                                <div>
-                                    <strong>Cloud infrastructure</strong>
-                                    <p>Dedicated database schema per tenant on AWS RDS, S3 for document storage, CloudFront CDN, and auto-scaling compute — your data never shares space with another institution.</p>
-                                </div>
-                            </div>
-                            <div className="about-pricing-why-item">
-                                <span className="about-pricing-why-dot about-pricing-why-dot--indigo" />
-                                <div>
-                                    <strong>AI & ML compute</strong>
-                                    <p>Every lead is scored by a real ML model the moment it arrives. The AI assistant runs on a dedicated gRPC microservice. This isn't a chatbot label — it's real inference, running continuously.</p>
-                                </div>
-                            </div>
-                            <div className="about-pricing-why-item">
-                                <span className="about-pricing-why-dot about-pricing-why-dot--amber" />
-                                <div>
-                                    <strong>WhatsApp & communication APIs</strong>
-                                    <p>Automated fee reminders, admission confirmations, and event notifications go through paid messaging APIs — every message has a real cost that we absorb into your plan.</p>
-                                </div>
-                            </div>
-                            <div className="about-pricing-why-item">
-                                <span className="about-pricing-why-dot about-pricing-why-dot--blue" />
-                                <div>
-                                    <strong>Product & support team</strong>
-                                    <p>Instyte is actively developed — new modules ship regularly. Your subscription funds continued development, onboarding support, and the team that answers your questions.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Competitor comparison */}
-                    <div className="about-pricing-cmp" data-animate="fade-up">
-                        <h3 className="about-pricing-cmp-heading">How does our pricing compare?</h3>
-                        <p className="about-pricing-cmp-sub">
-                            Most education management tools charge more, deliver less — and bundle everything whether you want it or not.
-                        </p>
-                        <div className="about-pricing-cmp-grid">
-                            <div className="about-pricing-cmp-card about-pricing-cmp-card--them">
-                                <div className="about-pricing-cmp-label">Typical EdTech CRM</div>
-                                <div className="about-pricing-cmp-price">₹8,000–₹15,000<span>/month</span></div>
-                                <ul>
-                                    <li><X size={13} className="cmp-x" /> Fixed bundle — pay for everything or nothing</li>
-                                    <li><X size={13} className="cmp-x" /> Admissions only — no finance module</li>
-                                    <li><X size={13} className="cmp-x" /> No AI features</li>
-                                    <li><X size={13} className="cmp-x" /> Admin login only — no student/parent portal</li>
-                                    <li><X size={13} className="cmp-x" /> Annual contract required</li>
-                                </ul>
-                            </div>
-                            <div className="about-pricing-cmp-card about-pricing-cmp-card--them">
-                                <div className="about-pricing-cmp-label">Generic School ERP</div>
-                                <div className="about-pricing-cmp-price">₹10,000–₹25,000<span>/month</span></div>
-                                <ul>
-                                    <li><X size={13} className="cmp-x" /> All-or-nothing pricing, no flexibility</li>
-                                    <li><X size={13} className="cmp-x" /> 3–6 month onboarding before you go live</li>
-                                    <li><X size={13} className="cmp-x" /> No lead CRM or AI</li>
-                                    <li><X size={13} className="cmp-x" /> Outdated mobile experience</li>
-                                    <li><X size={13} className="cmp-x" /> Expensive per-module customisation</li>
-                                </ul>
-                            </div>
-                            <div className="about-pricing-cmp-card about-pricing-cmp-card--us">
-                                <div className="about-pricing-cmp-badge"><Star size={11} /> Instyte</div>
-                                <div className="about-pricing-cmp-price">₹6,999–₹8,999<span>/month base</span></div>
-                                <ul>
-                                    <li><Check size={13} className="cmp-check" /> Pay only for modules you actually use</li>
-                                    <li><Check size={13} className="cmp-check" /> Full finance + fee lifecycle as add-on</li>
-                                    <li><Check size={13} className="cmp-check" /> AI lead scoring + conversational assistant</li>
-                                    <li><Check size={13} className="cmp-check" /> Hostel & PG management as add-on</li>
-                                    <li><Check size={13} className="cmp-check" /> Portal for every role — admin to parent</li>
-                                    <li><Check size={13} className="cmp-check" /> Month-to-month · Prices negotiable</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <p className="about-pricing-cmp-note">
-                            * Competitor pricing based on publicly available market research. All prices approximate and subject to change.
-                        </p>
-                    </div>
-                </div>
-            </section>
+            </div>{/* end .edu-panel */}
 
             {/* ── Contact Us ────────────────────────────────────────────── */}
             <section id="contact" className="about-contact">
                 <div className="about-contact-inner">
                     <div className="about-contact-left" data-animate="fade-right">
                         <h2 className="about-section-label">Get in Touch</h2>
-                        <p className="about-contact-heading">Want to see Instyte in action?</p>
+                        <p className="about-contact-heading">Let's build something together</p>
                         <p className="about-contact-body">
-                            We'd love to show you how Instyte can work for your institution.
-                            Drop us a message and we'll get back to you within one business day.
+                            Whether you're a school looking for Instyte Education, or a business that needs
+                            custom software built — drop us a message and we'll get back within one business day.
                         </p>
                         <div className="about-contact-info">
                             <div className="about-contact-info-item">
@@ -1626,15 +2196,14 @@ export default function AboutPage() {
                 <div className="about-cta-inner" data-animate="fade-up">
                     <h2 className="about-cta-heading">Ready to transform your institution?</h2>
                     <p className="about-cta-sub">
-                        Join 50+ institutions already using Instyte to manage admissions, academics, and finance —
-                        all in one place.
+                        Join schools already using Instyte Education — or talk to us about building something new for your business.
                     </p>
                     <div className="about-cta-actions">
                         <button className="about-btn-primary" onClick={() => window.open('/demo', '_blank')}>
-                            Try Demo <ArrowRight size={16} />
+                            Try Instyte Education Demo <ArrowRight size={16} />
                         </button>
                         <button className="about-btn-ghost about-btn-ghost--light" onClick={scrollToContact}>
-                            Get in Touch <ChevronRight size={16} />
+                            Discuss a project <ChevronRight size={16} />
                         </button>
                     </div>
                 </div>
@@ -1644,9 +2213,12 @@ export default function AboutPage() {
             <footer className="about-footer">
                 <div className="about-footer-inner">
                     <div className="about-footer-brand">
-                        <img src={LOGO} alt="Instyte" className="about-footer-logo"
+                        <img src={LOGO} alt="Instyte Labs" className="about-footer-logo"
                             onError={e => e.target.style.display = 'none'} />
-                        <span className="about-footer-name">Instyte</span>
+                        <div className="about-footer-brand-text">
+                            <span className="about-footer-name">Instyte Labs</span>
+                            <span className="about-footer-tagline">SaaS &amp; Software Products</span>
+                        </div>
                     </div>
                     <div className="about-footer-links">
                         {NAV_LINKS.map(l => (
@@ -1660,7 +2232,7 @@ export default function AboutPage() {
                         </button>
                     </div>
                     <div className="about-footer-copy">
-                        &copy; {new Date().getFullYear()} Instyte. All rights reserved. &nbsp;·&nbsp;
+                        &copy; {new Date().getFullYear()} Instyte Labs. All rights reserved. &nbsp;·&nbsp;
                         <button className="about-footer-tc-inline" onClick={() => setTermsOpen(true)}>Terms &amp; Conditions</button>
                     </div>
                 </div>
@@ -1673,6 +2245,7 @@ export default function AboutPage() {
 
             {/* ── Terms Modal ───────────────────────────────────────────── */}
             {termsOpen && <TermsModal onClose={() => setTermsOpen(false)} />}
+            {demoOpen  && <DemoModal  onClose={() => setDemoOpen(false)} />}
 
         </div>
     );
