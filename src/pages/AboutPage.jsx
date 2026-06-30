@@ -1438,11 +1438,9 @@ export default function AboutPage() {
             <section className="about-customers-section">
                 <div className="about-customers-inner">
                     <div className="about-customers-label" data-animate="fade-down">
-                        <Award size={13} /> Trusted By
+                        <Award size={13} /> Our Customers
                     </div>
-                    <p className="about-customers-sub" data-animate="fade-up">
-                        Schools already running on Instyte Education
-                    </p>
+
                     <div className="about-customers-marquee-wrap" data-animate="zoom-in">
                         <div className="about-customers-marquee-fade about-customers-marquee-fade--left" />
                         <div className="about-customers-marquee-fade about-customers-marquee-fade--right" />
