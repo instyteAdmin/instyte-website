@@ -3462,7 +3462,7 @@
 /* ── Customers / Trusted By ───────────────────────────────── */
 .about-customers-section {
     background: #f8fafc;
-    padding: 2.5rem 1.5rem;
+    padding: 4rem 1.5rem;
     overflow: hidden;
 }
 
@@ -3471,25 +3471,34 @@
     margin: 0 auto;
 }
 
-.about-customers-label {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #64748b;
-    margin-bottom: 0.6rem;
-    justify-content: center;
+.about-customers-header {
+    text-align: center;
+    margin-bottom: 2.75rem;
 }
 
-.about-customers-sub {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #334155;
-    margin: 0 0 2.5rem 0;
+.about-customers-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.about-customers-title::before,
+.about-customers-title::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, #cbd5e1);
+}
+
+.about-customers-title::after {
+    background: linear-gradient(270deg, transparent, #cbd5e1);
 }
 
 .about-customers-marquee-wrap {

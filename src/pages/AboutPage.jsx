@@ -1437,8 +1437,8 @@ export default function AboutPage() {
             {/* ── Trusted By ────────────────────────────────────────────── */}
             <section className="about-customers-section">
                 <div className="about-customers-inner">
-                    <div className="about-customers-label" data-animate="fade-down">
-                        <Award size={13} /> Our Customers
+                    <div className="about-customers-header" data-animate="fade-down">
+                        <h2 className="about-customers-title">Our Customers</h2>
                     </div>
 
                     <div className="about-customers-marquee-wrap" data-animate="zoom-in">
