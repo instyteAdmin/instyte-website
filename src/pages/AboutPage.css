@@ -4404,6 +4404,22 @@
 }
 
 /* No backdrop needed — ink overlay handles the transition */
+
+/* ── Edu panel: dark section text overrides ────────────────────────────────── */
+/* Sections WITHOUT --alt inside the edu panel have the dark (#0a0f1e) bg.
+   The global .about-section-heading / sub / label defaults are dark-text,
+   so we override them here to be light for readability.                      */
+.edu-panel .about-section:not(.about-section--alt) .about-section-heading {
+    color: #f1f5f9;
+}
+.edu-panel .about-section:not(.about-section--alt) .about-section-sub {
+    color: #94a3b8;
+}
+.edu-panel .about-section:not(.about-section--alt) .about-section-label {
+    color: #94a3b8;
+    border-color: rgba(148,163,184,0.2);
+    background: rgba(148,163,184,0.08);
+}
 .edu-panel-backdrop,
 .edu-panel-backdrop--visible {
     display: none;

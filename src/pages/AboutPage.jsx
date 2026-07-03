@@ -1550,7 +1550,7 @@ export default function AboutPage() {
                             mobile apps — in one platform, available as cloud or on-premise.
                         </p>
                         <div className="edu-hero-pills" data-animate="fade-up" style={{ '--delay': '0.2s' }}>
-                            <span className="edu-hero-pill"><Check size={12} /> 10 integrated modules</span>
+                            <span className="edu-hero-pill"><Check size={12} /> 11 integrated modules</span>
                             <span className="edu-hero-pill"><Check size={12} /> Role portals for every stakeholder</span>
                             <span className="edu-hero-pill"><Check size={12} /> Flutter mobile app included</span>
                             <span className="edu-hero-pill"><Check size={12} /> AI assistant + lead scoring</span>
@@ -1599,7 +1599,7 @@ export default function AboutPage() {
                         <div className="about-section-label" data-animate="fade-down">
                             <BookOpen size={13} /> Modules
                         </div>
-                        <h2 className="about-section-heading" data-animate="fade-up">Ten modules. Zero gaps.</h2>
+                        <h2 className="about-section-heading" data-animate="fade-up">Eleven modules. Zero gaps.</h2>
                         <p className="about-section-sub" data-animate="fade-right">
                             From the first enquiry to the last receipt — and every class, exam, hostel check-in, and support ticket in between.
                             Everything is connected, so your team never has to re-enter data or switch tools.
