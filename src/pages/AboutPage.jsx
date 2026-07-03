@@ -14,7 +14,7 @@ import {
     KeyRound, Network, Link,
     ThumbsUp, CalendarOff, TrendingUp, BadgeCheck, ClipboardCheck, Briefcase,
     BedDouble, Calculator, Tag, Zap, ScrollText,
-    BellRing, Mail, Phone, Wifi, Radio, Settings2, ListChecks, History,
+    BellRing, Mail, Phone, Settings2, ListChecks, History,
 } from 'lucide-react';
 import './AboutPage.css';
 
