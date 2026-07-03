@@ -14,6 +14,7 @@ import {
     KeyRound, Network, Link,
     ThumbsUp, CalendarOff, TrendingUp, BadgeCheck, ClipboardCheck, Briefcase,
     BedDouble, Calculator, Tag, Zap, ScrollText,
+    BellRing, Mail, Phone, Wifi, Radio, Settings2, ListChecks, History,
 } from 'lucide-react';
 import './AboutPage.css';
 
@@ -338,6 +339,25 @@ const MODULES = [
             { Icon: KeyRound,     text: 'Key / access card issuance, lost key & replacement tracking'  },
             { Icon: ClipboardList,text: 'Onboarding checklist — ID, deposit, agreement, room condition' },
             { Icon: Sparkles,     text: 'Feature-flagged: attendance, outings, mess, visitors, complaints' },
+        ],
+    },
+    {
+        Icon: BellRing,
+        color: 'rose',
+        badge: 'Built-in · Multi-channel',
+        title: 'Notifications & Communication',
+        subtitle: 'Every event, every person, every channel — automated',
+        description:
+            'Most platforms send one type of notification and call it done. Instyte runs a dedicated notification engine that fires on every meaningful event — fee dues, class reminders, lead follow-ups, attendance alerts, support ticket updates — and delivers across WhatsApp, Email, in-app inbox, and mobile push simultaneously. Each channel is configurable per branch, and every user can manage their own preferences. Every message sent is logged with delivery status so you\'re never guessing.',
+        features: [
+            { Icon: MessageSquare, text: 'WhatsApp — event-driven messages via Meta Cloud API (production)' },
+            { Icon: Mail,          text: 'Email — branded templates via SendGrid with delivery tracking'    },
+            { Icon: Bell,          text: 'In-app inbox — real-time WebSocket delivery, read/unread state'   },
+            { Icon: Smartphone,    text: 'Mobile push — FCM-powered alerts to the Flutter app'              },
+            { Icon: Phone,         text: 'IVR voice calls — coming soon'                                   },
+            { Icon: ListChecks,    text: '20+ event triggers: fees, leads, classes, attendance, tickets'    },
+            { Icon: Settings2,     text: 'Per-user preferences — opt in/out per channel per event'          },
+            { Icon: History,       text: 'Full delivery log — status, bounce & suppression tracking'        },
         ],
     },
 ];
@@ -1721,6 +1741,97 @@ export default function AboutPage() {
                                     <img src="/screens/finance-dashboard.png" alt="Finance Dashboard" className="about-spotlight-ss about-spotlight-ss--main" />
                                     <img src="/screens/student-profile.png" alt="Student Profile" className="about-spotlight-ss about-spotlight-ss--float" />
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Notifications Spotlight */}
+                <section className="about-notif-spotlight" id="edu-notifications">
+                    <div className="about-section-inner">
+                        <div className="about-notif-spotlight-eyebrow" data-animate="fade-down">
+                            <BellRing size={13} /> Notifications &amp; Communication
+                        </div>
+                        <h2 className="about-section-heading about-notif-spotlight-heading" data-animate="fade-up">
+                            Every event. Every person.<br />
+                            <span className="about-notif-gradient">Every channel — automated.</span>
+                        </h2>
+                        <p className="about-section-sub" data-animate="fade-left">
+                            Institutions live and die by communication. Instyte's built-in notification engine fires on every meaningful event
+                            and delivers across five channels simultaneously — so no fee goes uncollected, no class goes unattended,
+                            and no lead goes cold because someone forgot to follow up.
+                        </p>
+
+                        {/* Channel cards row */}
+                        <div className="about-notif-channels" data-animate="zoom-in">
+                            <div className="about-notif-channel about-notif-channel--green">
+                                <div className="about-notif-channel-icon"><MessageSquare size={20} /></div>
+                                <div className="about-notif-channel-name">WhatsApp</div>
+                                <div className="about-notif-channel-status about-notif-channel-status--live">Live</div>
+                                <div className="about-notif-channel-desc">Meta Cloud API — branded templates, fee reminders, admission confirmations</div>
+                            </div>
+                            <div className="about-notif-channel about-notif-channel--blue">
+                                <div className="about-notif-channel-icon"><Mail size={20} /></div>
+                                <div className="about-notif-channel-name">Email</div>
+                                <div className="about-notif-channel-status about-notif-channel-status--live">Live</div>
+                                <div className="about-notif-channel-desc">SendGrid — branded HTML templates, delivery & bounce tracking</div>
+                            </div>
+                            <div className="about-notif-channel about-notif-channel--violet">
+                                <div className="about-notif-channel-icon"><Bell size={20} /></div>
+                                <div className="about-notif-channel-name">In-App</div>
+                                <div className="about-notif-channel-status about-notif-channel-status--live">Live</div>
+                                <div className="about-notif-channel-desc">Real-time WebSocket inbox — read/unread state, full notification history</div>
+                            </div>
+                            <div className="about-notif-channel about-notif-channel--indigo">
+                                <div className="about-notif-channel-icon"><Smartphone size={20} /></div>
+                                <div className="about-notif-channel-name">Push</div>
+                                <div className="about-notif-channel-status about-notif-channel-status--live">Live</div>
+                                <div className="about-notif-channel-desc">FCM-powered mobile push to the Flutter app — foreground & background</div>
+                            </div>
+                            <div className="about-notif-channel about-notif-channel--gray">
+                                <div className="about-notif-channel-icon"><Phone size={20} /></div>
+                                <div className="about-notif-channel-name">IVR</div>
+                                <div className="about-notif-channel-status about-notif-channel-status--soon">Coming Soon</div>
+                                <div className="about-notif-channel-desc">Automated voice calls for critical alerts — fee overdue, absence escalation</div>
+                            </div>
+                        </div>
+
+                        {/* Event triggers + features split */}
+                        <div className="about-notif-body" data-animate="zoom-up">
+                            <div className="about-notif-events">
+                                <div className="about-notif-events-label">
+                                    <Zap size={13} /> 20+ event triggers built in
+                                </div>
+                                <div className="about-notif-events-grid">
+                                    {[
+                                        { icon: DollarSign, color: 'amber',  text: 'Fee overdue & payment reminders' },
+                                        { icon: Target,     color: 'emerald', text: 'Lead assignment & follow-up alerts' },
+                                        { icon: CalendarDays, color: 'blue', text: 'Upcoming class & schedule reminders' },
+                                        { icon: Users,      color: 'violet',  text: 'Attendance marked / absent alerts' },
+                                        { icon: Ticket,     color: 'orange',  text: 'Support ticket status updates' },
+                                        { icon: GraduationCap, color: 'indigo', text: 'Admission confirmations & welcome' },
+                                        { icon: BedDouble,  color: 'teal',    text: 'Hostel outing & check-in events' },
+                                        { icon: AlertCircle,color: 'rose',    text: 'At-risk student early warnings' },
+                                    ].map(({ icon: EI, color, text }) => (
+                                        <div key={text} className={`about-notif-event-chip about-notif-event-chip--${color}`}>
+                                            <EI size={12} />
+                                            <span>{text}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="about-notif-features">
+                                <div className="about-notif-features-label">
+                                    <Settings2 size={13} /> Built for real institutions
+                                </div>
+                                <ul className="about-notif-feature-list">
+                                    <li><Check size={13} className="about-notif-check" /> Per-user channel preferences — opt in/out per event per channel</li>
+                                    <li><Check size={13} className="about-notif-check" /> Branch-level WhatsApp &amp; Email configuration</li>
+                                    <li><Check size={13} className="about-notif-check" /> Broadcast to class, program, department, or whole org</li>
+                                    <li><Check size={13} className="about-notif-check" /> Full delivery log — status, bounce &amp; suppression tracking</li>
+                                    <li><Check size={13} className="about-notif-check" /> Scheduled notifications — fire at the right time, not just right now</li>
+                                    <li><Check size={13} className="about-notif-check" /> WhatsApp templates pre-approved — no setup delay</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
