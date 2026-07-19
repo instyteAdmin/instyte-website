@@ -178,7 +178,7 @@ const CUSTOMERS = [
     {
         id: 'stjoseph',
         type: 'logo',
-        name: 'St. Joseph EM School Kadapa',
+        name: 'St. Joseph Junior College Kadapa',
         logoFile: '/customer_logos/st_joseph.jpg',
         initials: 'SJ',
         color: 'amber',
