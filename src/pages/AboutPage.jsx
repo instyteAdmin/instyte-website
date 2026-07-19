@@ -154,8 +154,9 @@ const PRODUCTS = [
 const CUSTOMERS = [
     {
         id: 'fathima',
-        type: 'text',
-        name: 'Fathima EM High School',
+        type: 'logo',
+        name: 'Fathima EM School Badevel',
+        logoFile: '/customer_logos/fathima_Logo.jpeg',
         initials: 'FH',
         color: 'emerald',
     },
@@ -168,10 +169,19 @@ const CUSTOMERS = [
     },
     {
         id: 'muzigal',
-        type: 'text',
+        type: 'logo',
         name: 'Muzigal Nellore',
+        logoFile: '/customer_logos/Muzigal.jpeg',
         initials: 'MN',
         color: 'violet',
+    },
+    {
+        id: 'stjoseph',
+        type: 'logo',
+        name: 'St. Joseph EM School Kadapa',
+        logoFile: '/customer_logos/st_joseph.jpg',
+        initials: 'SJ',
+        color: 'amber',
     },
 ];
 
@@ -1468,25 +1478,22 @@ export default function AboutPage() {
                             {[...CUSTOMERS, ...CUSTOMERS, ...CUSTOMERS].map((c, i) => (
                                 <div key={`${c.id}-${i}`} className={`about-customer-tile about-customer-tile--${c.color}`}>
                                     {c.type === 'logo' ? (
-                                        <img
-                                            src={c.logoFile}
-                                            alt={c.name}
-                                            className="about-customer-logo-img"
-                                            onError={e => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                    ) : null}
-                                    <div
-                                        className="about-customer-text-tile"
-                                        style={{ display: c.type === 'logo' ? 'none' : 'flex' }}
-                                    >
-                                        <div className={`about-customer-initials about-customer-initials--${c.color}`}>
-                                            {c.initials}
+                                        <div className="about-customer-logo-tile">
+                                            <img
+                                                src={c.logoFile}
+                                                alt={c.name}
+                                                className="about-customer-logo-img"
+                                            />
+                                            <span className="about-customer-name">{c.name}</span>
                                         </div>
-                                        <span className="about-customer-name">{c.name}</span>
-                                    </div>
+                                    ) : (
+                                        <div className="about-customer-text-tile">
+                                            <div className={`about-customer-initials about-customer-initials--${c.color}`}>
+                                                {c.initials}
+                                            </div>
+                                            <span className="about-customer-name">{c.name}</span>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
