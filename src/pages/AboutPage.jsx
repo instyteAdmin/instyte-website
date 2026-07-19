@@ -379,37 +379,37 @@ const DIFFERENTIATORS = [
         Icon: DollarSign,
         color: 'amber',
         title: 'Finance Built In — Not Bolted On',
-        body: 'Most education management tools end at admissions. Instyte includes a full fee lifecycle — structures, invoices, collections, receipts, and overdue reminders — in the same system. No separate accounting tool. No reconciliation nightmare.',
+        body: 'Full fee lifecycle — structures, invoices, collections, and overdue reminders — in the same system. No separate accounting tool.',
     },
     {
         Icon: BrainCircuit,
         color: 'indigo',
         title: 'AI You Can Actually Talk To',
-        body: 'Other platforms show you dashboards and expect you to interpret them. Instyte\'s AI lets you ask questions in plain English and get real answers instantly — "who are my top 10 hot leads?", "how much fee is overdue this month?", "which students missed class 3 days in a row?" — no training required.',
+        body: 'Ask in plain English: "who are my top leads?" or "how much fee is overdue?" — get real answers instantly, no training required.',
     },
     {
         Icon: Users,
         color: 'blue',
-        title: 'A Login for Everyone, Not Just Admins',
-        body: 'Most tools give admins and teachers access and leave everyone else out. Instyte gives every person in your institution their own tailored portal — admins, branch managers, counsellors, teachers, students, and parents all log in to see exactly what they need and nothing more.',
+        title: 'A Login for Everyone',
+        body: 'Admins, counsellors, teachers, students, and parents each get their own tailored portal — not just an admin dashboard.',
     },
     {
         Icon: School,
         color: 'cyan',
         title: 'Learning Circles — Unique to Instyte',
-        body: 'No other platform offers Learning Circles. Teachers form subject circles to co-create lesson plans and share teaching strategies. Students form study circles to collaborate on assignments. Both staff growth and student peer learning happen inside the same platform.',
+        body: 'Teachers co-create lesson plans; students collaborate on assignments — all inside the same platform.',
     },
     {
         Icon: Building2,
         color: 'emerald',
-        title: 'True Multi-Branch, Multi-Tenant',
-        body: 'Each institution runs in a completely isolated database schema — no shared tables, no data bleed between tenants. Branch managers see only their branch. Owners see everything. Scale from 1 branch to 100 without re-architecting anything.',
+        title: 'True Multi-Branch',
+        body: 'Schema-level isolation per tenant — branch managers see only their branch, owners see everything, no data bleed.',
     },
     {
         Icon: ShieldCheck,
         color: 'rose',
-        title: 'Security That Enterprise Clients Demand',
-        body: 'JWT-based authentication, schema-level data isolation, granular role-based access, and a full audit log on every change. Every login, every edit, every deletion is traceable — meeting compliance requirements that institutions increasingly face.',
+        title: 'Enterprise-Grade Security',
+        body: 'JWT auth, role-based access, and a full audit log on every change — every edit is traceable.',
     },
 ];
 
@@ -437,16 +437,11 @@ const GALLERY_TABS = [
 ];
 
 const CMP_ROWS = [
-    ['Built-in finance & fee collection',                            'yes', 'no',      'partial'],
-    ['AI chat — ask questions in plain language',                    'yes', 'no',      'no'     ],
-    ['AI lead heat scoring on every new lead',                       'yes', 'no',      'no'     ],
-    ['Dedicated login for every role (incl. parents & students)',    'yes', 'partial', 'no'     ],
-    ['Learning Circles for staff & students',                        'yes', 'no',      'no'     ],
-    ['Student lifecycle (Admission → Alumni)',                        'yes', 'partial', 'no'     ],
-    ['Multi-branch with schema-level isolation',                     'yes', 'partial', 'no'     ],
-    ['Native mobile app (Flutter)',                                  'yes', 'partial', 'no'     ],
-    ['Public no-login lead capture & event pages',                   'yes', 'partial', 'no'     ],
-    ['Support ticket system for students & parents',                 'yes', 'partial', 'no'     ],
+    ['Built-in finance & fee collection',                         'yes', 'no',      'partial'],
+    ['AI chat — ask questions in plain language',                 'yes', 'no',      'no'     ],
+    ['Login for every role (parents & students included)',        'yes', 'partial', 'no'     ],
+    ['Multi-branch with schema-level isolation',                  'yes', 'partial', 'no'     ],
+    ['Native mobile app',                                         'yes', 'partial', 'no'     ],
 ];
 
 function CmpCell({ val }) {
@@ -1850,7 +1845,7 @@ export default function AboutPage() {
                         <div className="about-section-label" data-animate="fade-left"><Award size={13} /> Why Instyte</div>
                         <h2 className="about-section-heading" data-animate="fade-up">What every other EdTech tool is missing</h2>
                         <p className="about-section-sub" data-animate="fade-right">
-                            We focused on the gaps most education platforms leave open — and built tools that actually close them.
+                            The gaps most education platforms leave open — and how Instyte closes them.
                         </p>
                         <div className="about-diff-grid">
                             {DIFFERENTIATORS.map(({ Icon: DI, color, title, body }, i) => (
